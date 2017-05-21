@@ -7,7 +7,11 @@
     "postinstall": "typings install",
     "tsc": "node_modules/.bin/tsc",
     "tsc:w": "node_modules/.bin/tsc -w",
-    "typings": "typings"
+    "clean": "mkdir -p dist && rm -f dist/*.js && rm -rf dist/static && rm -rf dist/templates",
+    "copy_static": "cp -R static dist/static && cp -R templates dist/templates",
+    "build": "npm run tsc",
+    "build_prod": "npm run clean && npm run copy_static && npm run build && browserify -s main app/main.js > dist/bundle.js && npm run minify",
+    "minify": "uglifyjs dist/bundle.js --screw-ie8 --compress --mangle --output dist/bundle.min.js"
   },
   "license": "ISC",
   "dependencies": {
@@ -20,7 +24,6 @@
     "@angular/platform-browser-dynamic": "2.4.8",
     "@angular/router": "3.4.8",
     "@angular/upgrade": "2.0.0",
-    "@swimlane/ngx-datatable": "^6.3.0",
     "angular2-in-memory-web-api": "^0.0.21",
     "angular2-router-loader": "0.3.5",
     "core-js": "^2.4.1",
