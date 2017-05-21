@@ -1,0 +1,59 @@
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>{{caption}}</h2>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+        <form class="form-horizontal form-label-left" [formGroup]="queueForm" (submit)="onSubmit()" novalidate>
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="stat_queue_name">
+              Название отдела  <span class="required text-danger">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <input type="text" id="stat_queue_name" formControlName="stat_queue_name" class="form-control col-md-7 col-xs-12">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="strategy">
+              Стратегия  <span class="required text-danger">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <select id="strategy" formControlName="strategy" class="form-control col-md-7 col-xs-12">
+                <option [value]="'rrmemory'">Телефоны звонят циклически</option>
+                <option [value]="'leastrecent'">Вызывается первый доступный телефон, обработавший меньше всего заявок</option>
+                <option [value]="'random'">Телефоны звонят в случайном порядке</option>
+                <option [value]="'ringall'">Звонят все телефоны</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="strategy">
+              Сотрудники отдела  <span class="required text-danger">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <div class="queue-members-wrapper">
+                <p *ngFor="let member of queueMembers">
+                  <label>
+                    <input type="checkbox" (change)="toggleMember(member)" [checked]="isChecked(member)">
+                    Телефон {{member.name}} <span *ngIf="member.fio"> &mdash; {{member.fio}}</span>
+                  </label>
+                </p>
+              </div>
+            </div>
+          </div>
+          <input type="hidden" formControlName="name">
+          <div class="ln_solid"></div>
+          <div class="form-group">
+            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+              <a routerLink="/queues" class="btn btn-primary" type="button"><i class="fa fa-arrow-left"></i> Отменить</a>
+              <button class="btn btn-primary" type="reset"><i class="fa fa-refresh"></i> Сбросить</button>
+              <button [disabled]="!queueForm.valid" type="submit" class="btn btn-success"><i class="fa fa-save"></i> Сохранить</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
