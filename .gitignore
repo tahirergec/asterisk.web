@@ -4,9 +4,6 @@
 *.pyc
 *.log
 
-dist/*
-!dist/index.html
-
 node_modules/
 app/**/*.js
 app/**/*.js.map

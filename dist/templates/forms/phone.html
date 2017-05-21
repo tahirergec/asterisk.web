@@ -1,0 +1,113 @@
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>{{caption}}</h2>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+        <form class="form-horizontal form-label-left" [formGroup]="phoneForm" (submit)="onSubmit()" autocomplete="off"
+              novalidate>
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="stat_fio">
+              Название <span class="required text-danger">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <input type="text" id="stat_fio" formControlName="stat_fio" class="form-control col-md-7 col-xs-12">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="host">
+              Сервер регистрации <span class="required text-danger">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <input type="text" id="host" formControlName="host" class="form-control col-md-7 col-xs-12">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="port">
+              Порт <span class="required text-danger">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <input type="text" id="port" formControlName="port" class="form-control col-md-7 col-xs-12">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="defaultuser">
+              Логин <span class="required text-danger">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <input type="text" id="defaultuser" formControlName="defaultuser" class="form-control col-md-7 col-xs-12">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="password">
+              Пароль <span class="required text-danger">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <input type="password" id="password" formControlName="password" class="form-control col-md-7 col-xs-12">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="transfer_type">
+              При входящем звонке <span class="required text-danger">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <select id="transfer_type" formControlName="transfer_type" class="form-control col-md-7 col-xs-12">
+                <option [value]="''">Не использовать для входящих вызовов</option>
+                <option [value]="'to_queue'">Звонить в отдел</option>
+                <option [value]="'to_sip'">Звонить пользователю</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group" *ngIf="phoneForm.value['transfer_type'] == 'to_queue'">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="department_name">
+              Выберите отдел <span class="required text-danger">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <select id="department_name" formControlName="department_name" class="form-control col-md-7 col-xs-12">
+                <option [value]="''" disabled selected>--Выберите вариант--</option>
+                <option *ngFor="let queue of queues" [value]="queue.name">{{queue.caption}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group" *ngIf="phoneForm.value['transfer_type'] == 'to_sip'">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="peer_name">
+              Выберите сотрудника <span class="required text-danger">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <select id="peer_name" formControlName="peer_name" class="form-control col-md-7 col-xs-12">
+                <option [value]="''" disabled selected>--Выберите вариант--</option>
+                <option *ngFor="let peer of peers" [value]="peer.id">Телефон {{peer.name}} {{peer.fio}}</option>
+              </select>
+            </div>
+          </div>
+          <details>
+           <summary>Дополнительные параметры</summary>
+            <div class="form-group">
+              <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3 col-sm-offset-3">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" formControlName="use_for_outgng"> Использовать этот номер для исходящих вызовов по-умолчанию
+                  </label>
+                </div>
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" formControlName="use_for_redir"> При переадресации на мобильные телефоны звонить через этот номер
+                  </label>
+                </div>
+              </div>
+            </div>
+          </details>
+          <div class="ln_solid"></div>
+          <div class="form-group">
+            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+              <a routerLink="/phones" class="btn btn-primary" type="button"><i class="fa fa-arrow-left"></i> Отменить</a>
+              <button [disabled]="!phoneForm.valid" type="submit" class="btn btn-success"><i class="fa fa-save"></i> Сохранить</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
