@@ -26,7 +26,7 @@
             },
             rxjs: {
                 defaultExtension: "js"
-            },
+            }
         }
     });
 })(this);
