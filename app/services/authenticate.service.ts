@@ -25,6 +25,11 @@ export class AuthenticateService {
     this.user_emitter.emit(this._user);
   }
 
+  public logout() {
+    this._user = new AnonymousUser();
+    this.user_emitter.emit(this._user);
+  }
+
   constructor(private http: HttpClient) {
     this._user = new AnonymousUser();
     this.user_emitter.emit(this._user);
