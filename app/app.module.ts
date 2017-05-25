@@ -35,19 +35,23 @@ import {WidgetComponent} from "./modules/@widgets/widgets.component";
 
 import {ConfigService} from "./services/configuration.service";
 import {NotificationService} from "./services/notification.service";
+import {AuthenticateService} from "./services/authenticate.service";
+import {AuthGuard} from "./guards/auth.guard";
+import {AuthenticateComponent} from "./components/authenticate.component";
 
 const appRoutes: Routes =[
-  { path: '', component: DashboardComponent },
-  { path: 'bugreport', component: BugReportComponent, pathMatch: 'full' },
-  { path: 'phones', component: PhonesListComponent, pathMatch: 'full' },
-  { path: 'phones/create', component: PhonesCreateComponent, pathMatch: 'full' },
-  { path: 'phones/:name', component: PhonesEditComponent, pathMatch: 'full' },
-  { path: 'queues', component: QueuesListComponent, pathMatch: 'full' },
-  { path: 'queues/create', component: QueueCreateComponent, pathMatch: 'full' },
-  { path: 'queues/:name', component: QueuesEditComponent, pathMatch: 'full' },
-  { path: 'users', component: UsersListComponent, pathMatch: 'full' },
-  { path: 'users/create', component: UsersCreateComponent, pathMatch: 'full' },
-  { path: 'users/:name', component: UsersEditComponent },
+  { path: '', component: DashboardComponent, canActivate:[AuthGuard] },
+  { path: 'bugreport', component: BugReportComponent, pathMatch: 'full', canActivate:[AuthGuard] },
+  { path: 'phones', component: PhonesListComponent, pathMatch: 'full', canActivate:[AuthGuard] },
+  { path: 'phones/create', component: PhonesCreateComponent, pathMatch: 'full', canActivate:[AuthGuard] },
+  { path: 'phones/:name', component: PhonesEditComponent, pathMatch: 'full', canActivate:[AuthGuard] },
+  { path: 'queues', component: QueuesListComponent, pathMatch: 'full', canActivate:[AuthGuard] },
+  { path: 'queues/create', component: QueueCreateComponent, pathMatch: 'full', canActivate:[AuthGuard] },
+  { path: 'queues/:name', component: QueuesEditComponent, pathMatch: 'full', canActivate:[AuthGuard] },
+  { path: 'users', component: UsersListComponent, pathMatch: 'full', canActivate:[AuthGuard] },
+  { path: 'users/create', component: UsersCreateComponent, pathMatch: 'full', canActivate:[AuthGuard] },
+  { path: 'users/:name', component: UsersEditComponent, canActivate:[AuthGuard] },
+  { path: 'login', component: AuthenticateComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -66,6 +70,8 @@ const appRoutes: Routes =[
     HttpClient,
     ConfigService,
     NotificationService,
+    AuthenticateService,
+    AuthGuard,
   ],
   declarations: [
     AppComponent,
@@ -87,6 +93,7 @@ const appRoutes: Routes =[
     PhonesEditComponent,
     BugReportComponent,
     WidgetComponent,
+    AuthenticateComponent,
   ],
   bootstrap: [
     AppComponent,

@@ -5,12 +5,14 @@ import {NotificationService} from "../services/notification.service";
 import {ABSNotification, NotifyQueue} from "../models/notificaction";
 import {ConfigService} from "../services/configuration.service";
 import {Http} from "@angular/http";
+import {AuthenticateService} from "../services/authenticate.service";
+import {User} from "../models/user";
 
 @Component({
   selector: "app-navigation",
   template: `
-    <div class="top_nav">
-      <div class="nav_menu">
+    <div class="top_nav" [ngClass]="{'m-l-0': user.is_anonymous}">
+      <div class="nav_menu" *ngIf="!user.is_anonymous">
         <nav>
           <div class="nav toggle">
             <a id="menu_toggle"><i class="fa fa-bars"></i></a>
@@ -58,10 +60,14 @@ import {Http} from "@angular/http";
 export class TopNavigationComponent {
 
   private notification_queue: NotifyQueue = new NotifyQueue();
+  private user: User = null;
 
   constructor(private locker: LockerService, private http: HttpClient, private notifier: NotificationService,
-              private config: ConfigService, private base_http: Http) {
+              private config: ConfigService, private base_http: Http, private auth: AuthenticateService) {
     this.notifier.queue_emitter.subscribe(queue => this.notification_queue = queue);
+
+    this.user = this.auth.user;
+    this.auth.user_emitter.subscribe((user) => this.user = user);
   }
 
   emptyQueue() {

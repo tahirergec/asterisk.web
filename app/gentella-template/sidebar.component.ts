@@ -1,19 +1,19 @@
 import {Component} from "@angular/core";
 import {ConfigService} from "../services/configuration.service";
 import {LockerService} from "../services/locker.service";
+import {AuthenticateService} from "../services/authenticate.service";
+import {User} from "../models/user";
 
 @Component({
   selector: "app-sidebar",
   template: `
-    
-    <div class="col-md-3 left_col" *ngIf="modules">
+    <div class="col-md-3 left_col" *ngIf="modules && !user.is_anonymous">
       <div class="left_col scroll-view">
         <div class="navbar nav_title" style="border: 0;">
           <a href="javascript:void(0)" class="site_title">
             <i class="fa fa-asterisk"></i> <span>Asterisk.Web</span>
           </a>
         </div>
-  
         <div class="clearfix"></div>
   
         <br />
@@ -48,10 +48,14 @@ import {LockerService} from "../services/locker.service";
 export class SidebarTemplateComponent {
 
   private modules: Object = null;
+  private user: User = null;
 
-  constructor(private config: ConfigService, private locker: LockerService) {
+  constructor(private config: ConfigService, private locker: LockerService, private auth: AuthenticateService) {
     this.modules = this.config.data.modules;
     this.config.settings_emitter.subscribe((data) => this.modules = data.modules);
+
+    this.user = this.auth.user;
+    this.auth.user_emitter.subscribe((user) => this.user = user);
   }
 
 }
