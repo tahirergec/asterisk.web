@@ -7,6 +7,7 @@ import {ConfigService} from "../services/configuration.service";
 import {Http} from "@angular/http";
 import {AuthenticateService} from "../services/authenticate.service";
 import {User} from "../models/user";
+import {Router} from "@angular/router";
 
 @Component({
   selector: "app-navigation",
@@ -19,6 +20,16 @@ import {User} from "../models/user";
           </div>
 
           <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="javascript:;" class="user-profile" toggle-dropdown>
+                <img [src]="'/static/img/avatar.png'" alt=""> {{user.username}}
+                <span class=" fa fa-angle-down"></span>
+              </a>
+              <ul class="dropdown-menu dropdown-usermenu pull-right">
+                <li><a href="javascript:void(0)" (click)="logout()">
+                  <i class="fa fa-sign-out pull-right"></i> Выйти</a></li>
+              </ul>
+            </li>
             <li role="presentation" class="dropdown">
               <a href="javascript:;" class="dropdown-toggle info-number" toggle-dropdown>
                 <i class="fa fa-gears"></i>
@@ -63,7 +74,8 @@ export class TopNavigationComponent {
   private user: User = null;
 
   constructor(private locker: LockerService, private http: HttpClient, private notifier: NotificationService,
-              private config: ConfigService, private base_http: Http, private auth: AuthenticateService) {
+              private config: ConfigService, private base_http: Http, private auth: AuthenticateService,
+              private router: Router) {
     this.notifier.queue_emitter.subscribe(queue => this.notification_queue = queue);
 
     this.user = this.auth.user;
@@ -77,6 +89,11 @@ export class TopNavigationComponent {
   reloadAsterisk() {
     this.locker.lock();
     setTimeout(() => { this.locker.unlock(); }, 2000);
+  }
+
+  logout() {
+    this.auth.logout();
+    this.router.navigateByUrl("/login");
   }
 
   reloadSettings() {
