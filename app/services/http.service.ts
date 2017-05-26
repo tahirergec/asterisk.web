@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {ConfigService} from "./configuration.service";
 import {NotificationService} from "./notification.service";
+import {AuthenticateService} from "./authenticate.service";
 
 @Injectable()
 export class HttpClient {
@@ -14,11 +15,15 @@ export class HttpClient {
     private static jsonrpc: string = '2.0';
 
     constructor(private http: Http, private config: ConfigService, private notifier: NotificationService) {
-      HttpClient.api_server = config.data.api_url;
+      HttpClient.api_server = "http://10.8.0.22:8000/api/v1";
     }
 
     private static createAuthorizationHeader(headers: Headers) {
         headers.append('Content-Type', 'application/json');
+
+        if(AuthenticateService.session_id) {
+            headers.append('Authorization', HttpClient.api_token + ' ' + AuthenticateService.session_id);
+        }
     }
 
     private static createRPCRequest(method: string, params: any) {

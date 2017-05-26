@@ -6,6 +6,7 @@ import {HttpClient} from "./http.service";
 export class AuthenticateService {
 
   public static session_id: string = null;
+  public static key: string = "4a087b99-1a16-4db6-a318-50dbc134091f";
 
   public user_emitter: EventEmitter<User> = new EventEmitter<User>();
   private _user: User = null;
@@ -16,22 +17,46 @@ export class AuthenticateService {
     return this._user;
   }
 
-  private load_data(): boolean {
-    return false;
+  private static load_data(): User {
+    let user_data, user;
+
+    try {
+      user_data = localStorage.getItem("asterisk-web-user-" + AuthenticateService.key);
+      user = User.from_json(user_data);
+    }
+    catch (e) {
+      return;
+    }
+
+    return user;
   }
 
-  public authenticate(username: string) {
-    this._user = new User(username);
+  private save_data() {
+    const user_data = this._user.to_json();
+    localStorage.setItem("asterisk-web-user-" + AuthenticateService.key, user_data);
+  }
+
+  public authenticate(username: string, session_id: string) {
+    AuthenticateService.session_id = session_id;
+    this._user = new User(username, session_id);
     this.user_emitter.emit(this._user);
+
+    this.save_data();
   }
 
   public logout() {
     this._user = new AnonymousUser();
     this.user_emitter.emit(this._user);
+    localStorage.removeItem("asterisk-web-user-" + AuthenticateService.key);
   }
 
   constructor(private http: HttpClient) {
-    this._user = new AnonymousUser();
+    this._user = AuthenticateService.load_data() || new AnonymousUser();
+
+    if(this._user) {
+      AuthenticateService.session_id = this._user.session_id;
+    }
+
     this.user_emitter.emit(this._user);
   }
 

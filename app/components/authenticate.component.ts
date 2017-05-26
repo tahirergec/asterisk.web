@@ -2,6 +2,7 @@ import {Component} from "@angular/core";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthenticateService} from "../services/authenticate.service";
 import {Router} from "@angular/router";
+import {HttpClient} from "../services/http.service";
 
 @Component({
   template: `
@@ -31,11 +32,17 @@ export class AuthenticateComponent {
 
   private form: FormGroup;
 
-  constructor(private fb: FormBuilder, private auth: AuthenticateService, private router: Router) {
+  constructor(private fb: FormBuilder, private auth: AuthenticateService, private router: Router,
+              private http: HttpClient) {
     this.form = this.fb.group({
       "username": ['', Validators.required],
       "password": ['', Validators.required]
     })
+  }
+
+  onAuthenticate(username: string, session_id: string) {
+    this.auth.authenticate(username, session_id);
+    this.router.navigateByUrl("");
   }
 
   onSubmit() {
@@ -44,8 +51,11 @@ export class AuthenticateComponent {
       "password": this.form.value['password']
     };
 
-    this.auth.authenticate(form_data['username']);
-    this.router.navigateByUrl("");
+    this.http.post("Session.signin", {"username": form_data.username, "password": form_data.password})
+      .subscribe(
+        (session_id) => this.onAuthenticate(form_data.username, session_id),
+        (error_handler) => console.warn(error_handler),
+      );
   }
 
 }
