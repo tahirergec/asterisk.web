@@ -82,6 +82,12 @@ export class TopNavigationComponent {
     this.auth.user_emitter.subscribe((user) => this.user = user);
   }
 
+  ngOnInit() {
+    if(!ConfigService.hasCache()) {
+      this.reloadSettings();
+    }
+  }
+
   emptyQueue() {
     this.notifier.emptyQueue()
   }

@@ -1,9 +1,10 @@
 import {Component} from "@angular/core";
 import {HttpClient} from "../services/http.service";
+import {ConfigService} from "../services/configuration.service";
 
 @Component({
   template: `
-    <div class="row top_tiles">
+    <div class="row top_tiles" *ngIf="display_statistic">
       <widget *ngFor="let widget of widgets"
         [decimal]="widget.decimal"
         [caption]="widget.caption"
@@ -16,14 +17,12 @@ import {HttpClient} from "../services/http.service";
         <div class="x_panel">
           <div class="x_title">
             <h2>Список звонков</h2>
-            <ul class="nav navbar-right panel_toolbox">
-              <li class="pull-right">
-                <a class="collapse-link" (click)="reload()"><i class="fa fa-refresh"></i></a></li>
-            </ul>
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
-            <call-list></call-list>
+            <call-list
+              [sound_url]="config.data.sounds_url">
+            </call-list>
           </div>
         </div>
       </div>
@@ -32,17 +31,18 @@ import {HttpClient} from "../services/http.service";
 })
 export class DashboardComponent {
 
+  private display_statistic: boolean = true;
+
   private widgets: Array<any> = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private config: ConfigService) {
+    this.display_statistic = this.config.data.dashboard_statistic;
+    this.config.settings_emitter.subscribe((data) => this.display_statistic = data.dashboard_statistic);
+  }
 
   ngOnInit() {
     this.http.post('Dashboard.get_statistic')
       .subscribe((widgets) => this.widgets = widgets)
-  }
-
-  reload(): void {
-    alert('111')
   }
 
 }

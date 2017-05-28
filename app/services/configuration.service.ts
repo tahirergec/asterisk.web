@@ -6,11 +6,24 @@ export class ConfigService {
   public static key: string = "5b5bf7a3-e949-4cee-9b4f-b14b864477b7";
 
   public settings_emitter: EventEmitter<any> = new EventEmitter<any>();
-  public _data: any = null;
+  public _data: {[key: string]: any} = null;
+
+  private _default: {[key: string]: any} = {
+    "modules": {
+      "users": false,
+      "departments": false,
+      "phones": false,
+      "helpdesk": false,
+    },
+    "dashboard_statistic": false,
+    "api_url": "http://localhost:8000/api/v1",
+    "sounds_url": "http://localhost/monitor/"
+  };
 
   get data(): any {
     if(!this._data) {
-      this._data = JSON.parse(localStorage.getItem("asterisk-web-" + ConfigService.key));
+      const cache_data = localStorage.getItem("asterisk-web-" + ConfigService.key);
+      this._data = cache_data ? JSON.parse(cache_data) : this._default;
     }
 
     return this._data
@@ -22,8 +35,8 @@ export class ConfigService {
     this.settings_emitter.emit(this._data);
   }
 
-  public hasCache() {
-    return this.data != null;
+  public static hasCache():boolean {
+    return localStorage.getItem("asterisk-web-" + ConfigService.key) != null;
   }
 
 }

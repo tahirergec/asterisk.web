@@ -9,6 +9,9 @@ import {HttpClient} from "../services/http.service";
     <div class="login_wrapper">
       <div class="animate form login_form">
         <section class="login_content">
+          <div class="alert alert-danger alert-dismissible text-center" role="alert" *ngIf="has_err">
+            Неправильный логин или пароль
+          </div>
           <form [formGroup]="form" (submit)="onSubmit()" novalidate>
             <h1>Авторизация</h1>
             <div>
@@ -31,6 +34,7 @@ import {HttpClient} from "../services/http.service";
 export class AuthenticateComponent {
 
   private form: FormGroup;
+  private has_err: boolean = false;
 
   constructor(private fb: FormBuilder, private auth: AuthenticateService, private router: Router,
               private http: HttpClient) {
@@ -41,8 +45,13 @@ export class AuthenticateComponent {
   }
 
   onAuthenticate(username: string, session_id: string) {
+    this.has_err = false;
     this.auth.authenticate(username, session_id);
     this.router.navigateByUrl("");
+  }
+
+  onAuthenticateErr() {
+    this.has_err = true;
   }
 
   onSubmit() {
@@ -54,7 +63,7 @@ export class AuthenticateComponent {
     this.http.post("Session.signin", {"username": form_data.username, "password": form_data.password})
       .subscribe(
         (session_id) => this.onAuthenticate(form_data.username, session_id),
-        (error_handler) => console.warn(error_handler),
+        (error_handler) => this.onAuthenticateErr(),
       );
   }
 

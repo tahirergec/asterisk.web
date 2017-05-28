@@ -45,12 +45,18 @@ export class AuthenticateService {
   }
 
   public logout() {
+    AuthenticateService.session_id = null;
     this._user = new AnonymousUser();
     this.user_emitter.emit(this._user);
     localStorage.removeItem("asterisk-web-user-" + AuthenticateService.key);
   }
 
-  constructor(private http: HttpClient) {
+  public static logout() {
+    this.session_id = null;
+    localStorage.removeItem("asterisk-web-user-" + AuthenticateService.key);
+  }
+
+  constructor() {
     this._user = AuthenticateService.load_data() || new AnonymousUser();
 
     if(this._user) {

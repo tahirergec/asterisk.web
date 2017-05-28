@@ -16,7 +16,8 @@ import {HttpClient} from "../../../services/http.service";
         </material-table-headline>
         <table class="table table-responsive table-striped">
           <thead material-table-head
-            [columns]="columns">
+            [columns]="columns"
+            (sort_emmit)="onSortChange($event)">
           </thead>
           <tbody material-table-body
             [editable]="editable"
@@ -33,6 +34,7 @@ import {HttpClient} from "../../../services/http.service";
 })
 export class MaterialTableComponent {
     public current_page: number = 1;
+    public sort: {[key: string]: string} = {};
 
     @Input() public api_action = "";
 
@@ -95,5 +97,10 @@ export class MaterialTableComponent {
 
     append(row: any) {
         this.tbody.rows.unshift(row);
+    }
+
+    onSortChange(sort: any) {
+      this.sort = sort;
+      this.loadList();
     }
 }
