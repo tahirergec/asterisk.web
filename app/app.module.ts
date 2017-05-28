@@ -38,6 +38,8 @@ import {NotificationService} from "./services/notification.service";
 import {AuthenticateService} from "./services/authenticate.service";
 import {AuthGuard} from "./guards/auth.guard";
 import {AuthenticateComponent} from "./components/authenticate.component";
+import {CallListComponent} from "./modules/@Calllist/calllist.component";
+import {DatatableCalllistComponent} from "./modules/@Calllist/datatable-calllist.component";
 
 const appRoutes: Routes =[
   { path: '', component: DashboardComponent, canActivate:[AuthGuard] },
@@ -94,6 +96,8 @@ const appRoutes: Routes =[
     BugReportComponent,
     WidgetComponent,
     AuthenticateComponent,
+    CallListComponent,
+    DatatableCalllistComponent,
   ],
   bootstrap: [
     AppComponent,
