@@ -75,7 +75,7 @@ import {ValidateDate} from "../../validators/date.validator";
           <span *ngIf="'incoming' == row.status">{{row.dcontext}}</span>
         </template>
         <template #filename let-row="row">
-          <audio controls>
+          <audio controls *ngIf="row.filename">
             <source [src]="sound_url + row.filename" type="audio/mpeg">
           </audio>
         </template>
