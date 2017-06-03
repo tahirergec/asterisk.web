@@ -40,6 +40,12 @@ import {AuthGuard} from "./guards/auth.guard";
 import {AuthenticateComponent} from "./components/authenticate.component";
 import {CallListComponent} from "./modules/@Calllist/calllist.component";
 import {DatatableCalllistComponent} from "./modules/@Calllist/datatable-calllist.component";
+import {CallcentreComponent} from "./components/callcentre.component";
+import {CallcentreService} from "./services/callcentre.service";
+import {WindowModule} from "./modules/@window/window.component";
+import {WindowDraggableDirective} from "./modules/@window/window.directives";
+import {DialComponent} from "./modules/@call/call.component";
+import {CallsPipe} from "./pipes/calls.pipe";
 
 const appRoutes: Routes =[
   { path: '', component: DashboardComponent, canActivate:[AuthGuard] },
@@ -73,6 +79,7 @@ const appRoutes: Routes =[
     ConfigService,
     NotificationService,
     AuthenticateService,
+    CallcentreService,
     AuthGuard,
   ],
   declarations: [
@@ -98,12 +105,18 @@ const appRoutes: Routes =[
     AuthenticateComponent,
     CallListComponent,
     DatatableCalllistComponent,
+    CallcentreComponent,
+    WindowModule,
+    WindowDraggableDirective,
+    DialComponent,
+    CallsPipe,
   ],
   bootstrap: [
     AppComponent,
     LockerComponent,
     SidebarTemplateComponent,
-    TopNavigationComponent
+    TopNavigationComponent,
+    CallcentreComponent
   ]
 })
 export class AppModule { }
