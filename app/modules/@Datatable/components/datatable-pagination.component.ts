@@ -16,7 +16,7 @@ import {Subject} from 'rxjs/Subject';
                 <a data-page="prev" class="button" (click)="previousPage()">
                   <i class="fa fa-angle-left"></i></a>
               </li>
-              <li *ngFor="let page of createRange(pages_count)" [ngClass]="{active: page==current_page}">
+              <li *ngFor="let page of createRange()" [ngClass]="{active: page==current_page}">
                 <a class="button" href="javascript:void(0)" (click)="changePage(page)">
                   {{page}}</a>
               </li>
@@ -74,9 +74,9 @@ export class MaterialTablePaginationComponent {
         this.current_page = page;
     }
 
-    createRange(number){
+    createRange(){
       let items: number[] = [];
-      for(let i = 1; i <= number; i++){
+      for(let i = 1; i <= this.pages_count; i++){
          items.push(i);
       }
       return items;

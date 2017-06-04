@@ -1,4 +1,10 @@
-import {Directive, ElementRef, HostListener, Renderer} from "@angular/core";
+import {
+  Directive, ElementRef, HostListener, Renderer, AfterViewInit, Component, Input, forwardRef, Output, EventEmitter
+}
+  from "@angular/core";
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
+
+declare var jQuery:any;
 
 @Directive({
   selector: "[sidebar-link]"
@@ -37,5 +43,73 @@ export class DropdownToggleDirective {
           this.renderer.setElementClass(this.elementRef.nativeElement.parentNode, "open", false);
       }
   }
+
+}
+
+
+@Directive({
+  selector: "[initialize-datepicker]"
+})
+export class DatepickerDirective implements AfterViewInit {
+
+  @Output() value_emitter: EventEmitter<string> = new EventEmitter();
+
+  constructor(private elementRef: ElementRef) { }
+
+  ngAfterViewInit() {
+    jQuery(this.elementRef.nativeElement).datepicker({
+      onSelect: (dateText) => {
+        this.value_emitter.next(dateText);
+      }
+    });
+  }
+
+}
+
+
+@Component({
+  selector: "datepicker",
+  template: `
+    <input class="form-control" type="text" placeholder="XX.XX.XXXX" 
+           initialize-datepicker (value_emitter)="onChange($event)">
+  `,
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => DatepickerComponent),
+      multi: true
+    }
+  ]
+})
+export class DatepickerComponent implements ControlValueAccessor{
+
+  @Input() private id: string = "";
+
+  private _current_value: string;
+
+  private get current_value(): string {
+    return this._current_value;
+  }
+
+  private set current_value(value: string) {
+    this._current_value = value;
+    this.propagateChange(this._current_value);
+  }
+
+  propagateChange = (_: any) => {};
+
+  onChange(value: string) {
+    this.current_value = value;
+  }
+
+  writeValue(value: any) {
+    this.current_value = value;
+  }
+
+  registerOnChange(fn) {
+    this.propagateChange = fn;
+  }
+
+  registerOnTouched() { }
 
 }

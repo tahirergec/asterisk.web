@@ -12,15 +12,13 @@ import {ValidateDate} from "../../validators/date.validator";
           <div class="col-md-2">
             <div class="form-group">
               <label for="date_start">Дата начала <sup class="text-danger">*</sup></label>
-              <input class="form-control" formControlName="date_start" id="date_start" type="text" 
-                     placeholder="XX.XX.XXXX">
+              <datepicker formControlName="date_start" [id]="'date_start'"></datepicker>
             </div>
           </div>
           <div class="col-md-2">
             <div class="form-group">
               <label for="date_end">Дата окончания <sup class="text-danger">*</sup></label>
-              <input class="form-control" formControlName="date_end" id="date_end" type="text" 
-                     placeholder="XX.XX.XXXX">
+              <datepicker formControlName="date_end" [id]="'date_end'"></datepicker>
             </div>
           </div>
           <div class="col-md-3">
@@ -61,6 +59,7 @@ import {ValidateDate} from "../../validators/date.validator";
         </div>
         <hr>
         <calllist-material-table
+          [items_per_page]="20"
           [api_action]="'Dashboard.call_list'"
           [columns]="columns"
           [form]="form">

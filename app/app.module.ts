@@ -7,7 +7,10 @@ import {HttpModule, JsonpModule } from '@angular/http';
 import {AppComponent } from "./app.component";
 
 import {SidebarTemplateComponent} from "./gentella-template/sidebar.component";
-import {SidebarDropdownDirective, DropdownToggleDirective} from "./gentella-template/template.directive";
+import {
+  SidebarDropdownDirective, DropdownToggleDirective,
+  DatepickerComponent, DatepickerDirective
+} from "./gentella-template/template.directive";
 import {LockerComponent} from "./gentella-template/locker.component";
 import {TopNavigationComponent} from "./gentella-template/top-navigation.component";
 
@@ -110,6 +113,8 @@ const appRoutes: Routes =[
     WindowDraggableDirective,
     DialComponent,
     CallsPipe,
+    DatepickerComponent,
+    DatepickerDirective,
   ],
   bootstrap: [
     AppComponent,

@@ -8,6 +8,7 @@ import {HttpClient} from "../../services/http.service";
     <div class="material-datatable-wrapper table-responsive">
       <material-table-headline
         [items_per_page_vars]="items_per_page_vars"
+        [items_per_page]="items_per_page"
         (items_per_page_change)="itemPerPageChange($event)">
       </material-table-headline>
       <table class="table table-responsive table-striped">
@@ -30,8 +31,7 @@ import {HttpClient} from "../../services/http.service";
 })
 export class DatatableCalllistComponent extends MaterialTableComponent{
 
-  @Input()
-  private form;
+  @Input() private form;
 
   constructor(public http: HttpClient){
     super(http);
@@ -51,13 +51,6 @@ export class DatatableCalllistComponent extends MaterialTableComponent{
     if(!this.form.valid) {
       limit = 0;
     }
-
-    console.log({
-      "limit": limit,
-      "offset": offset,
-      "sort": this.sort,
-      "filter_data": filter_data,
-    });
 
     return {
       "limit": limit,
