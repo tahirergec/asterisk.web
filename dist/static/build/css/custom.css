@@ -4296,3 +4296,25 @@ i.usr-status.online{
 }
 
 .m-l-0{margin-left:0!important;}
+
+material-window {
+  display: block;
+  position: absolute;
+  width: auto;
+  z-index: 200;
+  top: 50px;
+  left: 200px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+material-window .panel_toolbox{
+  min-width: 0;
+}
+
+material-window .x_panel{
+  margin-bottom: 0;
+}
+
+.width-350{
+  width: 350px!important;
+}

@@ -10,7 +10,7 @@ export class CallcentreService {
 
   private ws: WebSocketSubject<Object>;
   private socket: Subscription;
-  private url: string = "ws://localhost:8888/ws?phone=101";
+  private url: string = "ws://192.168.1.21:8888/ws?phone=101";
 
   constructor() {
     this.ws = Observable.webSocket(this.url);
