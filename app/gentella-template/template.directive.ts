@@ -113,3 +113,13 @@ export class DatepickerComponent implements ControlValueAccessor{
   registerOnTouched() { }
 
 }
+
+
+@Component({
+  template: `
+    <textarea></textarea>
+  `
+})
+export class EditorComponent {
+
+}

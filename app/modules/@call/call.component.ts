@@ -21,15 +21,13 @@ import {CallcentreService} from "../../services/callcentre.service";
           </button>
           <ul class="dropdown-menu">
             <li *ngFor="let loc_dial of calls | calls_filter: call.linkedid">
-              <a href="#">{{loc_dial.calleridnum}}</a></li>
+              <a href="javascript:void(0)" (click)="connect(loc_dial)">{{loc_dial.calleridnum}}</a></li>
           </ul>
         </div>
       </div>
     </div>
     <br>
-    <p>Телефон клиента: <strong>{{call.calleridnum}}</strong></p>
-    <p>Тип вызова: <strong>{{call.type}}</strong></p>
-    <p *ngIf="call.queue">Звонок в отдел: <strong>{{call.queue}}</strong></p>
+    {{call|json}}
     <hr>
     <p>Статус вызова: <strong [ngClass]="{'text-success': call.active_call, 
                                           'text-muted': !call.active_call}">
@@ -62,6 +60,17 @@ export class DialComponent {
     this.callcentre.send_message(cmd);
     this.parked = false;
 
+  }
+
+  connect(dial) {
+    const channel1 = this.call.type == "outgoing" ? this.call.channel2 : this.call.channel1,
+        channel2 = dial.type == "outgoing" ? dial.channel2 : dial.channel1;
+
+    let cmd = JSON.stringify({"Action": "Bridge", "Channel1": channel1, "Channel2": channel2, "Tone": "yes",
+      "Priority": "1"});
+
+    this.callcentre.send_message(cmd);
+    this.parked = false;
   }
 
 }

@@ -9,7 +9,7 @@ import {AppComponent } from "./app.component";
 import {SidebarTemplateComponent} from "./gentella-template/sidebar.component";
 import {
   SidebarDropdownDirective, DropdownToggleDirective,
-  DatepickerComponent, DatepickerDirective
+  DatepickerComponent, DatepickerDirective, EditorComponent
 } from "./gentella-template/template.directive";
 import {LockerComponent} from "./gentella-template/locker.component";
 import {TopNavigationComponent} from "./gentella-template/top-navigation.component";
@@ -49,9 +49,11 @@ import {WindowModule} from "./modules/@window/window.component";
 import {WindowDraggableDirective} from "./modules/@window/window.directives";
 import {DialComponent} from "./modules/@call/call.component";
 import {CallsPipe} from "./pipes/calls.pipe";
+import {ScenarioComponent} from "./components/scenario.component";
 
 const appRoutes: Routes =[
   { path: '', component: DashboardComponent, canActivate:[AuthGuard] },
+  { path: 'scenarios', component: ScenarioComponent, canActivate:[AuthGuard] },
   { path: 'bugreport', component: BugReportComponent, pathMatch: 'full', canActivate:[AuthGuard] },
   { path: 'phones', component: PhonesListComponent, pathMatch: 'full', canActivate:[AuthGuard] },
   { path: 'phones/create', component: PhonesCreateComponent, pathMatch: 'full', canActivate:[AuthGuard] },
@@ -115,6 +117,8 @@ const appRoutes: Routes =[
     CallsPipe,
     DatepickerComponent,
     DatepickerDirective,
+    ScenarioComponent,
+    EditorComponent,
   ],
   bootstrap: [
     AppComponent,
