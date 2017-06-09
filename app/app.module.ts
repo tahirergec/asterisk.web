@@ -9,7 +9,7 @@ import {AppComponent } from "./app.component";
 import {SidebarTemplateComponent} from "./gentella-template/sidebar.component";
 import {
   SidebarDropdownDirective, DropdownToggleDirective,
-  DatepickerComponent, DatepickerDirective, EditorComponent
+  DatepickerComponent, DatepickerDirective, EditorComponent, TinyMceDirective
 } from "./gentella-template/template.directive";
 import {LockerComponent} from "./gentella-template/locker.component";
 import {TopNavigationComponent} from "./gentella-template/top-navigation.component";
@@ -50,6 +50,7 @@ import {WindowDraggableDirective} from "./modules/@window/window.directives";
 import {DialComponent} from "./modules/@call/call.component";
 import {CallsPipe} from "./pipes/calls.pipe";
 import {ScenarioComponent} from "./components/scenario.component";
+import {ScenarioTreeComponent} from "./components/scenario-tree.component";
 
 const appRoutes: Routes =[
   { path: '', component: DashboardComponent, canActivate:[AuthGuard] },
@@ -119,6 +120,8 @@ const appRoutes: Routes =[
     DatepickerDirective,
     ScenarioComponent,
     EditorComponent,
+    TinyMceDirective,
+    ScenarioTreeComponent,
   ],
   bootstrap: [
     AppComponent,

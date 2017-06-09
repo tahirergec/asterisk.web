@@ -33,6 +33,9 @@ import {User} from "../models/user";
               <li routerLinkActive="active" *ngIf="modules && modules.phones">
                 <a routerLink="/phones"><i class="fa fa-phone-square"></i> Номера </a>
               </li>
+              <li routerLinkActive="active" *ngIf="modules && modules.phones">
+                <a routerLink="/scenarios"><i class="fa fa-pencil-square"></i> Сценарии </a>
+              </li>
               <li routerLinkActive="active" *ngIf="modules && modules.helpdesk">
                 <a routerLink="/bugreport"><i class="fa fa-bug"></i> Сообщить о сбое </a>
               </li>

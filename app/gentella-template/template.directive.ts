@@ -114,12 +114,70 @@ export class DatepickerComponent implements ControlValueAccessor{
 
 }
 
+@Directive({
+  selector: "[wysiwyg]"
+})
+export class TinyMceDirective implements AfterViewInit{
+
+  @Output() change_value: EventEmitter<string> = new EventEmitter();
+
+  constructor(private elementRef: ElementRef) { }
+
+  ngAfterViewInit() {
+    jQuery(this.elementRef.nativeElement).wysihtml5({
+      locale: "ru-RU",
+      toolbar: {
+        blockquote: false
+      },
+      events: {
+        blur: ($target) => this.change_value.next(jQuery(this.elementRef.nativeElement).val())
+      }
+    });
+  }
+
+}
+
 
 @Component({
+  selector: "text-editor",
   template: `
-    <textarea></textarea>
-  `
+    <textarea wysiwyg (change_value)="onChange($event)"></textarea>
+  `,
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => EditorComponent),
+      multi: true
+    }
+  ]
 })
 export class EditorComponent {
+
+  private _current_value: string;
+
+  private get current_value(): string {
+    return this._current_value;
+  }
+
+  private set current_value(value: string) {
+    this._current_value = value;
+    this.propagateChange(this._current_value);
+  }
+
+  propagateChange = (_: any) => {};
+
+  onChange(value: string) {
+    this.current_value = value;
+  }
+
+  writeValue(value: any) {
+    this.current_value = value;
+  }
+
+  registerOnChange(fn) {
+    this.propagateChange = fn;
+  }
+
+  registerOnTouched() { }
 
 }
