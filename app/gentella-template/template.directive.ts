@@ -3,6 +3,7 @@ import {
 }
   from "@angular/core";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
+import {HttpClient} from "../services/http.service";
 
 declare var jQuery:any;
 
@@ -180,4 +181,35 @@ export class EditorComponent {
 
   registerOnTouched() { }
 
+}
+
+
+@Directive({
+  selector: "[tree-view]"
+})
+export class TreeViewDirective implements AfterViewInit{
+
+  @Input() private api_method: string = "";
+  @Output() private select_change: EventEmitter<any> = new EventEmitter();
+
+  private tree: any;
+
+  constructor(private elementRef: ElementRef, private http: HttpClient) { }
+
+  reload() {
+    alert('reload');
+  }
+
+  ngAfterViewInit() {
+    if(this.api_method) {
+      this.http.post(this.api_method)
+        .subscribe((response) => this.tree = jQuery(this.elementRef.nativeElement).jstree({
+          core: {
+            data: response
+          }
+        })
+        .on("select_node.jstree", (e, data) => this.select_change.next(data.node.id))
+      )
+    }
+  }
 }

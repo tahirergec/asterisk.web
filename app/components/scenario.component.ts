@@ -7,7 +7,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
       <div class="col-lg-3 col-md-4">
         <div class="x_panel">
           <div class="x_content">
-            <scenario-tree>
+            <scenario-tree
+              (select_change)="onChange($event)">
             </scenario-tree>
           </div>
         </div>
@@ -51,8 +52,12 @@ export class ScenarioComponent {
     })
   }
 
+  onChange(value) {
+    alert(value);
+  }
+
   onSubmit() {
-    alert('111');
+
   }
 
 }

@@ -9,7 +9,7 @@ import {AppComponent } from "./app.component";
 import {SidebarTemplateComponent} from "./gentella-template/sidebar.component";
 import {
   SidebarDropdownDirective, DropdownToggleDirective,
-  DatepickerComponent, DatepickerDirective, EditorComponent, TinyMceDirective
+  DatepickerComponent, DatepickerDirective, EditorComponent, TinyMceDirective, TreeViewDirective
 } from "./gentella-template/template.directive";
 import {LockerComponent} from "./gentella-template/locker.component";
 import {TopNavigationComponent} from "./gentella-template/top-navigation.component";
@@ -122,6 +122,7 @@ const appRoutes: Routes =[
     EditorComponent,
     TinyMceDirective,
     ScenarioTreeComponent,
+    TreeViewDirective,
   ],
   bootstrap: [
     AppComponent,
