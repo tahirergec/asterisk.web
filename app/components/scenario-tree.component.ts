@@ -1,4 +1,5 @@
-import {Component, EventEmitter, Output} from "@angular/core";
+import {Component, EventEmitter, Output, ViewChild} from "@angular/core";
+import {TreeViewDirective} from "../gentella-template/template.directive";
 
 @Component({
   selector: "scenario-tree",
@@ -14,5 +15,12 @@ import {Component, EventEmitter, Output} from "@angular/core";
 export class ScenarioTreeComponent {
 
   @Output() private select_change: EventEmitter<any> = new EventEmitter();
+
+  @ViewChild(TreeViewDirective)
+  private tree: TreeViewDirective;
+
+  public reload() {
+    this.tree.reload();
+  }
 
 }

@@ -10,3 +10,15 @@
   };
 })(wysihtml5);
 
+(function(wysihtml5) {
+  wysihtml5.commands.insertPhoneCall = {
+    exec: function(composer, command) {
+      return wysihtml5.commands.formatInline.exec(composer, command, "small");
+    },
+
+    state: function(composer, command) {
+      return wysihtml5.commands.formatInline.state(composer, command, "small");
+    }
+  };
+})(wysihtml5);
+

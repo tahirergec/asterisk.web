@@ -1,5 +1,6 @@
-import {Component} from "@angular/core";
+import {Component, ViewChild} from "@angular/core";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {ScenarioTreeComponent} from "./scenario-tree.component";
 
 @Component({
   template: `
@@ -45,6 +46,9 @@ export class ScenarioComponent {
 
   form: FormGroup;
 
+  @ViewChild(ScenarioTreeComponent)
+  private tree: ScenarioTreeComponent;
+
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
       "scenario_caption": ['', Validators.required],
@@ -57,7 +61,7 @@ export class ScenarioComponent {
   }
 
   onSubmit() {
-
+    this.tree.reload();
   }
 
 }

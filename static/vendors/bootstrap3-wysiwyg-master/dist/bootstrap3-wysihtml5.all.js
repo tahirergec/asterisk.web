@@ -11186,6 +11186,32 @@ wysihtml5.commands.formatCode = {
   };
 })(wysihtml5);
 ;(function(wysihtml5) {
+  var NODE_NAME = "A";
+
+  wysihtml5.commands.createPhone = {
+    /*
+
+     */
+    exec: function(composer, command, value) {
+      var doc     = composer.doc,
+          anchor   = this.state(composer),
+          phone = value['phone'],
+          name = value['name'];
+
+      anchor = doc.createElement(NODE_NAME);
+      anchor.innerText = name;
+      anchor.setAttribute('href', 'javascript:void(0)');
+      anchor.setAttribute('click-to-call', '');
+      anchor.setAttribute('phone-number', phone);
+      composer.selection.insertNode(anchor);
+    },
+
+    state: function(composer) {
+      return;
+    }
+  };
+})(wysihtml5);
+;(function(wysihtml5) {
   var LINE_BREAK = "<br>" + (wysihtml5.browser.needsSpaceAfterLineBreak() ? " " : "");
 
   wysihtml5.commands.insertLineBreak = {
@@ -14439,6 +14465,56 @@ function program7(depth0,data) {
   return buffer;
   });
 
+this["wysihtml5"]["tpl"]["phones"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+  helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, self=this;
+
+  function program1(depth0,data) {
+
+
+    return "modal-sm";
+  }
+
+  function program3(depth0,data) {
+
+    var buffer = "", stack1;
+    buffer += "btn-"
+      + escapeExpression(((stack1 = ((stack1 = ((stack1 = (depth0 && depth0.options)),stack1 == null || stack1 === false ? stack1 : stack1.toolbar)),stack1 == null || stack1 === false ? stack1 : stack1.size)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1));
+    return buffer;
+  }
+
+  function program5(depth0,data) {
+    return "\n      <span class=\"fa fa-phone-square\"></span>\n    ";
+  }
+
+  function program7(depth0,data) {
+    return "\n      <i class=\"fa fa-phone-square\"></i>\n    ";
+  }
+
+  //ХУЙ
+  buffer += "<li>\n  <div class=\"bootstrap-wysihtml5-insert-phone-modal modal fade\" data-wysihtml5-dialog=\"createPhone\">\n    <div class=\"modal-dialog ";
+  stack1 = helpers['if'].call(depth0, ((stack1 = ((stack1 = (depth0 && depth0.options)),stack1 == null || stack1 === false ? stack1 : stack1.toolbar)),stack1 == null || stack1 === false ? stack1 : stack1.smallmodals), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\">\n <div class=\"modal-content\">\n <div class=\"modal-header\">\n <a class=\"close\" data-dismiss=\"modal\">&times;</a>\n <h3>Добавить телефон</h3>\n </div>\n <div class=\"modal-body\">\n"
+    + "<div class=\"form-group\">\n <input value=\"\" class=\"bootstrap-wysihtml5-insert-phone-url form-control\" data-wysihtml5-dialog-field=\"phone\">\n </div> \n "
+    + "<div class=\"form-group\">\n <input value=\"\" class=\"bootstrap-wysihtml5-insert-name-url form-control\" data-wysihtml5-dialog-field=\"name\">\n </div> \n "
+    + "\n        </div>\n        <div class=\"modal-footer\">\n          <a class=\"btn btn-default\" data-dismiss=\"modal\" data-wysihtml5-dialog-action=\"cancel\" href=\"#\">"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = (depth0 && depth0.locale)),stack1 == null || stack1 === false ? stack1 : stack1.link)),stack1 == null || stack1 === false ? stack1 : stack1.cancel)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</a>\n          <a href=\"#\" class=\"btn btn-primary\" data-dismiss=\"modal\" data-wysihtml5-dialog-action=\"save\">"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = (depth0 && depth0.locale)),stack1 == null || stack1 === false ? stack1 : stack1.link)),stack1 == null || stack1 === false ? stack1 : stack1.insert)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</a>\n        </div>\n      </div>\n    </div>\n  </div>\n  <a class=\"btn ";
+  stack1 = helpers['if'].call(depth0, ((stack1 = ((stack1 = (depth0 && depth0.options)),stack1 == null || stack1 === false ? stack1 : stack1.toolbar)),stack1 == null || stack1 === false ? stack1 : stack1.size), {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += " btn-default\" data-wysihtml5-command=\"createPhone\" title=\""
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = (depth0 && depth0.locale)),stack1 == null || stack1 === false ? stack1 : stack1.link)),stack1 == null || stack1 === false ? stack1 : stack1.insert)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\" tabindex=\"-1\">\n    ";
+  stack1 = helpers['if'].call(depth0, ((stack1 = ((stack1 = (depth0 && depth0.options)),stack1 == null || stack1 === false ? stack1 : stack1.toolbar)),stack1 == null || stack1 === false ? stack1 : stack1.fa), {hash:{},inverse:self.program(7, program7, data),fn:self.program(5, program5, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n  </a>\n</li>\n";
+  return buffer;
+  });
+
 this["wysihtml5"]["tpl"]["link"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
@@ -14602,6 +14678,7 @@ function program17(depth0,data) {
   var bsWysihtml5 = function($, wysihtml5) {
 
     var templates = function(key, locale, options) {
+      console.log(">>",wysihtml5.tpl);
       if(wysihtml5.tpl[key]) {
         return wysihtml5.tpl[key]({locale: locale, options: options});
       }
@@ -14733,6 +14810,7 @@ function program17(depth0,data) {
         var localeObject = $.extend(true, {}, locale.en, locale[culture]);
         for(var key in options.toolbar) {
           if(options.toolbar[key]) {
+            console.log(">>", key);
             toolbar.append(templates(key, localeObject, options));
           }
         }
@@ -14827,7 +14905,8 @@ function program17(depth0,data) {
         'html': false,
         'link': true,
         'image': true,
-        'smallmodals': false
+        'smallmodals': false,
+        'phones': true
       },
       useLineBreaks: false,
       parserRules: {
