@@ -44,9 +44,9 @@ export class AuthenticateComponent {
     })
   }
 
-  onAuthenticate(username: string, session_id: string) {
+  onAuthenticate(username: string, session_id: string, phone: string) {
     this.has_err = false;
-    this.auth.authenticate(username, session_id);
+    this.auth.authenticate(username, session_id, phone);
     this.router.navigateByUrl("");
   }
 
@@ -62,7 +62,7 @@ export class AuthenticateComponent {
 
     this.http.post("Session.signin", {"username": form_data.username, "password": form_data.password})
       .subscribe(
-        (session_id) => this.onAuthenticate(form_data.username, session_id),
+        (response) => this.onAuthenticate(form_data.username, response.session_id, response.phone),
         (error_handler) => this.onAuthenticateErr(),
       );
   }

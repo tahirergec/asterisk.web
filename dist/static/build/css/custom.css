@@ -4318,3 +4318,6 @@ material-window .x_panel{
 .width-350{
   width: 350px!important;
 }
+
+text-editor{display: block;}
+.modal-displayed{display: block!important; background: rgba(0,0,0,.5);}

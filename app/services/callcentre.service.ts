@@ -1,24 +1,74 @@
 import {EventEmitter, Injectable} from "@angular/core";
 import {WebSocketSubject} from "rxjs/observable/dom/WebSocketSubject";
 import {Observable, Subscription} from "rxjs/Rx";
+import {AuthenticateService} from "./authenticate.service";
+import {ConfigService} from "./configuration.service";
 
 @Injectable()
 export class CallcentreService {
 
-  private my_phone: string = "102";
+  private my_phone: string = null;
 
   public calls: Array<any> = [];
+  private _state: number = 0;
+
+  private get state(): number {
+    return this._state;
+  }
+
+  private set state(value: number) {
+    this._state = value;
+    this.state_emitter.emit(value);
+  }
+
+  private _url: string = "";
+  private _url_pattern: string = "?phone=";
+
+  private get url(): string {
+    return this._url + this._url_pattern + this.my_phone;
+  }
+
   public calls_emmiter: EventEmitter<any> = new EventEmitter<any>();
+  public state_emitter: EventEmitter<number> = new EventEmitter<number>();
 
   private ws: WebSocketSubject<Object>;
   private socket: Subscription;
-  private url: string = "ws://localhost:8800/ws?phone=" + this.my_phone;
 
-  constructor() {
+  constructor(private auth: AuthenticateService, private conf: ConfigService) {
+    this._url = this.conf.data.ws_url;
+    this.my_phone = this.auth.user.phone;
+    this.connect();
+
+    this.conf.settings_emitter.subscribe((data) => {
+      this._url = data.ws_url;
+      this.connect();
+    });
+
+    this.auth.user_emitter.subscribe((user) => {
+      this.my_phone = user.phone;
+      this.connect();
+    });
+  }
+
+  private reconnect() {
+    this.socket.unsubscribe();
+    this.ws.complete();
+    setTimeout(() => this.connect(), 1500);
+  }
+
+  private connect() {
+    if(!this.my_phone || !this._url) {
+      return;
+    }
+
+    this.state = -1;
     this.ws = Observable.webSocket(this.url);
     this.socket = this.ws.subscribe({
       next: (data: any) => this.deploy_data(data),
-
+      error: () => {
+        this.state = 0;
+        this.reconnect();
+      }
     });
   }
 
@@ -32,6 +82,12 @@ export class CallcentreService {
     }
 
     switch(data.action_type) {
+      case "status": {
+        if(data.status == "ok") {
+          this.state = 1;
+        }
+        break;
+      }
       case "dial_begin": {
         let call = this.calls.filter(call => data.linkedid == call.linkedid);
 

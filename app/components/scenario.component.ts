@@ -11,6 +11,10 @@ import {ScenarioTreeComponent} from "./scenario-tree.component";
             <scenario-tree
               (select_change)="onChange($event)">
             </scenario-tree>
+            <div class="ln_solid"></div>
+            <a href="javascript:void(0)" class="btn btn-primary" (click)="createNew()">
+              <i class="fa fa-plus"></i>
+            </a>
           </div>
         </div>
       </div>
@@ -46,6 +50,8 @@ export class ScenarioComponent {
 
   form: FormGroup;
 
+  private new_scenario_opened: boolean = false;
+
   @ViewChild(ScenarioTreeComponent)
   private tree: ScenarioTreeComponent;
 
@@ -58,6 +64,15 @@ export class ScenarioComponent {
 
   onChange(value) {
     alert(value);
+  }
+
+  createNew() {
+    this.new_scenario_opened = true;
+  }
+
+  onNewStateChange(value) {
+    alert(value);
+    this.new_scenario_opened = value;
   }
 
   onSubmit() {

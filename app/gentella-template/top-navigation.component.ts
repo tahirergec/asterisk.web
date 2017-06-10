@@ -8,6 +8,7 @@ import {Http} from "@angular/http";
 import {AuthenticateService} from "../services/authenticate.service";
 import {User} from "../models/user";
 import {Router} from "@angular/router";
+import {CallcentreService} from "../services/callcentre.service";
 
 @Component({
   selector: "app-navigation",
@@ -62,6 +63,18 @@ import {Router} from "@angular/router";
                 </li>
               </ul>
             </li>
+            <li *ngIf="user.phone">
+              <a>
+                <span class="btn btn-sm" [ngClass]="{
+                        'btn-success': 1 == phone_state,
+                        'btn-danger': 0 == phone_state,
+                        'btn-warning': -1 == phone_state
+                    }">
+                  <i *ngIf="1 == phone_state || 0 == phone_state" class="fa fa-phone-square"></i>
+                  <i *ngIf="-1 == phone_state" class="fa fa-spin fa-refresh"></i>
+                </span>
+              </a>
+            </li>
           </ul>
         </nav>
       </div>
@@ -72,14 +85,17 @@ export class TopNavigationComponent {
 
   private notification_queue: NotifyQueue = new NotifyQueue();
   private user: User = null;
+  private phone_state: number = 0;
 
   constructor(private locker: LockerService, private http: HttpClient, private notifier: NotificationService,
               private config: ConfigService, private base_http: Http, private auth: AuthenticateService,
-              private router: Router) {
+              private router: Router, private callcentre: CallcentreService) {
     this.notifier.queue_emitter.subscribe(queue => this.notification_queue = queue);
 
     this.user = this.auth.user;
     this.auth.user_emitter.subscribe((user) => this.user = user);
+
+    this.callcentre.state_emitter.subscribe((status) => this.phone_state = status);
   }
 
   ngOnInit() {

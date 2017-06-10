@@ -36,9 +36,9 @@ export class AuthenticateService {
     localStorage.setItem("asterisk-web-user-" + AuthenticateService.key, user_data);
   }
 
-  public authenticate(username: string, session_id: string) {
+  public authenticate(username: string, session_id: string, phone: string) {
     AuthenticateService.session_id = session_id;
-    this._user = new User(username, session_id);
+    this._user = new User(username, session_id, phone);
     this.user_emitter.emit(this._user);
 
     this.save_data();
