@@ -107,6 +107,10 @@ export class CallcentreService {
             data.type = "incoming"
           }
 
+          if(data.to_phone == data.from_phone) {
+            data.type = "originate"
+          }
+
           this.calls.push(data);
           this.calls_emmiter.emit(this.calls);
         }
@@ -114,7 +118,6 @@ export class CallcentreService {
         break;
       }
       case "bridge_enter": {
-        console.log(data);
         for(let i=0; i < this.calls.length; i++) {
           if (data.channel == this.calls[i].channel1 || data.channel == this.calls[i].channel2) {
             this.calls[i].active_call = true;
@@ -124,6 +127,11 @@ export class CallcentreService {
               this.http.post('Scenario.get_by_queue', {'queue_name': this.calls[i].queue})
                 .subscribe((data) => this.scenario = data);
             }
+          }
+
+          if(data.channel != this.calls[i].channel1 &&
+              data.channel != this.calls[i].channel2) {
+            this.calls[i].last_channel = data.channel;
           }
         }
         break;

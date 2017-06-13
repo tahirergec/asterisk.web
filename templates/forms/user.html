@@ -31,6 +31,22 @@
               <input type="password" id="password" formControlName="password" class="form-control col-md-7 col-xs-12">
             </div>
           </div>
+          <div class="form-group">
+            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 col-sm-offset-3">
+              <label class="checkbox" for="has_redirect">
+                <input type="checkbox" id="has_redirect" formControlName="has_redirect"> Включить переадресацию
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="redirect_phone">
+              Номер для переадресации
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <input type="text" id="redirect_phone" formControlName="redirect_phone"
+                     [readonly]="!userForm.value['has_redirect']" class="form-control col-md-7 col-xs-12">
+            </div>
+          </div>
           <details>
            <summary>Дополнительные параметры</summary>
             <div class="form-group">
@@ -54,7 +70,7 @@
             </div>
             <div class="form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="account_password">
-                Проль для входа в программу
+                Пароль для входа в программу
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <input type="password" id="account_password" formControlName="account_password" class="form-control col-md-7 col-xs-12">

@@ -24,6 +24,8 @@ export class UsersCreateComponent {
       "context": [''],
       "account_login": [''],
       "account_password": [''],
+      "has_redirect": [false],
+      "redirect_phone": [''],
     })
   }
 
@@ -40,6 +42,9 @@ export class UsersCreateComponent {
       "user_data": {
         "stat_fio": this.userForm.value['stat_fio'],
         "context": this.userForm.value['context'],
+        "stat_has_redirect": !!(this.userForm.value['has_redirect'] && this.userForm.value['redirect_phone'].length),
+        "stat_redirect_phone": this.userForm.value['has_redirect'] && this.userForm.value['redirect_phone'].length ?
+          this.userForm.value['redirect_phone'] : null,
         "account_login": this.userForm.value['account_login'],
         "account_password": this.userForm.value['account_password'],
       }

@@ -25,6 +25,8 @@ export class UsersEditComponent {
       "context": [''],
       "account_login": [''],
       "account_password": [''],
+      "has_redirect": [false],
+      "redirect_phone": [''],
     });
 
     this.locker.lock();
@@ -37,10 +39,14 @@ export class UsersEditComponent {
           setTimeout(() => { this.locker.unlock(); }, 1000);
           this.contexts = response.contexts;
 
-          this.userForm.patchValue({"context": response.context});
-          this.userForm.patchValue({"defaultuser": response.name});
-          this.userForm.patchValue({"stat_fio": response.stat_fio});
-          this.userForm.patchValue({"account_login": response.account_login});
+          this.userForm.patchValue({
+            "context": response.context,
+            "defaultuser": response.name,
+            "stat_fio": response.stat_fio,
+            "account_login": response.account_login,
+            "has_redirect": response.has_redirect,
+            "redirect_phone": response.redirect_phone,
+          });
         }
       )
 
@@ -55,6 +61,9 @@ export class UsersEditComponent {
       "user_data": {
         "stat_fio": this.userForm.value['stat_fio'],
         "context": this.userForm.value['context'],
+        "stat_has_redirect": !!(this.userForm.value['has_redirect'] && this.userForm.value['redirect_phone'].length),
+        "stat_redirect_phone": this.userForm.value['has_redirect'] && this.userForm.value['redirect_phone'].length ?
+          this.userForm.value['redirect_phone'] : null,
         "account_login": this.userForm.value['account_login'],
         "account_password": this.userForm.value['account_password'],
       }

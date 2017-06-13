@@ -60,8 +60,27 @@ export class DialComponent {
   }
 
   connect(dial) {
-    const channel1 = this.call.type == "outgoing" ? this.call.channel2 : this.call.channel1,
-        channel2 = dial.type == "outgoing" ? dial.channel2 : dial.channel1;
+    let channel1, channel2;
+
+    if((this.call.type == "outgoing" || this.call.type == "originate") && this.call.last_channel) {
+      channel1 = this.call.last_channel;
+    }
+    else if(this.call.type == "outgoing" || this.call.type == "originate") {
+      channel1 = this.call.channel2;
+    }
+    else {
+      channel1 = this.call.channel1;
+    }
+
+    if((dial.type == "outgoing" || dial.type == "outgoing") && dial.last_channel) {
+      channel2 = dial.last_channel;
+    }
+    else if(dial.type == "outgoing" || dial.type == "originate") {
+      channel2 = dial.channel2;
+    }
+    else {
+      channel2 = dial.channel1;
+    }
 
     let cmd = JSON.stringify({"Action": "Bridge", "Channel1": channel1, "Channel2": channel2, "Tone": "yes",
       "Priority": "1"});
