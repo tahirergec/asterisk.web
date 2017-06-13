@@ -129,8 +129,16 @@ export class CallcentreService {
             }
           }
 
-          if(data.channel != this.calls[i].channel1 &&
+          if("originate" != this.calls[i].type &&
+              data.bridgeuniqueid == this.calls[i].bridge_id &&
+              data.channel != this.calls[i].channel1 &&
               data.channel != this.calls[i].channel2) {
+            this.calls[i].last_channel = data.channel;
+          }
+
+          if("originate" == this.calls[i].type &&
+              data.linkedid == this.calls[i].linkedid &&
+              data.channel.indexOf("/"+this.my_phone) == -1) {
             this.calls[i].last_channel = data.channel;
           }
         }
@@ -147,7 +155,7 @@ export class CallcentreService {
       case "agent_connect": {
         for(let i=0; i < this.calls.length; i++) {
           if (data.linkedid == this.calls[i].linkedid) {
-            this.calls[i] = data;
+            this.calls[i].queue = data.queue;
           }
         }
         break;
