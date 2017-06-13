@@ -20,9 +20,11 @@ export class UsersEditComponent {
   ngOnInit() {
     this.userForm = this.fb.group({
       "stat_fio": [''],
-      "defaultuser": ['', Validators.required],
+      "defaultuser": ['', [Validators.required, Validators.pattern('[0-9]{3}')]],
       "password": [''],
-      "context": ['']
+      "context": [''],
+      "account_login": [''],
+      "account_password": [''],
     });
 
     this.locker.lock();
@@ -38,6 +40,7 @@ export class UsersEditComponent {
           this.userForm.patchValue({"context": response.context});
           this.userForm.patchValue({"defaultuser": response.name});
           this.userForm.patchValue({"stat_fio": response.stat_fio});
+          this.userForm.patchValue({"account_login": response.account_login});
         }
       )
 
@@ -52,6 +55,8 @@ export class UsersEditComponent {
       "user_data": {
         "stat_fio": this.userForm.value['stat_fio'],
         "context": this.userForm.value['context'],
+        "account_login": this.userForm.value['account_login'],
+        "account_password": this.userForm.value['account_password'],
       }
     };
 

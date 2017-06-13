@@ -98,6 +98,7 @@ export class PhonesEditComponent {
         "stat_use_for_redir": this.phoneForm.value["use_for_redir"],
         "host": this.phoneForm.value["host"],
         "port": parseInt(this.phoneForm.value["port"]),
+        "insecure": "invite",
       }
     };
 

@@ -23,8 +23,9 @@ export class CallcentreScenarioComponent {
     });
 
     let global = this.renderer.listenGlobal('document', 'click', (evt) => {
-      if("a" == evt.srcElement.tagName.toLowerCase() && evt.srcElement.hasAttribute("click-to-call")) {
-        this.callcentre.make_call(evt.srcElement.getAttribute("click-to-call"));
+      let target = evt.target || evt.srcElement;
+      if("a" == target.tagName.toLowerCase() && target.hasAttribute("click-to-call")) {
+        this.callcentre.make_call(target.getAttribute("click-to-call"));
       }
     })
   }

@@ -47,17 +47,14 @@ export class DialComponent {
   }
 
   parking() {
-    let cmd = JSON.stringify({"Action": "Park", "Channel": this.call.channel1});
-
-    this.callcentre.send_message(cmd);
+    const channel = this.call.type == "outgoing" ? this.call.channel2 : this.call.channel1;
+    this.callcentre.parking(channel);
     this.parked = true;
   }
 
   unparking() {
-    let cmd = JSON.stringify({"Action": "Redirect", "Channel": this.call.channel1,
-      "Exten": "101", "Context": "blank", "Priority": "1"});
-
-    this.callcentre.send_message(cmd);
+    const channel = this.call.type == "outgoing" ? this.call.channel2 : this.call.channel1;
+    this.callcentre.unparking(channel);
     this.parked = false;
 
   }

@@ -98,7 +98,7 @@ export class CallcentreService {
       case "dial_begin": {
         let call = this.calls.filter(call => data.linkedid == call.linkedid);
 
-        if(!call.length){
+        if(!call.length && (data.from_phone == this.my_phone || data.to_phone == this.my_phone)){
           if(data.from_phone == this.my_phone) {
             data.type = "outgoing"
           }
@@ -114,6 +114,7 @@ export class CallcentreService {
         break;
       }
       case "bridge_enter": {
+        console.log(data);
         for(let i=0; i < this.calls.length; i++) {
           if (data.channel == this.calls[i].channel1 || data.channel == this.calls[i].channel2) {
             this.calls[i].active_call = true;
@@ -144,6 +145,17 @@ export class CallcentreService {
         break;
       }
     }
+  }
+
+  public parking(channel: string) {
+    const cmd = JSON.stringify({"Action": "Park", "Channel": channel});
+    this.send_message(cmd);
+  }
+
+  public unparking(channel: string) {
+    const cmd = JSON.stringify({"Action": "Redirect", "Channel": channel, "Exten": this.my_phone, "Context": "blank",
+      "Priority": "1"});
+    this.send_message(cmd);
   }
 
   public make_call(number: string) {
