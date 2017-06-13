@@ -32,7 +32,7 @@ AppComponent = __decorate([
 ], AppComponent);
 exports.AppComponent = AppComponent;
 
-},{"./services/authenticate.service":42,"@angular/core":51,"@angular/http":53}],2:[function(require,module,exports){
+},{"./services/authenticate.service":48,"@angular/core":57,"@angular/http":59}],2:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -80,11 +80,10 @@ var window_component_1 = require("./modules/@window/window.component");
 var window_directives_1 = require("./modules/@window/window.directives");
 var call_component_1 = require("./modules/@call/call.component");
 var calls_pipe_1 = require("./pipes/calls.pipe");
-var scenario_component_1 = require("./components/scenario.component");
-var scenario_tree_component_1 = require("./components/scenario-tree.component");
+var callcenter_scenario_component_1 = require("./components/callcenter-scenario.component");
+var scenarios_module_1 = require("./components/scenarios/scenarios.module");
 var appRoutes = [
-    { path: '', component: dashboard_component_1.DashboardComponent, canActivate: [auth_guard_1.AuthGuard] },
-    { path: 'scenarios', component: scenario_component_1.ScenarioComponent, canActivate: [auth_guard_1.AuthGuard] },
+    { path: 'home', component: dashboard_component_1.DashboardComponent, canActivate: [auth_guard_1.AuthGuard] },
     { path: 'bugreport', component: bugreport_component_1.BugReportComponent, pathMatch: 'full', canActivate: [auth_guard_1.AuthGuard] },
     { path: 'phones', component: phones_list_component_1.PhonesListComponent, pathMatch: 'full', canActivate: [auth_guard_1.AuthGuard] },
     { path: 'phones/create', component: phones_create_component_1.PhonesCreateComponent, pathMatch: 'full', canActivate: [auth_guard_1.AuthGuard] },
@@ -96,6 +95,10 @@ var appRoutes = [
     { path: 'users/create', component: users_create_component_1.UsersCreateComponent, pathMatch: 'full', canActivate: [auth_guard_1.AuthGuard] },
     { path: 'users/:name', component: users_edit_component_1.UsersEditComponent, canActivate: [auth_guard_1.AuthGuard] },
     { path: 'login', component: authenticate_component_1.AuthenticateComponent },
+    // Modules
+    { path: 'scenarios', loadChildren: 'app/components/scenarios/scenarios.module#ScenariosModule' },
+    // Simple pages
+    { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: '**', component: page_not_found_component_1.PageNotFoundComponent }
 ];
 var AppModule = (function () {
@@ -112,6 +115,7 @@ AppModule = __decorate([
             http_1.HttpModule,
             http_1.JsonpModule,
             datatables_module_1.MaterialTablesModule,
+            scenarios_module_1.ScenariosModule,
             router_1.RouterModule.forRoot(appRoutes)
         ],
         providers: [
@@ -153,24 +157,22 @@ AppModule = __decorate([
             calls_pipe_1.CallsPipe,
             template_directive_1.DatepickerComponent,
             template_directive_1.DatepickerDirective,
-            scenario_component_1.ScenarioComponent,
-            template_directive_1.EditorComponent,
-            template_directive_1.TinyMceDirective,
-            scenario_tree_component_1.ScenarioTreeComponent,
-            template_directive_1.TreeViewDirective,
+            callcenter_scenario_component_1.CallcentreScenarioComponent,
+            template_directive_1.ClickToCallDirective,
         ],
         bootstrap: [
             app_component_1.AppComponent,
             locker_component_1.LockerComponent,
             sidebar_component_1.SidebarTemplateComponent,
             top_navigation_component_1.TopNavigationComponent,
-            callcentre_component_1.CallcentreComponent
+            callcentre_component_1.CallcentreComponent,
+            callcenter_scenario_component_1.CallcentreScenarioComponent,
         ]
     })
 ], AppModule);
 exports.AppModule = AppModule;
 
-},{"./app.component":1,"./components/authenticate.component":3,"./components/bugreport.component":4,"./components/callcentre.component":5,"./components/dashboard.component":6,"./components/page-not-found.component":7,"./components/phones-create.component":8,"./components/phones-edit.component":9,"./components/phones-list.component":10,"./components/queues-create.component":11,"./components/queues-edit.component":12,"./components/queues-list.component":13,"./components/scenario-tree.component":14,"./components/scenario.component":15,"./components/users-create.component":16,"./components/users-edit.component":17,"./components/users-list.component":18,"./gentella-template/locker.component":19,"./gentella-template/sidebar.component":20,"./gentella-template/template.directive":21,"./gentella-template/top-navigation.component":22,"./guards/auth.guard":23,"./modules/@Calllist/calllist.component":27,"./modules/@Calllist/datatable-calllist.component":28,"./modules/@Datatable/datatables.module":36,"./modules/@call/call.component":37,"./modules/@widgets/widgets.component":38,"./modules/@window/window.component":39,"./modules/@window/window.directives":40,"./pipes/calls.pipe":41,"./services/authenticate.service":42,"./services/callcentre.service":43,"./services/configuration.service":44,"./services/http.service":45,"./services/locker.service":46,"./services/notification.service":47,"@angular/core":51,"@angular/forms":52,"@angular/http":53,"@angular/platform-browser":55,"@angular/router":56}],3:[function(require,module,exports){
+},{"./app.component":1,"./components/authenticate.component":3,"./components/bugreport.component":4,"./components/callcenter-scenario.component":5,"./components/callcentre.component":6,"./components/dashboard.component":7,"./components/page-not-found.component":8,"./components/phones-create.component":9,"./components/phones-edit.component":10,"./components/phones-list.component":11,"./components/queues-create.component":12,"./components/queues-edit.component":13,"./components/queues-list.component":14,"./components/scenarios/scenarios.module":20,"./components/users-create.component":22,"./components/users-edit.component":23,"./components/users-list.component":24,"./gentella-template/locker.component":25,"./gentella-template/sidebar.component":26,"./gentella-template/template.directive":27,"./gentella-template/top-navigation.component":28,"./guards/auth.guard":29,"./modules/@Calllist/calllist.component":33,"./modules/@Calllist/datatable-calllist.component":34,"./modules/@Datatable/datatables.module":42,"./modules/@call/call.component":43,"./modules/@widgets/widgets.component":44,"./modules/@window/window.component":45,"./modules/@window/window.directives":46,"./pipes/calls.pipe":47,"./services/authenticate.service":48,"./services/callcentre.service":49,"./services/configuration.service":50,"./services/http.service":51,"./services/locker.service":52,"./services/notification.service":53,"@angular/core":57,"@angular/forms":58,"@angular/http":59,"@angular/platform-browser":61,"@angular/router":62}],3:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -226,7 +228,7 @@ AuthenticateComponent = __decorate([
 ], AuthenticateComponent);
 exports.AuthenticateComponent = AuthenticateComponent;
 
-},{"../services/authenticate.service":42,"../services/http.service":45,"@angular/core":51,"@angular/forms":52,"@angular/router":56}],4:[function(require,module,exports){
+},{"../services/authenticate.service":48,"../services/http.service":51,"@angular/core":57,"@angular/forms":58,"@angular/router":62}],4:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -269,7 +271,57 @@ BugReportComponent = __decorate([
 ], BugReportComponent);
 exports.BugReportComponent = BugReportComponent;
 
-},{"../services/http.service":45,"../services/locker.service":46,"@angular/core":51,"@angular/forms":52}],5:[function(require,module,exports){
+},{"../services/http.service":51,"../services/locker.service":52,"@angular/core":57,"@angular/forms":58}],5:[function(require,module,exports){
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require("@angular/core");
+var callcentre_service_1 = require("../services/callcentre.service");
+var platform_browser_1 = require("@angular/platform-browser");
+var window_component_1 = require("../modules/@window/window.component");
+var CallcentreScenarioComponent = (function () {
+    function CallcentreScenarioComponent(callcentre, sanitizer, renderer) {
+        var _this = this;
+        this.callcentre = callcentre;
+        this.sanitizer = sanitizer;
+        this.renderer = renderer;
+        this.window_content = "";
+        this.opened = false;
+        this.callcentre.scenario_emitter.subscribe(function (scenario) {
+            _this.window_content = _this.sanitizer.bypassSecurityTrustHtml(scenario.text);
+            _this.simple_window.opened = true;
+        });
+        var global = this.renderer.listenGlobal('document', 'click', function (evt) {
+            var target = evt.target || evt.srcElement;
+            if ("a" == target.tagName.toLowerCase() && target.hasAttribute("click-to-call")) {
+                _this.callcentre.make_call(target.getAttribute("click-to-call"));
+            }
+        });
+    }
+    return CallcentreScenarioComponent;
+}());
+__decorate([
+    core_1.ViewChild(window_component_1.WindowModule),
+    __metadata("design:type", window_component_1.WindowModule)
+], CallcentreScenarioComponent.prototype, "simple_window", void 0);
+CallcentreScenarioComponent = __decorate([
+    core_1.Component({
+        selector: "app-callcentre-scenario",
+        template: "\n    <material-window draggable-window [opened]=\"opened\" [cssClass]=\"'w-500 scenario-window'\">\n      <div [innerHtml]=\"window_content\"></div>\n    </material-window>\n  "
+    }),
+    __metadata("design:paramtypes", [callcentre_service_1.CallcentreService, platform_browser_1.DomSanitizer,
+        core_1.Renderer])
+], CallcentreScenarioComponent);
+exports.CallcentreScenarioComponent = CallcentreScenarioComponent;
+
+},{"../modules/@window/window.component":45,"../services/callcentre.service":49,"@angular/core":57,"@angular/platform-browser":61}],6:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -300,7 +352,7 @@ CallcentreComponent = __decorate([
 ], CallcentreComponent);
 exports.CallcentreComponent = CallcentreComponent;
 
-},{"../services/callcentre.service":43,"@angular/core":51}],6:[function(require,module,exports){
+},{"../services/callcentre.service":49,"@angular/core":57}],7:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -339,7 +391,7 @@ DashboardComponent = __decorate([
 ], DashboardComponent);
 exports.DashboardComponent = DashboardComponent;
 
-},{"../services/configuration.service":44,"../services/http.service":45,"@angular/core":51}],7:[function(require,module,exports){
+},{"../services/configuration.service":50,"../services/http.service":51,"@angular/core":57}],8:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -360,7 +412,7 @@ PageNotFoundComponent = __decorate([
 ], PageNotFoundComponent);
 exports.PageNotFoundComponent = PageNotFoundComponent;
 
-},{"@angular/core":51}],8:[function(require,module,exports){
+},{"@angular/core":57}],9:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -439,6 +491,7 @@ var PhonesCreateComponent = (function () {
                 "stat_use_for_redir": this.phoneForm.value["use_for_redir"],
                 "host": this.phoneForm.value["host"],
                 "port": parseInt(this.phoneForm.value["port"]),
+                "insecure": "invite",
             }
         };
         this.http.post("Asterisk.phone_add", post_data)
@@ -467,7 +520,7 @@ PhonesCreateComponent = __decorate([
 ], PhonesCreateComponent);
 exports.PhonesCreateComponent = PhonesCreateComponent;
 
-},{"../services/http.service":45,"../services/locker.service":46,"@angular/core":51,"@angular/forms":52,"@angular/router":56}],9:[function(require,module,exports){
+},{"../services/http.service":51,"../services/locker.service":52,"@angular/core":57,"@angular/forms":58,"@angular/router":62}],10:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -567,6 +620,7 @@ var PhonesEditComponent = (function () {
                 "stat_use_for_redir": this.phoneForm.value["use_for_redir"],
                 "host": this.phoneForm.value["host"],
                 "port": parseInt(this.phoneForm.value["port"]),
+                "insecure": "invite",
             }
         };
         this.http.post("Asterisk.phone_edit", post_data)
@@ -591,7 +645,7 @@ PhonesEditComponent = __decorate([
 ], PhonesEditComponent);
 exports.PhonesEditComponent = PhonesEditComponent;
 
-},{"../services/http.service":45,"../services/locker.service":46,"@angular/core":51,"@angular/forms":52,"@angular/router":56}],10:[function(require,module,exports){
+},{"../services/http.service":51,"../services/locker.service":52,"@angular/core":57,"@angular/forms":58,"@angular/router":62}],11:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -646,7 +700,7 @@ PhonesListComponent = __decorate([
 ], PhonesListComponent);
 exports.PhonesListComponent = PhonesListComponent;
 
-},{"../modules/@Datatable-exten/datatable-phones.component":29,"../services/http.service":45,"@angular/core":51}],11:[function(require,module,exports){
+},{"../modules/@Datatable-exten/datatable-phones.component":35,"../services/http.service":51,"@angular/core":57}],12:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -739,7 +793,7 @@ QueueCreateComponent = __decorate([
 ], QueueCreateComponent);
 exports.QueueCreateComponent = QueueCreateComponent;
 
-},{"../services/http.service":45,"@angular/core":51,"@angular/forms":52,"@angular/router":56}],12:[function(require,module,exports){
+},{"../services/http.service":51,"@angular/core":57,"@angular/forms":58,"@angular/router":62}],13:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -812,7 +866,7 @@ var QueuesEditComponent = (function () {
     };
     QueuesEditComponent.prototype.toggleMember = function (row) {
         if (this.isChecked(row)) {
-            this.queueMembersChecked.splice(this.queueMembersChecked.indexOf(row.name), 1);
+            this.queueMembersChecked.splice(this.queueMembersChecked.indexOf(row.id), 1);
         }
         else {
             this.queueMembersChecked.push(row.id);
@@ -844,7 +898,7 @@ QueuesEditComponent = __decorate([
 ], QueuesEditComponent);
 exports.QueuesEditComponent = QueuesEditComponent;
 
-},{"../services/http.service":45,"../services/locker.service":46,"@angular/core":51,"@angular/forms":52,"@angular/router":56}],13:[function(require,module,exports){
+},{"../services/http.service":51,"../services/locker.service":52,"@angular/core":57,"@angular/forms":58,"@angular/router":62}],14:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -899,7 +953,7 @@ QueuesListComponent = __decorate([
 ], QueuesListComponent);
 exports.QueuesListComponent = QueuesListComponent;
 
-},{"../modules/@Datatable/components/datatable.component":35,"../services/http.service":45,"@angular/core":51}],14:[function(require,module,exports){
+},{"../modules/@Datatable/components/datatable.component":41,"../services/http.service":51,"@angular/core":57}],15:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -937,7 +991,7 @@ ScenarioTreeComponent = __decorate([
 ], ScenarioTreeComponent);
 exports.ScenarioTreeComponent = ScenarioTreeComponent;
 
-},{"../gentella-template/template.directive":21,"@angular/core":51}],15:[function(require,module,exports){
+},{"../gentella-template/template.directive":27,"@angular/core":57}],16:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -950,44 +1004,319 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
-var scenario_tree_component_1 = require("./scenario-tree.component");
-var ScenarioComponent = (function () {
-    function ScenarioComponent(fb) {
+var http_service_1 = require("../../services/http.service");
+var locker_service_1 = require("../../services/locker.service");
+var scenarios_service_1 = require("./scenarios.service");
+var router_1 = require("@angular/router");
+var ScenarioCreateComponent = (function () {
+    function ScenarioCreateComponent(fb, http, locker, scenario, router) {
         this.fb = fb;
-        this.new_scenario_opened = false;
-        this.form = this.fb.group({
-            "scenario_caption": ['', forms_1.Validators.required],
-            "scenario_text": [''],
-        });
+        this.http = http;
+        this.locker = locker;
+        this.scenario = scenario;
+        this.router = router;
+        this.queues = [];
+        this.scenarios = [];
     }
-    ScenarioComponent.prototype.onChange = function (value) {
-        alert(value);
+    ScenarioCreateComponent.prototype.loadData = function () {
+        var _this = this;
+        this.http.post('Asterisk.queue_list', { 'offset': 0, 'limit': 999 })
+            .subscribe(function (data) { return _this.queues = data.rows; });
+        this.http.post('Scenario.tree')
+            .subscribe(function (data) { return _this.scenarios = data; });
     };
-    ScenarioComponent.prototype.createNew = function () {
-        this.new_scenario_opened = true;
+    ScenarioCreateComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.locker.lock();
+        setTimeout(function () { return _this.locker.unlock(); }, 1000);
+        this.loadData();
+        this.form = this.fb.group({
+            "scenario_caption": ["", forms_1.Validators.required],
+            "scenario_text": [""],
+            "autorun": [""],
+            "parent_id": [""],
+        });
     };
-    ScenarioComponent.prototype.onNewStateChange = function (value) {
-        alert(value);
-        this.new_scenario_opened = value;
+    ScenarioCreateComponent.prototype.onSubmit = function () {
+        var _this = this;
+        var post_data = {
+            "caption": this.form.value['scenario_caption'],
+            "scenario_data": {
+                "text": this.form.value['scenario_text'],
+                "parent_id": '' === this.form.value['parent_id'] ? null : this.form.value['parent_id'],
+                "for_queue": this.form.value['autorun'],
+            }
+        };
+        this.http.post('Scenario.create', post_data)
+            .subscribe(function (response) {
+            _this.scenario.reload_tree();
+            _this.router.navigate(['scenarios', 'edit', response.id]);
+        });
     };
-    ScenarioComponent.prototype.onSubmit = function () {
-        this.tree.reload();
+    return ScenarioCreateComponent;
+}());
+ScenarioCreateComponent = __decorate([
+    core_1.Component({
+        template: "\n    <form [formGroup]=\"form\" (submit)=\"onSubmit()\" novalidate>\n      <div class=\"form-group\">\n        <label>\u0417\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A \u0441\u0446\u0435\u043D\u0430\u0440\u0438\u044F</label>\n        <input type=\"text\" formControlName=\"scenario_caption\" class=\"form-control\">\n      </div>\n      <div class=\"form-group\">\n        <label>\u0422\u0435\u043A\u0441\u0442 \u0441\u0446\u0435\u043D\u0430\u0440\u0438\u044F</label>\n        <text-editor formControlName=\"scenario_text\"></text-editor>\n      </div>\n      <details>\n       <summary>\u0414\u043E\u043F\u043E\u043B\u043D\u0438\u0442\u0435\u043B\u044C\u043D\u044B\u0435 \u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u044B</summary>\n        <br>\n        <div class=\"form-group row\">\n          <label class=\"control-label col-md-3 col-sm-3 col-xs-12\">\n            \u0420\u043E\u0434\u0438\u0442\u0435\u043B\u044C\u0441\u043A\u0438\u0439 \u044D\u043B\u0435\u043C\u0435\u043D\u0442\n          </label>\n          <div class=\"col-md-6 col-sm-6 col-xs-12\">\n            <select class=\"form-control col-md-7 col-xs-12\" formControlName=\"parent_id\">\n              <option [value]=\"''\">\u041D\u0435\u0442</option>\n              <option *ngFor=\"let scenario of scenarios\" [value]=\"scenario.id\">{{scenario.text}}</option>\n            </select>\n          </div>\n        </div>\n        <div class=\"form-group row\">\n          <label class=\"control-label col-md-3 col-sm-3 col-xs-12\">\n            \u0410\u0432\u0442\u043E\u0437\u0430\u043F\u0443\u0441\u043A \u0441\u0446\u0435\u043D\u0430\u0440\u0438\u044F\n          </label>\n          <div class=\"col-md-6 col-sm-6 col-xs-12\">\n            <select class=\"form-control col-md-7 col-xs-12\" formControlName=\"autorun\">\n              <option [value]=\"''\">\u041D\u0435\u0442</option>\n              <option *ngFor=\"let queue of queues\" [value]=\"queue.name\">{{queue.caption}}</option>\n            </select>\n          </div>\n        </div>\n      </details>\n      <div class=\"ln_solid\"></div>\n      <div class=\"form-group\">\n        <div class=\"col-md-9 col-sm-6 col-xs-12 col-md-offset-3\">\n          <a class=\"btn btn-primary\" routerLink=\"/scenarios/list\"><i class=\"fa fa-arrow-left\"></i> \u041E\u0442\u043C\u0435\u043D\u0438\u0442\u044C</a>\n          <button class=\"btn btn-primary\" type=\"reset\"><i class=\"fa fa-refresh\"></i> \u0421\u0431\u0440\u043E\u0441\u0438\u0442\u044C</button>\n          <button [disabled]=\"!form.valid\" type=\"submit\" class=\"btn btn-success\"><i class=\"fa fa-save\"></i> \u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C</button>\n        </div>\n      </div>\n    </form>\n  "
+    }),
+    __metadata("design:paramtypes", [forms_1.FormBuilder, http_service_1.HttpClient, locker_service_1.LockerService,
+        scenarios_service_1.ScenarioService, router_1.Router])
+], ScenarioCreateComponent);
+exports.ScenarioCreateComponent = ScenarioCreateComponent;
+
+},{"../../services/http.service":51,"../../services/locker.service":52,"./scenarios.service":21,"@angular/core":57,"@angular/forms":58,"@angular/router":62}],17:[function(require,module,exports){
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require("@angular/core");
+var forms_1 = require("@angular/forms");
+var http_service_1 = require("../../services/http.service");
+var router_1 = require("@angular/router");
+var locker_service_1 = require("../../services/locker.service");
+var notification_service_1 = require("../../services/notification.service");
+var scenarios_service_1 = require("./scenarios.service");
+var ScenarioEditComponent = (function () {
+    function ScenarioEditComponent(fb, http, route, locker, notifier, router, scenario) {
+        this.fb = fb;
+        this.http = http;
+        this.route = route;
+        this.locker = locker;
+        this.notifier = notifier;
+        this.router = router;
+        this.scenario = scenario;
+        this.queues = [];
+        this.scenarios = [];
+        this.loadData();
+    }
+    Object.defineProperty(ScenarioEditComponent.prototype, "scenario_data", {
+        set: function (value) {
+            this.form.setValue({
+                "scenario_caption": value.caption,
+                "scenario_text": value.text,
+                "parent_id": null === value.parent_id ? '' : value.parent_id,
+                "autorun": null === value.for_queue ? '' : value.for_queue,
+            });
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ScenarioEditComponent.prototype.loadData = function () {
+        var _this = this;
+        this.http.post('Asterisk.queue_list', { 'offset': 0, 'limit': 999 })
+            .subscribe(function (data) { return _this.queues = data.rows; });
+        this.http.post('Scenario.tree')
+            .subscribe(function (data) { return _this.scenarios = data; });
     };
-    return ScenarioComponent;
+    ScenarioEditComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.locker.lock();
+        setTimeout(function () { return _this.locker.unlock(); }, 1000);
+        this.route.params
+            .switchMap(function (params) { return _this.http.post('Scenario.get_data', { 'scenario_id': +params['id'] }); })
+            .subscribe(function (data) { return _this.scenario_data = data; });
+        this.form = this.fb.group({
+            "scenario_caption": ["", forms_1.Validators.required],
+            "scenario_text": [""],
+            "parent_id": [""],
+            "autorun": [""],
+        });
+    };
+    ScenarioEditComponent.prototype.onSubmit = function () {
+        var _this = this;
+        var post_data = {
+            "caption": this.form.value['scenario_caption'],
+            "text": this.form.value['scenario_text'],
+            "parent_id": '' === this.form.value['parent_id'] ? null : this.form.value['parent_id'],
+            "for_queue": this.form.value['autorun'],
+        };
+        var subscription = this.route.params
+            .switchMap(function (params) { return _this.http.post('Scenario.edit', { 'scenario_id': +params['id'],
+            'scenario_data': post_data }); })
+            .subscribe(function (data) {
+            _this.notifier.notifyInfo('Усешно сохранено', 'Выполнено');
+            subscription.unsubscribe();
+        });
+    };
+    ScenarioEditComponent.prototype.remove = function () {
+        var _this = this;
+        if (!confirm("Удалить этот сценарий и все вложенные в него?")) {
+            return;
+        }
+        var subscription = this.route.params
+            .switchMap(function (params) { return _this.http.post('Scenario.remove', { 'scenario_id': +params['id'] }); })
+            .subscribe(function (data) {
+            _this.router.navigate(['scenarios', 'list']);
+            _this.scenario.reload_tree();
+            subscription.unsubscribe();
+        });
+    };
+    return ScenarioEditComponent;
+}());
+ScenarioEditComponent = __decorate([
+    core_1.Component({
+        template: "\n    <form [formGroup]=\"form\" (submit)=\"onSubmit()\" novalidate>\n      <div class=\"form-group\">\n        <label>\u0417\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A \u0441\u0446\u0435\u043D\u0430\u0440\u0438\u044F</label>\n        <input type=\"text\" formControlName=\"scenario_caption\" class=\"form-control\">\n      </div>\n      <div class=\"form-group\">\n        <label>\u0422\u0435\u043A\u0441\u0442 \u0441\u0446\u0435\u043D\u0430\u0440\u0438\u044F</label>\n        <text-editor formControlName=\"scenario_text\"></text-editor>\n      </div>\n      <details>\n       <summary>\u0414\u043E\u043F\u043E\u043B\u043D\u0438\u0442\u0435\u043B\u044C\u043D\u044B\u0435 \u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u044B</summary>\n        <br>\n        <div class=\"form-group row\">\n          <label class=\"control-label col-md-3 col-sm-3 col-xs-12\">\n            \u0420\u043E\u0434\u0438\u0442\u0435\u043B\u044C\u0441\u043A\u0438\u0439 \u044D\u043B\u0435\u043C\u0435\u043D\u0442\n          </label>\n          <div class=\"col-md-6 col-sm-6 col-xs-12\">\n            <select class=\"form-control col-md-7 col-xs-12\" formControlName=\"parent_id\">\n              <option [value]=\"''\">\u041D\u0435\u0442</option>\n              <option *ngFor=\"let scenario of scenarios\" [value]=\"scenario.id\">{{scenario.text}}</option>\n            </select>\n          </div>\n        </div>\n        <div class=\"form-group row\">\n          <label class=\"control-label col-md-3 col-sm-3 col-xs-12\">\n            \u0410\u0432\u0442\u043E\u0437\u0430\u043F\u0443\u0441\u043A \u0441\u0446\u0435\u043D\u0430\u0440\u0438\u044F\n          </label>\n          <div class=\"col-md-6 col-sm-6 col-xs-12\">\n            <select class=\"form-control col-md-7 col-xs-12\" formControlName=\"autorun\">\n              <option [value]=\"''\">\u041D\u0435\u0442</option>\n              <option *ngFor=\"let queue of queues\" [value]=\"queue.name\">{{queue.caption}}</option>\n            </select>\n          </div>\n        </div>\n      </details>\n      <div class=\"ln_solid\"></div>\n      <div class=\"form-group\">\n        <div class=\"col-md-9 col-sm-6 col-xs-12 col-md-offset-3\">\n          <a class=\"btn btn-danger\" type=\"button\" (click)=\"remove()\"><i class=\"fa fa-trash\"></i> \u0423\u0434\u0430\u043B\u0438\u0442\u044C</a>\n          <button class=\"btn btn-primary\" type=\"reset\"><i class=\"fa fa-refresh\"></i> \u0421\u0431\u0440\u043E\u0441\u0438\u0442\u044C</button>\n          <button [disabled]=\"!form.valid\" type=\"submit\" class=\"btn btn-success\"><i class=\"fa fa-save\"></i> \u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C</button>\n        </div>\n      </div>\n    </form>\n  "
+    }),
+    __metadata("design:paramtypes", [forms_1.FormBuilder, http_service_1.HttpClient, router_1.ActivatedRoute,
+        locker_service_1.LockerService, notification_service_1.NotificationService,
+        router_1.Router, scenarios_service_1.ScenarioService])
+], ScenarioEditComponent);
+exports.ScenarioEditComponent = ScenarioEditComponent;
+
+},{"../../services/http.service":51,"../../services/locker.service":52,"../../services/notification.service":53,"./scenarios.service":21,"@angular/core":57,"@angular/forms":58,"@angular/router":62}],18:[function(require,module,exports){
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var core_1 = require("@angular/core");
+var ScenarioListComponent = (function () {
+    function ScenarioListComponent() {
+    }
+    return ScenarioListComponent;
+}());
+ScenarioListComponent = __decorate([
+    core_1.Component({
+        template: "\n    <div class=\"alert alert-info\" role=\"alert\">\n      \u0414\u043B\u044F \u043F\u043E\u043B\u0443\u0447\u0435\u043D\u0438\u044F \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u0438 \u043E \u0441\u0446\u0435\u043D\u0430\u0440\u0438\u0438 \u0432\u044B\u0437\u043E\u0432\u0430 \u0432\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0435\u0433\u043E \u0432 \u043B\u0435\u0432\u043E\u043C \u043C\u0435\u043D\u044E\n    </div>\n  "
+    })
+], ScenarioListComponent);
+exports.ScenarioListComponent = ScenarioListComponent;
+
+},{"@angular/core":57}],19:[function(require,module,exports){
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var scenarios_service_1 = require("./scenarios.service");
+var scenario_tree_component_1 = require("../scenario-tree.component");
+var ScenarioHomeComponent = (function () {
+    function ScenarioHomeComponent(router, scenario) {
+        var _this = this;
+        this.router = router;
+        this.scenario = scenario;
+        this.scenario.need_reload.subscribe(function () { return _this.tree.reload(); });
+    }
+    ScenarioHomeComponent.prototype.onChange = function (value) {
+        this.router.navigate(['scenarios', 'edit', value]);
+    };
+    return ScenarioHomeComponent;
 }());
 __decorate([
     core_1.ViewChild(scenario_tree_component_1.ScenarioTreeComponent),
     __metadata("design:type", scenario_tree_component_1.ScenarioTreeComponent)
-], ScenarioComponent.prototype, "tree", void 0);
-ScenarioComponent = __decorate([
+], ScenarioHomeComponent.prototype, "tree", void 0);
+ScenarioHomeComponent = __decorate([
     core_1.Component({
-        template: "\n    <div class=\"row\">\n      <div class=\"col-lg-3 col-md-4\">\n        <div class=\"x_panel\">\n          <div class=\"x_content\">\n            <scenario-tree\n              (select_change)=\"onChange($event)\">\n            </scenario-tree>\n            <div class=\"ln_solid\"></div>\n            <a href=\"javascript:void(0)\" class=\"btn btn-primary\" (click)=\"createNew()\">\n              <i class=\"fa fa-plus\"></i>\n            </a>\n          </div>\n        </div>\n      </div>\n      <div class=\"col-lg-9 col-md-8 col-sm-12 col-xs-12\">\n        <div class=\"x_panel\">\n          <div class=\"x_content\">\n            <form [formGroup]=\"form\" (submit)=\"onSubmit()\" novalidate>\n              <div class=\"form-group\">\n                <label>\u0417\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A \u0441\u0446\u0435\u043D\u0430\u0440\u0438\u044F</label>\n                <input type=\"text\" formControlName=\"scenario_caption\" class=\"form-control\">\n              </div>\n              <div class=\"form-group\">\n                <label>\u0422\u0435\u043A\u0441\u0442 \u0441\u0446\u0435\u043D\u0430\u0440\u0438\u044F</label>\n                <text-editor formControlName=\"scenario_text\"></text-editor>\n              </div>\n              {{form.value|json}}\n              <div class=\"ln_solid\"></div>\n              <div class=\"form-group\">\n                <div class=\"col-md-9 col-sm-6 col-xs-12 col-md-offset-3\">\n                  <a class=\"btn btn-primary\" type=\"button\"><i class=\"fa fa-arrow-left\"></i> \u041E\u0442\u043C\u0435\u043D\u0438\u0442\u044C</a>\n                  <button class=\"btn btn-primary\" type=\"reset\"><i class=\"fa fa-refresh\"></i> \u0421\u0431\u0440\u043E\u0441\u0438\u0442\u044C</button>\n                  <button [disabled]=\"!form.valid\" type=\"submit\" class=\"btn btn-success\"><i class=\"fa fa-save\"></i> \u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C</button>\n                </div>\n              </div>\n            </form>\n          </div>\n        </div>\n      </div>\n    </div>\n  "
+        template: "\n   <div class=\"row\">\n      <div class=\"col-sm-4 col-md-4 col-sm-12 col-xs-12\">\n        <div class=\"x_panel\">\n          <div class=\"x_content\">\n            <scenario-tree\n              (select_change)=\"onChange($event)\">\n            </scenario-tree>\n            <div class=\"ln_solid\"></div>\n            <a routerLink=\"/scenarios/create\" class=\"btn btn-sm btn-primary\">\n              <i class=\"fa fa-plus\"></i> \u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0441\u0446\u0435\u043D\u0430\u0440\u0438\u0439\n            </a>\n          </div>\n        </div>\n      </div>\n      <div class=\"col-sm-8 col-md-8 col-sm-12 col-xs-12\">\n        <div class=\"x_panel\">\n          <div class=\"x_content\">\n            <router-outlet></router-outlet>\n          </div>\n        </div>\n      </div>\n   </div>\n  "
     }),
-    __metadata("design:paramtypes", [forms_1.FormBuilder])
-], ScenarioComponent);
-exports.ScenarioComponent = ScenarioComponent;
+    __metadata("design:paramtypes", [router_1.Router, scenarios_service_1.ScenarioService])
+], ScenarioHomeComponent);
+exports.ScenarioHomeComponent = ScenarioHomeComponent;
 
-},{"./scenario-tree.component":14,"@angular/core":51,"@angular/forms":52}],16:[function(require,module,exports){
+},{"../scenario-tree.component":15,"./scenarios.service":21,"@angular/core":57,"@angular/router":62}],20:[function(require,module,exports){
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var auth_guard_1 = require("../../guards/auth.guard");
+var scenarios_component_1 = require("./scenarios.component");
+var scenarios_list_component_1 = require("./scenarios-list.component");
+var scenario_tree_component_1 = require("../scenario-tree.component");
+var template_directive_1 = require("../../gentella-template/template.directive");
+var scenarios_create_component_1 = require("./scenarios-create.component");
+var forms_1 = require("@angular/forms");
+var common_1 = require("@angular/common");
+var scenarios_edit_component_1 = require("./scenarios-edit.component");
+var scenarios_service_1 = require("./scenarios.service");
+var ScenarioRouter = [
+    {
+        path: '',
+        component: scenarios_component_1.ScenarioHomeComponent,
+        canActivate: [auth_guard_1.AuthGuard],
+        children: [
+            { path: 'list', component: scenarios_list_component_1.ScenarioListComponent, canActivate: [auth_guard_1.AuthGuard] },
+            { path: 'create', component: scenarios_create_component_1.ScenarioCreateComponent, canActivate: [auth_guard_1.AuthGuard] },
+            { path: 'edit/:id', component: scenarios_edit_component_1.ScenarioEditComponent, canActivate: [auth_guard_1.AuthGuard] }
+        ]
+    }
+];
+var ScenariosModule = (function () {
+    function ScenariosModule() {
+    }
+    return ScenariosModule;
+}());
+ScenariosModule = __decorate([
+    core_1.NgModule({
+        imports: [
+            forms_1.ReactiveFormsModule,
+            common_1.CommonModule,
+            router_1.RouterModule.forChild(ScenarioRouter)
+        ],
+        declarations: [
+            scenarios_component_1.ScenarioHomeComponent,
+            scenarios_list_component_1.ScenarioListComponent,
+            scenario_tree_component_1.ScenarioTreeComponent,
+            scenarios_create_component_1.ScenarioCreateComponent,
+            scenarios_edit_component_1.ScenarioEditComponent,
+            template_directive_1.EditorComponent,
+            template_directive_1.TinyMceDirective,
+            template_directive_1.TreeViewDirective,
+        ],
+        providers: [
+            scenarios_service_1.ScenarioService,
+        ],
+        exports: [
+            scenarios_component_1.ScenarioHomeComponent,
+        ]
+    })
+], ScenariosModule);
+exports.ScenariosModule = ScenariosModule;
+
+},{"../../gentella-template/template.directive":27,"../../guards/auth.guard":29,"../scenario-tree.component":15,"./scenarios-create.component":16,"./scenarios-edit.component":17,"./scenarios-list.component":18,"./scenarios.component":19,"./scenarios.service":21,"@angular/common":55,"@angular/core":57,"@angular/forms":58,"@angular/router":62}],21:[function(require,module,exports){
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var core_1 = require("@angular/core");
+var ScenarioService = (function () {
+    function ScenarioService() {
+        this.need_reload = new core_1.EventEmitter();
+    }
+    ScenarioService.prototype.reload_tree = function () {
+        this.need_reload.emit(true);
+    };
+    return ScenarioService;
+}());
+ScenarioService = __decorate([
+    core_1.Injectable()
+], ScenarioService);
+exports.ScenarioService = ScenarioService;
+
+},{"@angular/core":57}],22:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1014,9 +1343,13 @@ var UsersCreateComponent = (function () {
         this.loadContextList();
         this.userForm = this.fb.group({
             "stat_fio": [''],
-            "defaultuser": ['', forms_1.Validators.required],
+            "defaultuser": ['', [forms_1.Validators.required, forms_1.Validators.pattern('[0-9]{3}')]],
             "password": ['', forms_1.Validators.required],
-            "context": ['']
+            "context": [''],
+            "account_login": [''],
+            "account_password": [''],
+            "has_redirect": [false],
+            "redirect_phone": [''],
         });
     };
     UsersCreateComponent.prototype.loadContextList = function () {
@@ -1033,6 +1366,11 @@ var UsersCreateComponent = (function () {
             "user_data": {
                 "stat_fio": this.userForm.value['stat_fio'],
                 "context": this.userForm.value['context'],
+                "stat_has_redirect": !!(this.userForm.value['has_redirect'] && this.userForm.value['redirect_phone'].length),
+                "stat_redirect_phone": this.userForm.value['has_redirect'] && this.userForm.value['redirect_phone'].length ?
+                    this.userForm.value['redirect_phone'] : null,
+                "account_login": this.userForm.value['account_login'],
+                "account_password": this.userForm.value['account_password'],
             }
         };
         this.http.post('Asterisk.user_add', post_data)
@@ -1060,7 +1398,7 @@ UsersCreateComponent = __decorate([
 ], UsersCreateComponent);
 exports.UsersCreateComponent = UsersCreateComponent;
 
-},{"../services/http.service":45,"@angular/core":51,"@angular/forms":52,"@angular/router":56}],17:[function(require,module,exports){
+},{"../services/http.service":51,"@angular/core":57,"@angular/forms":58,"@angular/router":62}],23:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1090,9 +1428,13 @@ var UsersEditComponent = (function () {
         var _this = this;
         this.userForm = this.fb.group({
             "stat_fio": [''],
-            "defaultuser": ['', forms_1.Validators.required],
+            "defaultuser": ['', [forms_1.Validators.required, forms_1.Validators.pattern('[0-9]{3}')]],
             "password": [''],
-            "context": ['']
+            "context": [''],
+            "account_login": [''],
+            "account_password": [''],
+            "has_redirect": [false],
+            "redirect_phone": [''],
         });
         this.locker.lock();
         var user_id = this.activate_router.snapshot.params["name"];
@@ -1100,9 +1442,14 @@ var UsersEditComponent = (function () {
             .subscribe(function (response) {
             setTimeout(function () { _this.locker.unlock(); }, 1000);
             _this.contexts = response.contexts;
-            _this.userForm.patchValue({ "context": response.context });
-            _this.userForm.patchValue({ "defaultuser": response.name });
-            _this.userForm.patchValue({ "stat_fio": response.stat_fio });
+            _this.userForm.patchValue({
+                "context": response.context,
+                "defaultuser": response.name,
+                "stat_fio": response.stat_fio,
+                "account_login": response.account_login,
+                "has_redirect": response.has_redirect,
+                "redirect_phone": response.redirect_phone,
+            });
         });
     };
     UsersEditComponent.prototype.onSubmit = function () {
@@ -1115,6 +1462,11 @@ var UsersEditComponent = (function () {
             "user_data": {
                 "stat_fio": this.userForm.value['stat_fio'],
                 "context": this.userForm.value['context'],
+                "stat_has_redirect": !!(this.userForm.value['has_redirect'] && this.userForm.value['redirect_phone'].length),
+                "stat_redirect_phone": this.userForm.value['has_redirect'] && this.userForm.value['redirect_phone'].length ?
+                    this.userForm.value['redirect_phone'] : null,
+                "account_login": this.userForm.value['account_login'],
+                "account_password": this.userForm.value['account_password'],
             }
         };
         this.http.post('Asterisk.user_edit', post_data)
@@ -1139,7 +1491,7 @@ UsersEditComponent = __decorate([
 ], UsersEditComponent);
 exports.UsersEditComponent = UsersEditComponent;
 
-},{"../services/http.service":45,"../services/locker.service":46,"@angular/core":51,"@angular/forms":52,"@angular/router":56}],18:[function(require,module,exports){
+},{"../services/http.service":51,"../services/locker.service":52,"@angular/core":57,"@angular/forms":58,"@angular/router":62}],24:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1202,7 +1554,7 @@ UsersListComponent = __decorate([
 ], UsersListComponent);
 exports.UsersListComponent = UsersListComponent;
 
-},{"../modules/@Datatable-exten/datatable-users.component":30,"../services/http.service":45,"@angular/core":51}],19:[function(require,module,exports){
+},{"../modules/@Datatable-exten/datatable-users.component":36,"../services/http.service":51,"@angular/core":57}],25:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1239,7 +1591,7 @@ LockerComponent = __decorate([
 ], LockerComponent);
 exports.LockerComponent = LockerComponent;
 
-},{"../services/locker.service":46,"@angular/core":51}],20:[function(require,module,exports){
+},{"../services/locker.service":52,"@angular/core":57}],26:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1272,13 +1624,13 @@ var SidebarTemplateComponent = (function () {
 SidebarTemplateComponent = __decorate([
     core_1.Component({
         selector: "app-sidebar",
-        template: "\n    <div class=\"col-md-3 left_col\" *ngIf=\"modules && !user.is_anonymous\">\n      <div class=\"left_col scroll-view\">\n        <div class=\"navbar nav_title\" style=\"border: 0;\">\n          <a href=\"javascript:void(0)\" class=\"site_title\">\n            <i class=\"fa fa-asterisk\"></i> <span>Asterisk.Web</span>\n          </a>\n        </div>\n        <div class=\"clearfix\"></div>\n  \n        <br />\n        <div id=\"sidebar-menu\" class=\"main_menu_side hidden-print main_menu\">\n          <div class=\"menu_section\">\n            <h3>\u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0435</h3>\n            <ul class=\"nav side-menu\">\n              <li routerLinkActive=\"active\">\n                <a routerLink=\"\"><i class=\"fa fa-home\"></i> \u0413\u043B\u0430\u0432\u043D\u0430\u044F </a>\n              </li>\n              <li routerLinkActive=\"active\" *ngIf=\"modules && modules.users\">\n                <a routerLink=\"/users\"><i class=\"fa fa-user\"></i> \u0421\u043E\u0442\u0440\u0443\u0434\u043D\u0438\u043A\u0438 </a>\n              </li>\n              <li routerLinkActive=\"active\" *ngIf=\"modules && modules.departments\">\n                <a routerLink=\"/queues\"><i class=\"fa fa-users\"></i> \u041E\u0442\u0434\u0435\u043B\u044B </a>\n              </li>\n              <li routerLinkActive=\"active\" *ngIf=\"modules && modules.phones\">\n                <a routerLink=\"/phones\"><i class=\"fa fa-phone-square\"></i> \u041D\u043E\u043C\u0435\u0440\u0430 </a>\n              </li>\n              <li routerLinkActive=\"active\" *ngIf=\"modules && modules.phones\">\n                <a routerLink=\"/scenarios\"><i class=\"fa fa-pencil-square\"></i> \u0421\u0446\u0435\u043D\u0430\u0440\u0438\u0438 </a>\n              </li>\n              <li routerLinkActive=\"active\" *ngIf=\"modules && modules.helpdesk\">\n                <a routerLink=\"/bugreport\"><i class=\"fa fa-bug\"></i> \u0421\u043E\u043E\u0431\u0449\u0438\u0442\u044C \u043E \u0441\u0431\u043E\u0435 </a>\n              </li>\n            </ul>\n          </div>\n    \n        </div>\n        \n      </div>\n    </div>\n  "
+        template: "\n    <div class=\"col-md-3 left_col\" *ngIf=\"modules && !user.is_anonymous\">\n      <div class=\"left_col scroll-view\">\n        <div class=\"navbar nav_title\" style=\"border: 0;\">\n          <a href=\"javascript:void(0)\" class=\"site_title\">\n            <i class=\"fa fa-asterisk\"></i> <span>Asterisk.Web</span>\n          </a>\n        </div>\n        <div class=\"clearfix\"></div>\n  \n        <br />\n        <div id=\"sidebar-menu\" class=\"main_menu_side hidden-print main_menu\">\n          <div class=\"menu_section\">\n            <h3>\u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0435</h3>\n            <ul class=\"nav side-menu\">\n              <li routerLinkActive=\"active\">\n                <a routerLink=\"/home\"><i class=\"fa fa-home\"></i> \u0413\u043B\u0430\u0432\u043D\u0430\u044F </a>\n              </li>\n              <li routerLinkActive=\"active\" *ngIf=\"modules && modules.users\">\n                <a routerLink=\"/users\"><i class=\"fa fa-user\"></i> \u0421\u043E\u0442\u0440\u0443\u0434\u043D\u0438\u043A\u0438 </a>\n              </li>\n              <li routerLinkActive=\"active\" *ngIf=\"modules && modules.departments\">\n                <a routerLink=\"/queues\"><i class=\"fa fa-users\"></i> \u041E\u0442\u0434\u0435\u043B\u044B </a>\n              </li>\n              <li routerLinkActive=\"active\" *ngIf=\"modules && modules.phones\">\n                <a routerLink=\"/phones\"><i class=\"fa fa-phone-square\"></i> \u041D\u043E\u043C\u0435\u0440\u0430 </a>\n              </li>\n              <li routerLinkActive=\"active\" *ngIf=\"modules && modules.phones\">\n                <a routerLink=\"/scenarios/list\"><i class=\"fa fa-pencil-square\"></i> \u0421\u0446\u0435\u043D\u0430\u0440\u0438\u0438 </a>\n              </li>\n              <li routerLinkActive=\"active\" *ngIf=\"modules && modules.helpdesk\">\n                <a routerLink=\"/bugreport\"><i class=\"fa fa-bug\"></i> \u0421\u043E\u043E\u0431\u0449\u0438\u0442\u044C \u043E \u0441\u0431\u043E\u0435 </a>\n              </li>\n            </ul>\n          </div>\n    \n        </div>\n        \n      </div>\n    </div>\n  "
     }),
     __metadata("design:paramtypes", [configuration_service_1.ConfigService, locker_service_1.LockerService, authenticate_service_1.AuthenticateService])
 ], SidebarTemplateComponent);
 exports.SidebarTemplateComponent = SidebarTemplateComponent;
 
-},{"../services/authenticate.service":42,"../services/configuration.service":44,"../services/locker.service":46,"@angular/core":51}],21:[function(require,module,exports){
+},{"../services/authenticate.service":48,"../services/configuration.service":50,"../services/locker.service":52,"@angular/core":57}],27:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1355,6 +1707,28 @@ DropdownToggleDirective = __decorate([
     __metadata("design:paramtypes", [core_1.ElementRef, core_1.Renderer])
 ], DropdownToggleDirective);
 exports.DropdownToggleDirective = DropdownToggleDirective;
+var ClickToCallDirective = (function () {
+    function ClickToCallDirective(elementRef) {
+        this.elementRef = elementRef;
+    }
+    ClickToCallDirective.prototype.click = function (event) {
+        alert('111');
+    };
+    return ClickToCallDirective;
+}());
+__decorate([
+    core_1.HostListener('click', ['$event']),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], ClickToCallDirective.prototype, "click", null);
+ClickToCallDirective = __decorate([
+    core_1.Directive({
+        selector: '[click-to-call]'
+    }),
+    __metadata("design:paramtypes", [core_1.ElementRef])
+], ClickToCallDirective);
+exports.ClickToCallDirective = ClickToCallDirective;
 var DatepickerDirective = (function () {
     function DatepickerDirective(elementRef) {
         this.elementRef = elementRef;
@@ -1430,22 +1804,47 @@ exports.DatepickerComponent = DatepickerComponent;
 var TinyMceDirective = (function () {
     function TinyMceDirective(elementRef) {
         this.elementRef = elementRef;
+        this.editor = null;
+        this.initialized = false;
         this.change_value = new core_1.EventEmitter();
     }
+    Object.defineProperty(TinyMceDirective.prototype, "current_value", {
+        set: function (value) {
+            if (this.editor && !this.initialized) {
+                try {
+                    this.editor.tinymce().setContent(value);
+                    this.initialized = true;
+                }
+                catch (e) {
+                    console.log("TinyMCE err detected");
+                }
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
     TinyMceDirective.prototype.ngAfterViewInit = function () {
         var _this = this;
-        jQuery(this.elementRef.nativeElement).wysihtml5({
-            locale: "ru-RU",
-            toolbar: {
-                blockquote: false
-            },
-            events: {
-                blur: function ($target) { return _this.change_value.next(jQuery(_this.elementRef.nativeElement).val()); }
+        this.editor = jQuery(this.elementRef.nativeElement).tinymce({
+            theme: "modern",
+            plugins: 'spn_callcentre',
+            allow_script_urls: true,
+            extended_valid_elements: "div[*],i[*],a[*]",
+            setup: function (editor) {
+                editor.on("change", function (e) { return _this.change_value
+                    .next(jQuery(_this.elementRef.nativeElement).tinymce().getContent()); });
+                editor.on("KeyUp", function (e) { return _this.change_value
+                    .next(jQuery(_this.elementRef.nativeElement).tinymce().getContent()); });
             }
         });
     };
     return TinyMceDirective;
 }());
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [Object])
+], TinyMceDirective.prototype, "current_value", null);
 __decorate([
     core_1.Output(),
     __metadata("design:type", core_1.EventEmitter)
@@ -1459,6 +1858,7 @@ TinyMceDirective = __decorate([
 exports.TinyMceDirective = TinyMceDirective;
 var EditorComponent = EditorComponent_1 = (function () {
     function EditorComponent() {
+        this._current_value = '';
         this.propagateChange = function (_) { };
     }
     Object.defineProperty(EditorComponent.prototype, "current_value", {
@@ -1487,7 +1887,7 @@ var EditorComponent = EditorComponent_1 = (function () {
 EditorComponent = EditorComponent_1 = __decorate([
     core_1.Component({
         selector: "text-editor",
-        template: "\n    <textarea wysiwyg (change_value)=\"onChange($event)\"></textarea>\n  ",
+        template: "\n    <textarea wysiwyg (change_value)=\"onChange($event)\" [current_value]=\"current_value\">\n      {{current_value}}</textarea>\n  ",
         providers: [
             {
                 provide: forms_1.NG_VALUE_ACCESSOR,
@@ -1506,7 +1906,12 @@ var TreeViewDirective = (function () {
         this.select_change = new core_1.EventEmitter();
     }
     TreeViewDirective.prototype.reload = function () {
-        alert('reload');
+        var _this = this;
+        this.http.post(this.api_method)
+            .subscribe(function (response) {
+            jQuery(_this.elementRef.nativeElement).jstree(true).settings.core.data = response;
+            jQuery(_this.elementRef.nativeElement).jstree(true).refresh();
+        });
     };
     TreeViewDirective.prototype.ngAfterViewInit = function () {
         var _this = this;
@@ -1539,7 +1944,7 @@ TreeViewDirective = __decorate([
 exports.TreeViewDirective = TreeViewDirective;
 var DatepickerComponent_1, EditorComponent_1;
 
-},{"../services/http.service":45,"@angular/core":51,"@angular/forms":52}],22:[function(require,module,exports){
+},{"../services/http.service":51,"@angular/core":57,"@angular/forms":58}],28:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1621,7 +2026,7 @@ TopNavigationComponent = __decorate([
 ], TopNavigationComponent);
 exports.TopNavigationComponent = TopNavigationComponent;
 
-},{"../models/notificaction":25,"../services/authenticate.service":42,"../services/callcentre.service":43,"../services/configuration.service":44,"../services/http.service":45,"../services/locker.service":46,"../services/notification.service":47,"@angular/core":51,"@angular/http":53,"@angular/router":56}],23:[function(require,module,exports){
+},{"../models/notificaction":31,"../services/authenticate.service":48,"../services/callcentre.service":49,"../services/configuration.service":50,"../services/http.service":51,"../services/locker.service":52,"../services/notification.service":53,"@angular/core":57,"@angular/http":59,"@angular/router":62}],29:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1655,7 +2060,7 @@ AuthGuard = __decorate([
 ], AuthGuard);
 exports.AuthGuard = AuthGuard;
 
-},{"../services/authenticate.service":42,"@angular/core":51,"@angular/router":56}],24:[function(require,module,exports){
+},{"../services/authenticate.service":48,"@angular/core":57,"@angular/router":62}],30:[function(require,module,exports){
 "use strict";
 require("zone.js");
 require("reflect-metadata");
@@ -1669,7 +2074,7 @@ if (!/localhost/.test(document.location.host)) {
 }
 platform.bootstrapModule(app_module_1.AppModule);
 
-},{"./app.module":2,"@angular/core":51,"@angular/platform-browser-dynamic":54,"reflect-metadata":57,"rxjs/Rx":66,"zone.js":398}],25:[function(require,module,exports){
+},{"./app.module":2,"@angular/core":57,"@angular/platform-browser-dynamic":60,"reflect-metadata":63,"rxjs/Rx":72,"zone.js":404}],31:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -1777,7 +2182,7 @@ var NotifyQueue = (function () {
 }());
 exports.NotifyQueue = NotifyQueue;
 
-},{}],26:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -1812,7 +2217,7 @@ var AnonymousUser = (function (_super) {
 }(User));
 exports.AnonymousUser = AnonymousUser;
 
-},{}],27:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1886,7 +2291,7 @@ CallListComponent = __decorate([
 ], CallListComponent);
 exports.CallListComponent = CallListComponent;
 
-},{"../../validators/date.validator":48,"./datatable-calllist.component":28,"@angular/core":51,"@angular/forms":52}],28:[function(require,module,exports){
+},{"../../validators/date.validator":54,"./datatable-calllist.component":34,"@angular/core":57,"@angular/forms":58}],34:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -1945,7 +2350,7 @@ DatatableCalllistComponent = __decorate([
 ], DatatableCalllistComponent);
 exports.DatatableCalllistComponent = DatatableCalllistComponent;
 
-},{"../../services/http.service":45,"../@Datatable/components/datatable.component":35,"@angular/core":51}],29:[function(require,module,exports){
+},{"../../services/http.service":51,"../@Datatable/components/datatable.component":41,"@angular/core":57}],35:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -1992,7 +2397,7 @@ PhonesMaterialTableComponent = __decorate([
 ], PhonesMaterialTableComponent);
 exports.PhonesMaterialTableComponent = PhonesMaterialTableComponent;
 
-},{"../../services/http.service":45,"../@Datatable/components/datatable.component":35,"@angular/core":51}],30:[function(require,module,exports){
+},{"../../services/http.service":51,"../@Datatable/components/datatable.component":41,"@angular/core":57}],36:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -2039,7 +2444,7 @@ UsersMaterialTableComponent = __decorate([
 ], UsersMaterialTableComponent);
 exports.UsersMaterialTableComponent = UsersMaterialTableComponent;
 
-},{"../../services/http.service":45,"../@Datatable/components/datatable.component":35,"@angular/core":51}],31:[function(require,module,exports){
+},{"../../services/http.service":51,"../@Datatable/components/datatable.component":41,"@angular/core":57}],37:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2099,7 +2504,7 @@ MaterialTableBodyComponent = __decorate([
 ], MaterialTableBodyComponent);
 exports.MaterialTableBodyComponent = MaterialTableBodyComponent;
 
-},{"@angular/core":51}],32:[function(require,module,exports){
+},{"@angular/core":57}],38:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2154,7 +2559,7 @@ MaterialTableHeadComponent = __decorate([
 ], MaterialTableHeadComponent);
 exports.MaterialTableHeadComponent = MaterialTableHeadComponent;
 
-},{"@angular/core":51}],33:[function(require,module,exports){
+},{"@angular/core":57}],39:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2197,7 +2602,7 @@ MaterialTableHeadlineComponent = __decorate([
 ], MaterialTableHeadlineComponent);
 exports.MaterialTableHeadlineComponent = MaterialTableHeadlineComponent;
 
-},{"@angular/core":51}],34:[function(require,module,exports){
+},{"@angular/core":57}],40:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2283,7 +2688,7 @@ MaterialTablePaginationComponent = __decorate([
 ], MaterialTablePaginationComponent);
 exports.MaterialTablePaginationComponent = MaterialTablePaginationComponent;
 
-},{"@angular/core":51,"rxjs/Subject":68}],35:[function(require,module,exports){
+},{"@angular/core":57,"rxjs/Subject":74}],41:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2393,7 +2798,7 @@ MaterialTableComponent = __decorate([
 ], MaterialTableComponent);
 exports.MaterialTableComponent = MaterialTableComponent;
 
-},{"../../../services/http.service":45,"./datatable-body.component":31,"./datatable-head.component":32,"./datatable-headline.component":33,"./datatable-pagination.component":34,"@angular/core":51}],36:[function(require,module,exports){
+},{"../../../services/http.service":51,"./datatable-body.component":37,"./datatable-head.component":38,"./datatable-headline.component":39,"./datatable-pagination.component":40,"@angular/core":57}],42:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2444,7 +2849,7 @@ MaterialTablesModule = __decorate([
 ], MaterialTablesModule);
 exports.MaterialTablesModule = MaterialTablesModule;
 
-},{"../@Datatable-exten/datatable-phones.component":29,"../@Datatable-exten/datatable-users.component":30,"./components/datatable-body.component":31,"./components/datatable-head.component":32,"./components/datatable-headline.component":33,"./components/datatable-pagination.component":34,"./components/datatable.component":35,"@angular/common":49,"@angular/core":51,"@angular/forms":52}],37:[function(require,module,exports){
+},{"../@Datatable-exten/datatable-phones.component":35,"../@Datatable-exten/datatable-users.component":36,"./components/datatable-body.component":37,"./components/datatable-head.component":38,"./components/datatable-headline.component":39,"./components/datatable-pagination.component":40,"./components/datatable.component":41,"@angular/common":55,"@angular/core":57,"@angular/forms":58}],43:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2466,18 +2871,35 @@ var DialComponent = (function () {
         this.callcentre.calls_emmiter.subscribe(function (calls) { return _this.calls = calls; });
     }
     DialComponent.prototype.parking = function () {
-        var cmd = JSON.stringify({ "Action": "Park", "Channel": this.call.channel1 });
-        this.callcentre.send_message(cmd);
+        var channel = this.call.type == "outgoing" ? this.call.channel2 : this.call.channel1;
+        this.callcentre.parking(channel);
         this.parked = true;
     };
     DialComponent.prototype.unparking = function () {
-        var cmd = JSON.stringify({ "Action": "Redirect", "Channel": this.call.channel1,
-            "Exten": "101", "Context": "blank", "Priority": "1" });
-        this.callcentre.send_message(cmd);
+        var channel = this.call.type == "outgoing" ? this.call.channel2 : this.call.channel1;
+        this.callcentre.unparking(channel);
         this.parked = false;
     };
     DialComponent.prototype.connect = function (dial) {
-        var channel1 = this.call.type == "outgoing" ? this.call.channel2 : this.call.channel1, channel2 = dial.type == "outgoing" ? dial.channel2 : dial.channel1;
+        var channel1, channel2;
+        if ((this.call.type == "outgoing" || this.call.type == "originate") && this.call.last_channel) {
+            channel1 = this.call.last_channel;
+        }
+        else if (this.call.type == "outgoing" || this.call.type == "originate") {
+            channel1 = this.call.channel2;
+        }
+        else {
+            channel1 = this.call.channel1;
+        }
+        if ((dial.type == "outgoing" || dial.type == "outgoing") && dial.last_channel) {
+            channel2 = dial.last_channel;
+        }
+        else if (dial.type == "outgoing" || dial.type == "originate") {
+            channel2 = dial.channel2;
+        }
+        else {
+            channel2 = dial.channel1;
+        }
         var cmd = JSON.stringify({ "Action": "Bridge", "Channel1": channel1, "Channel2": channel2, "Tone": "yes",
             "Priority": "1" });
         this.callcentre.send_message(cmd);
@@ -2492,13 +2914,13 @@ __decorate([
 DialComponent = __decorate([
     core_1.Component({
         selector: "call-component",
-        template: "\n    <div class=\"row\">\n      <div class=\"col-sm-6\">\n        <a *ngIf=\"!parked\" href=\"javascript:void(0)\" (click)=\"parking()\"\n           class=\"btn btn-sm btn-primary btn-block\">\n          \u041F\u0430\u0440\u043A\u043E\u0432\u043A\u0430</a>\n        <a *ngIf=\"parked\" href=\"javascript:void(0)\" (click)=\"unparking()\"\n           class=\"btn btn-sm btn-primary btn-block\">\n          \u0421\u043D\u044F\u0442\u044C \u0441 \u043F\u0430\u0440\u043A\u043E\u0432\u043A\u0438</a>\n      </div>\n      <div class=\"col-sm-6\">\n        <div class=\"btn-group btn-block\">\n          <button type=\"button\" class=\"btn btn-block btn-sm btn-default dropdown-toggle\"\n                  toggle-dropdown=\"true\">\n            \u0421\u043E\u0435\u0434\u0438\u043D\u0438\u0442\u044C \u0441 <span class=\"caret\"></span>\n          </button>\n          <ul class=\"dropdown-menu\">\n            <li *ngFor=\"let loc_dial of calls | calls_filter: call.linkedid\">\n              <a href=\"javascript:void(0)\" (click)=\"connect(loc_dial)\">{{loc_dial.calleridnum}}</a></li>\n          </ul>\n        </div>\n      </div>\n    </div>\n    <br>\n    {{call|json}}\n    <hr>\n    <p>\u0421\u0442\u0430\u0442\u0443\u0441 \u0432\u044B\u0437\u043E\u0432\u0430: <strong [ngClass]=\"{'text-success': call.active_call, \n                                          'text-muted': !call.active_call}\">\n                          \u0412\u044B\u0437\u043E\u0432 {{call.active_call ? '\u0430\u043A\u0442\u0438\u0432\u0435\u043D' : '\u043D\u0435\u0430\u043A\u0442\u0438\u0432\u0435\u043D'}}</strong></p>\n  "
+        template: "\n    <div class=\"row\">\n      <div class=\"col-sm-6\">\n        <a *ngIf=\"!parked\" href=\"javascript:void(0)\" (click)=\"parking()\"\n           class=\"btn btn-sm btn-primary btn-block\">\n          \u041F\u0430\u0440\u043A\u043E\u0432\u043A\u0430</a>\n        <a *ngIf=\"parked\" href=\"javascript:void(0)\" (click)=\"unparking()\"\n           class=\"btn btn-sm btn-primary btn-block\">\n          \u0421\u043D\u044F\u0442\u044C \u0441 \u043F\u0430\u0440\u043A\u043E\u0432\u043A\u0438</a>\n      </div>\n      <div class=\"col-sm-6\">\n        <div class=\"btn-group btn-block\">\n          <button type=\"button\" class=\"btn btn-block btn-sm btn-default dropdown-toggle\"\n                  toggle-dropdown=\"true\">\n            \u0421\u043E\u0435\u0434\u0438\u043D\u0438\u0442\u044C \u0441 <span class=\"caret\"></span>\n          </button>\n          <ul class=\"dropdown-menu\">\n            <li *ngFor=\"let loc_dial of calls | calls_filter: call.linkedid\">\n              <a href=\"javascript:void(0)\" (click)=\"connect(loc_dial)\">{{loc_dial.calleridnum}}</a></li>\n          </ul>\n        </div>\n      </div>\n    </div>\n    <br>\n    <details>\n      <summary>\u041E\u0442\u043B\u0430\u0434\u043A\u0430</summary>\n      {{call|json}}\n    </details>\n    <hr>\n    <p>\u0421\u0442\u0430\u0442\u0443\u0441 \u0432\u044B\u0437\u043E\u0432\u0430: <strong [ngClass]=\"{'text-success': call.active_call, \n                                          'text-muted': !call.active_call}\">\n                          \u0412\u044B\u0437\u043E\u0432 {{call.active_call ? '\u0430\u043A\u0442\u0438\u0432\u0435\u043D' : '\u043D\u0435\u0430\u043A\u0442\u0438\u0432\u0435\u043D'}}</strong></p>\n  "
     }),
     __metadata("design:paramtypes", [callcentre_service_1.CallcentreService])
 ], DialComponent);
 exports.DialComponent = DialComponent;
 
-},{"../../services/callcentre.service":43,"@angular/core":51}],38:[function(require,module,exports){
+},{"../../services/callcentre.service":49,"@angular/core":57}],44:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2539,7 +2961,7 @@ WidgetComponent = __decorate([
 ], WidgetComponent);
 exports.WidgetComponent = WidgetComponent;
 
-},{"@angular/core":51}],39:[function(require,module,exports){
+},{"@angular/core":57}],45:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2599,7 +3021,7 @@ WindowModule = __decorate([
 ], WindowModule);
 exports.WindowModule = WindowModule;
 
-},{"@angular/core":51}],40:[function(require,module,exports){
+},{"@angular/core":57}],46:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2680,7 +3102,7 @@ WindowDraggableDirective = __decorate([
 ], WindowDraggableDirective);
 exports.WindowDraggableDirective = WindowDraggableDirective;
 
-},{"@angular/core":51}],41:[function(require,module,exports){
+},{"@angular/core":57}],47:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2707,7 +3129,7 @@ CallsPipe = __decorate([
 ], CallsPipe);
 exports.CallsPipe = CallsPipe;
 
-},{"@angular/core":51}],42:[function(require,module,exports){
+},{"@angular/core":57}],48:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2780,7 +3202,7 @@ AuthenticateService = AuthenticateService_1 = __decorate([
 exports.AuthenticateService = AuthenticateService;
 var AuthenticateService_1;
 
-},{"../models/user":26,"@angular/core":51}],43:[function(require,module,exports){
+},{"../models/user":32,"@angular/core":57}],49:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2795,14 +3217,17 @@ var core_1 = require("@angular/core");
 var Rx_1 = require("rxjs/Rx");
 var authenticate_service_1 = require("./authenticate.service");
 var configuration_service_1 = require("./configuration.service");
+var http_service_1 = require("./http.service");
 var CallcentreService = (function () {
-    function CallcentreService(auth, conf) {
+    function CallcentreService(auth, conf, http) {
         var _this = this;
         this.auth = auth;
         this.conf = conf;
+        this.http = http;
         this.my_phone = null;
         this.calls = [];
         this._state = 0;
+        this.scenario_emitter = new core_1.EventEmitter();
         this._url = "";
         this._url_pattern = "?phone=";
         this.calls_emmiter = new core_1.EventEmitter();
@@ -2826,6 +3251,13 @@ var CallcentreService = (function () {
         set: function (value) {
             this._state = value;
             this.state_emitter.emit(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(CallcentreService.prototype, "scenario", {
+        set: function (value) {
+            this.scenario_emitter.emit(value);
         },
         enumerable: true,
         configurable: true
@@ -2859,6 +3291,7 @@ var CallcentreService = (function () {
         });
     };
     CallcentreService.prototype.deploy_data = function (data) {
+        var _this = this;
         if (data.action_type == "dial_begin" &&
             data.action_type == "agent_connect" &&
             data.from_phone != this.my_phone &&
@@ -2874,12 +3307,15 @@ var CallcentreService = (function () {
             }
             case "dial_begin": {
                 var call = this.calls.filter(function (call) { return data.linkedid == call.linkedid; });
-                if (!call.length) {
+                if (!call.length && (data.from_phone == this.my_phone || data.to_phone == this.my_phone)) {
                     if (data.from_phone == this.my_phone) {
                         data.type = "outgoing";
                     }
                     if (data.to_phone == this.my_phone) {
                         data.type = "incoming";
+                    }
+                    if (data.to_phone == data.from_phone) {
+                        data.type = "originate";
                     }
                     this.calls.push(data);
                     this.calls_emmiter.emit(this.calls);
@@ -2891,6 +3327,14 @@ var CallcentreService = (function () {
                     if (data.channel == this.calls[i].channel1 || data.channel == this.calls[i].channel2) {
                         this.calls[i].active_call = true;
                         this.calls[i].bridge_id = data.bridgeuniqueid;
+                        if (this.calls[i].queue) {
+                            this.http.post('Scenario.get_by_queue', { 'queue_name': this.calls[i].queue })
+                                .subscribe(function (data) { return _this.scenario = data; });
+                        }
+                    }
+                    if (data.channel != this.calls[i].channel1 &&
+                        data.channel != this.calls[i].channel2) {
+                        this.calls[i].last_channel = data.channel;
                     }
                 }
                 break;
@@ -2913,6 +3357,26 @@ var CallcentreService = (function () {
             }
         }
     };
+    CallcentreService.prototype.parking = function (channel) {
+        var cmd = JSON.stringify({ "Action": "Park", "Channel": channel });
+        this.send_message(cmd);
+    };
+    CallcentreService.prototype.unparking = function (channel) {
+        var cmd = JSON.stringify({ "Action": "Redirect", "Channel": channel, "Exten": this.my_phone, "Context": "blank",
+            "Priority": "1" });
+        this.send_message(cmd);
+    };
+    CallcentreService.prototype.make_call = function (number) {
+        var cmd = JSON.stringify({
+            "Action": "Originate",
+            "Channel": "LOCAL/" + this.my_phone + "@blank",
+            "Context": "local_calls",
+            "Priority": "1",
+            "Exten": number,
+            "Async": "1",
+        });
+        this.send_message(cmd);
+    };
     CallcentreService.prototype.send_message = function (message) {
         this.ws.next(message);
     };
@@ -2920,11 +3384,11 @@ var CallcentreService = (function () {
 }());
 CallcentreService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [authenticate_service_1.AuthenticateService, configuration_service_1.ConfigService])
+    __metadata("design:paramtypes", [authenticate_service_1.AuthenticateService, configuration_service_1.ConfigService, http_service_1.HttpClient])
 ], CallcentreService);
 exports.CallcentreService = CallcentreService;
 
-},{"./authenticate.service":42,"./configuration.service":44,"@angular/core":51,"rxjs/Rx":66}],44:[function(require,module,exports){
+},{"./authenticate.service":48,"./configuration.service":50,"./http.service":51,"@angular/core":57,"rxjs/Rx":72}],50:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2977,7 +3441,7 @@ ConfigService = ConfigService_1 = __decorate([
 exports.ConfigService = ConfigService;
 var ConfigService_1;
 
-},{"@angular/core":51}],45:[function(require,module,exports){
+},{"@angular/core":57}],51:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3060,7 +3524,7 @@ HttpClient = HttpClient_1 = __decorate([
 exports.HttpClient = HttpClient;
 var HttpClient_1;
 
-},{"./authenticate.service":42,"./configuration.service":44,"./notification.service":47,"@angular/core":51,"@angular/http":53,"@angular/router":56,"rxjs/Rx":66,"rxjs/add/operator/catch":106,"rxjs/add/operator/map":139}],46:[function(require,module,exports){
+},{"./authenticate.service":48,"./configuration.service":50,"./notification.service":53,"@angular/core":57,"@angular/http":59,"@angular/router":62,"rxjs/Rx":72,"rxjs/add/operator/catch":112,"rxjs/add/operator/map":145}],52:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3101,7 +3565,7 @@ LockerService = __decorate([
 ], LockerService);
 exports.LockerService = LockerService;
 
-},{"@angular/core":51}],47:[function(require,module,exports){
+},{"@angular/core":57}],53:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3164,7 +3628,7 @@ NotificationService = __decorate([
 ], NotificationService);
 exports.NotificationService = NotificationService;
 
-},{"../models/notificaction":25,"@angular/core":51}],48:[function(require,module,exports){
+},{"../models/notificaction":31,"@angular/core":57}],54:[function(require,module,exports){
 "use strict";
 function ValidateDate() {
     return function (control) {
@@ -3173,7 +3637,7 @@ function ValidateDate() {
 }
 exports.ValidateDate = ValidateDate;
 
-},{}],49:[function(require,module,exports){
+},{}],55:[function(require,module,exports){
 (function (global){
 /**
  * @license Angular v2.4.8
@@ -6853,7 +7317,7 @@ exports.ValidateDate = ValidateDate;
 
 }));
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"@angular/core":51}],50:[function(require,module,exports){
+},{"@angular/core":57}],56:[function(require,module,exports){
 /**
  * @license Angular v2.4.8
  * (c) 2010-2017 Google, Inc. https://angular.io/
@@ -35034,7 +35498,7 @@ exports.ValidateDate = ValidateDate;
     exports.SyntaxError = SyntaxError;
 
 }));
-},{"@angular/core":51}],51:[function(require,module,exports){
+},{"@angular/core":57}],57:[function(require,module,exports){
 (function (global){
 /**
  * @license Angular v2.4.8
@@ -47810,7 +48274,7 @@ exports.ValidateDate = ValidateDate;
 
 }));
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"rxjs/Observable":62,"rxjs/Subject":68,"rxjs/symbol/observable":364}],52:[function(require,module,exports){
+},{"rxjs/Observable":68,"rxjs/Subject":74,"rxjs/symbol/observable":370}],58:[function(require,module,exports){
 (function (global){
 /**
  * @license Angular v2.0.0
@@ -52538,7 +53002,7 @@ exports.ValidateDate = ValidateDate;
 }));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"@angular/core":51,"rxjs/Observable":62,"rxjs/Subject":68,"rxjs/observable/fromPromise":237,"rxjs/operator/toPromise":340}],53:[function(require,module,exports){
+},{"@angular/core":57,"rxjs/Observable":68,"rxjs/Subject":74,"rxjs/observable/fromPromise":243,"rxjs/operator/toPromise":346}],59:[function(require,module,exports){
 /**
  * @license Angular v2.4.8
  * (c) 2010-2017 Google, Inc. https://angular.io/
@@ -54591,7 +55055,7 @@ exports.ValidateDate = ValidateDate;
     exports.VERSION = VERSION;
 
 }));
-},{"@angular/core":51,"@angular/platform-browser":55,"rxjs/Observable":62}],54:[function(require,module,exports){
+},{"@angular/core":57,"@angular/platform-browser":61,"rxjs/Observable":68}],60:[function(require,module,exports){
 (function (global){
 /**
  * @license Angular v2.4.8
@@ -54762,7 +55226,7 @@ exports.ValidateDate = ValidateDate;
 
 }));
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"@angular/compiler":50,"@angular/core":51,"@angular/platform-browser":55}],55:[function(require,module,exports){
+},{"@angular/compiler":56,"@angular/core":57,"@angular/platform-browser":61}],61:[function(require,module,exports){
 (function (global){
 /**
  * @license Angular v2.4.8
@@ -59459,7 +59923,7 @@ exports.ValidateDate = ValidateDate;
 
 }));
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"@angular/common":49,"@angular/core":51}],56:[function(require,module,exports){
+},{"@angular/common":55,"@angular/core":57}],62:[function(require,module,exports){
 /**
  * @license Angular v3.4.8
  * (c) 2010-2017 Google, Inc. https://angular.io/
@@ -65149,7 +65613,7 @@ exports.ValidateDate = ValidateDate;
     exports.__router_private__ = __router_private__;
 
 }));
-},{"@angular/common":49,"@angular/core":51,"@angular/platform-browser":55,"rxjs/BehaviorSubject":59,"rxjs/Observable":62,"rxjs/Subject":68,"rxjs/observable/from":234,"rxjs/observable/fromPromise":237,"rxjs/observable/of":242,"rxjs/operator/catch":256,"rxjs/operator/concatAll":260,"rxjs/operator/concatMap":261,"rxjs/operator/every":275,"rxjs/operator/filter":279,"rxjs/operator/first":283,"rxjs/operator/last":287,"rxjs/operator/map":289,"rxjs/operator/mergeAll":294,"rxjs/operator/mergeMap":295,"rxjs/operator/reduce":310,"rxjs/util/EmptyError":373}],57:[function(require,module,exports){
+},{"@angular/common":55,"@angular/core":57,"@angular/platform-browser":61,"rxjs/BehaviorSubject":65,"rxjs/Observable":68,"rxjs/Subject":74,"rxjs/observable/from":240,"rxjs/observable/fromPromise":243,"rxjs/observable/of":248,"rxjs/operator/catch":262,"rxjs/operator/concatAll":266,"rxjs/operator/concatMap":267,"rxjs/operator/every":281,"rxjs/operator/filter":285,"rxjs/operator/first":289,"rxjs/operator/last":293,"rxjs/operator/map":295,"rxjs/operator/mergeAll":300,"rxjs/operator/mergeMap":301,"rxjs/operator/reduce":316,"rxjs/util/EmptyError":379}],63:[function(require,module,exports){
 (function (process,global){
 /*! *****************************************************************************
 Copyright (C) Microsoft. All rights reserved.
@@ -66277,7 +66741,7 @@ var Reflect;
 })(Reflect || (Reflect = {}));
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"_process":399}],58:[function(require,module,exports){
+},{"_process":405}],64:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -66331,7 +66795,7 @@ var AsyncSubject = (function (_super) {
 }(Subject_1.Subject));
 exports.AsyncSubject = AsyncSubject;
 
-},{"./Subject":68,"./Subscription":71}],59:[function(require,module,exports){
+},{"./Subject":74,"./Subscription":77}],65:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -66381,7 +66845,7 @@ var BehaviorSubject = (function (_super) {
 }(Subject_1.Subject));
 exports.BehaviorSubject = BehaviorSubject;
 
-},{"./Subject":68,"./util/ObjectUnsubscribedError":378}],60:[function(require,module,exports){
+},{"./Subject":74,"./util/ObjectUnsubscribedError":384}],66:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -66418,7 +66882,7 @@ var InnerSubscriber = (function (_super) {
 }(Subscriber_1.Subscriber));
 exports.InnerSubscriber = InnerSubscriber;
 
-},{"./Subscriber":70}],61:[function(require,module,exports){
+},{"./Subscriber":76}],67:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('./Observable');
 /**
@@ -66546,7 +67010,7 @@ var Notification = (function () {
 }());
 exports.Notification = Notification;
 
-},{"./Observable":62}],62:[function(require,module,exports){
+},{"./Observable":68}],68:[function(require,module,exports){
 "use strict";
 var root_1 = require('./util/root');
 var toSubscriber_1 = require('./util/toSubscriber');
@@ -66686,7 +67150,7 @@ var Observable = (function () {
 }());
 exports.Observable = Observable;
 
-},{"./symbol/observable":364,"./util/root":394,"./util/toSubscriber":396}],63:[function(require,module,exports){
+},{"./symbol/observable":370,"./util/root":400,"./util/toSubscriber":402}],69:[function(require,module,exports){
 "use strict";
 exports.empty = {
     closed: true,
@@ -66695,7 +67159,7 @@ exports.empty = {
     complete: function () { }
 };
 
-},{}],64:[function(require,module,exports){
+},{}],70:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -66726,7 +67190,7 @@ var OuterSubscriber = (function (_super) {
 }(Subscriber_1.Subscriber));
 exports.OuterSubscriber = OuterSubscriber;
 
-},{"./Subscriber":70}],65:[function(require,module,exports){
+},{"./Subscriber":76}],71:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -66829,7 +67293,7 @@ var ReplayEvent = (function () {
     return ReplayEvent;
 }());
 
-},{"./Subject":68,"./SubjectSubscription":69,"./Subscription":71,"./operator/observeOn":300,"./scheduler/queue":362,"./util/ObjectUnsubscribedError":378}],66:[function(require,module,exports){
+},{"./Subject":74,"./SubjectSubscription":75,"./Subscription":77,"./operator/observeOn":306,"./scheduler/queue":368,"./util/ObjectUnsubscribedError":384}],72:[function(require,module,exports){
 "use strict";
 /* tslint:disable:no-unused-variable */
 // Subject imported before Observable to bypass circular dependency issue since
@@ -67057,7 +67521,7 @@ var Symbol = {
 };
 exports.Symbol = Symbol;
 
-},{"./AsyncSubject":58,"./BehaviorSubject":59,"./Notification":61,"./Observable":62,"./ReplaySubject":65,"./Subject":68,"./Subscriber":70,"./Subscription":71,"./add/observable/bindCallback":72,"./add/observable/bindNodeCallback":73,"./add/observable/combineLatest":74,"./add/observable/concat":75,"./add/observable/defer":76,"./add/observable/dom/ajax":77,"./add/observable/dom/webSocket":78,"./add/observable/empty":79,"./add/observable/forkJoin":80,"./add/observable/from":81,"./add/observable/fromEvent":82,"./add/observable/fromEventPattern":83,"./add/observable/fromPromise":84,"./add/observable/generate":85,"./add/observable/if":86,"./add/observable/interval":87,"./add/observable/merge":88,"./add/observable/never":89,"./add/observable/of":90,"./add/observable/onErrorResumeNext":91,"./add/observable/pairs":92,"./add/observable/race":93,"./add/observable/range":94,"./add/observable/throw":95,"./add/observable/timer":96,"./add/observable/using":97,"./add/observable/zip":98,"./add/operator/audit":99,"./add/operator/auditTime":100,"./add/operator/buffer":101,"./add/operator/bufferCount":102,"./add/operator/bufferTime":103,"./add/operator/bufferToggle":104,"./add/operator/bufferWhen":105,"./add/operator/catch":106,"./add/operator/combineAll":107,"./add/operator/combineLatest":108,"./add/operator/concat":109,"./add/operator/concatAll":110,"./add/operator/concatMap":111,"./add/operator/concatMapTo":112,"./add/operator/count":113,"./add/operator/debounce":114,"./add/operator/debounceTime":115,"./add/operator/defaultIfEmpty":116,"./add/operator/delay":117,"./add/operator/delayWhen":118,"./add/operator/dematerialize":119,"./add/operator/distinct":120,"./add/operator/distinctUntilChanged":121,"./add/operator/distinctUntilKeyChanged":122,"./add/operator/do":123,"./add/operator/elementAt":124,"./add/operator/every":125,"./add/operator/exhaust":126,"./add/operator/exhaustMap":127,"./add/operator/expand":128,"./add/operator/filter":129,"./add/operator/finally":130,"./add/operator/find":131,"./add/operator/findIndex":132,"./add/operator/first":133,"./add/operator/groupBy":134,"./add/operator/ignoreElements":135,"./add/operator/isEmpty":136,"./add/operator/last":137,"./add/operator/let":138,"./add/operator/map":139,"./add/operator/mapTo":140,"./add/operator/materialize":141,"./add/operator/max":142,"./add/operator/merge":143,"./add/operator/mergeAll":144,"./add/operator/mergeMap":145,"./add/operator/mergeMapTo":146,"./add/operator/mergeScan":147,"./add/operator/min":148,"./add/operator/multicast":149,"./add/operator/observeOn":150,"./add/operator/onErrorResumeNext":151,"./add/operator/pairwise":152,"./add/operator/partition":153,"./add/operator/pluck":154,"./add/operator/publish":155,"./add/operator/publishBehavior":156,"./add/operator/publishLast":157,"./add/operator/publishReplay":158,"./add/operator/race":159,"./add/operator/reduce":160,"./add/operator/repeat":161,"./add/operator/repeatWhen":162,"./add/operator/retry":163,"./add/operator/retryWhen":164,"./add/operator/sample":165,"./add/operator/sampleTime":166,"./add/operator/scan":167,"./add/operator/sequenceEqual":168,"./add/operator/share":169,"./add/operator/single":170,"./add/operator/skip":171,"./add/operator/skipUntil":172,"./add/operator/skipWhile":173,"./add/operator/startWith":174,"./add/operator/subscribeOn":175,"./add/operator/switch":176,"./add/operator/switchMap":177,"./add/operator/switchMapTo":178,"./add/operator/take":179,"./add/operator/takeLast":180,"./add/operator/takeUntil":181,"./add/operator/takeWhile":182,"./add/operator/throttle":183,"./add/operator/throttleTime":184,"./add/operator/timeInterval":185,"./add/operator/timeout":186,"./add/operator/timeoutWith":187,"./add/operator/timestamp":188,"./add/operator/toArray":189,"./add/operator/toPromise":190,"./add/operator/window":191,"./add/operator/windowCount":192,"./add/operator/windowTime":193,"./add/operator/windowToggle":194,"./add/operator/windowWhen":195,"./add/operator/withLatestFrom":196,"./add/operator/zip":197,"./add/operator/zipAll":198,"./observable/ConnectableObservable":203,"./observable/dom/AjaxObservable":228,"./operator/timeInterval":335,"./operator/timestamp":338,"./scheduler/VirtualTimeScheduler":358,"./scheduler/animationFrame":359,"./scheduler/asap":360,"./scheduler/async":361,"./scheduler/queue":362,"./symbol/iterator":363,"./symbol/observable":364,"./symbol/rxSubscriber":365,"./testing/TestScheduler":370,"./util/ArgumentOutOfRangeError":372,"./util/EmptyError":373,"./util/ObjectUnsubscribedError":378,"./util/TimeoutError":380,"./util/UnsubscriptionError":381}],67:[function(require,module,exports){
+},{"./AsyncSubject":64,"./BehaviorSubject":65,"./Notification":67,"./Observable":68,"./ReplaySubject":71,"./Subject":74,"./Subscriber":76,"./Subscription":77,"./add/observable/bindCallback":78,"./add/observable/bindNodeCallback":79,"./add/observable/combineLatest":80,"./add/observable/concat":81,"./add/observable/defer":82,"./add/observable/dom/ajax":83,"./add/observable/dom/webSocket":84,"./add/observable/empty":85,"./add/observable/forkJoin":86,"./add/observable/from":87,"./add/observable/fromEvent":88,"./add/observable/fromEventPattern":89,"./add/observable/fromPromise":90,"./add/observable/generate":91,"./add/observable/if":92,"./add/observable/interval":93,"./add/observable/merge":94,"./add/observable/never":95,"./add/observable/of":96,"./add/observable/onErrorResumeNext":97,"./add/observable/pairs":98,"./add/observable/race":99,"./add/observable/range":100,"./add/observable/throw":101,"./add/observable/timer":102,"./add/observable/using":103,"./add/observable/zip":104,"./add/operator/audit":105,"./add/operator/auditTime":106,"./add/operator/buffer":107,"./add/operator/bufferCount":108,"./add/operator/bufferTime":109,"./add/operator/bufferToggle":110,"./add/operator/bufferWhen":111,"./add/operator/catch":112,"./add/operator/combineAll":113,"./add/operator/combineLatest":114,"./add/operator/concat":115,"./add/operator/concatAll":116,"./add/operator/concatMap":117,"./add/operator/concatMapTo":118,"./add/operator/count":119,"./add/operator/debounce":120,"./add/operator/debounceTime":121,"./add/operator/defaultIfEmpty":122,"./add/operator/delay":123,"./add/operator/delayWhen":124,"./add/operator/dematerialize":125,"./add/operator/distinct":126,"./add/operator/distinctUntilChanged":127,"./add/operator/distinctUntilKeyChanged":128,"./add/operator/do":129,"./add/operator/elementAt":130,"./add/operator/every":131,"./add/operator/exhaust":132,"./add/operator/exhaustMap":133,"./add/operator/expand":134,"./add/operator/filter":135,"./add/operator/finally":136,"./add/operator/find":137,"./add/operator/findIndex":138,"./add/operator/first":139,"./add/operator/groupBy":140,"./add/operator/ignoreElements":141,"./add/operator/isEmpty":142,"./add/operator/last":143,"./add/operator/let":144,"./add/operator/map":145,"./add/operator/mapTo":146,"./add/operator/materialize":147,"./add/operator/max":148,"./add/operator/merge":149,"./add/operator/mergeAll":150,"./add/operator/mergeMap":151,"./add/operator/mergeMapTo":152,"./add/operator/mergeScan":153,"./add/operator/min":154,"./add/operator/multicast":155,"./add/operator/observeOn":156,"./add/operator/onErrorResumeNext":157,"./add/operator/pairwise":158,"./add/operator/partition":159,"./add/operator/pluck":160,"./add/operator/publish":161,"./add/operator/publishBehavior":162,"./add/operator/publishLast":163,"./add/operator/publishReplay":164,"./add/operator/race":165,"./add/operator/reduce":166,"./add/operator/repeat":167,"./add/operator/repeatWhen":168,"./add/operator/retry":169,"./add/operator/retryWhen":170,"./add/operator/sample":171,"./add/operator/sampleTime":172,"./add/operator/scan":173,"./add/operator/sequenceEqual":174,"./add/operator/share":175,"./add/operator/single":176,"./add/operator/skip":177,"./add/operator/skipUntil":178,"./add/operator/skipWhile":179,"./add/operator/startWith":180,"./add/operator/subscribeOn":181,"./add/operator/switch":182,"./add/operator/switchMap":183,"./add/operator/switchMapTo":184,"./add/operator/take":185,"./add/operator/takeLast":186,"./add/operator/takeUntil":187,"./add/operator/takeWhile":188,"./add/operator/throttle":189,"./add/operator/throttleTime":190,"./add/operator/timeInterval":191,"./add/operator/timeout":192,"./add/operator/timeoutWith":193,"./add/operator/timestamp":194,"./add/operator/toArray":195,"./add/operator/toPromise":196,"./add/operator/window":197,"./add/operator/windowCount":198,"./add/operator/windowTime":199,"./add/operator/windowToggle":200,"./add/operator/windowWhen":201,"./add/operator/withLatestFrom":202,"./add/operator/zip":203,"./add/operator/zipAll":204,"./observable/ConnectableObservable":209,"./observable/dom/AjaxObservable":234,"./operator/timeInterval":341,"./operator/timestamp":344,"./scheduler/VirtualTimeScheduler":364,"./scheduler/animationFrame":365,"./scheduler/asap":366,"./scheduler/async":367,"./scheduler/queue":368,"./symbol/iterator":369,"./symbol/observable":370,"./symbol/rxSubscriber":371,"./testing/TestScheduler":376,"./util/ArgumentOutOfRangeError":378,"./util/EmptyError":379,"./util/ObjectUnsubscribedError":384,"./util/TimeoutError":386,"./util/UnsubscriptionError":387}],73:[function(require,module,exports){
 "use strict";
 /**
  * An execution context and a data structure to order tasks and schedule their
@@ -67107,7 +67571,7 @@ var Scheduler = (function () {
 }());
 exports.Scheduler = Scheduler;
 
-},{}],68:[function(require,module,exports){
+},{}],74:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -67276,7 +67740,7 @@ var AnonymousSubject = (function (_super) {
 }(Subject));
 exports.AnonymousSubject = AnonymousSubject;
 
-},{"./Observable":62,"./SubjectSubscription":69,"./Subscriber":70,"./Subscription":71,"./symbol/rxSubscriber":365,"./util/ObjectUnsubscribedError":378}],69:[function(require,module,exports){
+},{"./Observable":68,"./SubjectSubscription":75,"./Subscriber":76,"./Subscription":77,"./symbol/rxSubscriber":371,"./util/ObjectUnsubscribedError":384}],75:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -67317,7 +67781,7 @@ var SubjectSubscription = (function (_super) {
 }(Subscription_1.Subscription));
 exports.SubjectSubscription = SubjectSubscription;
 
-},{"./Subscription":71}],70:[function(require,module,exports){
+},{"./Subscription":77}],76:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -67567,7 +68031,7 @@ var SafeSubscriber = (function (_super) {
     return SafeSubscriber;
 }(Subscriber));
 
-},{"./Observer":63,"./Subscription":71,"./symbol/rxSubscriber":365,"./util/isFunction":387}],71:[function(require,module,exports){
+},{"./Observer":69,"./Subscription":77,"./symbol/rxSubscriber":371,"./util/isFunction":393}],77:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -67746,776 +68210,776 @@ function flattenUnsubscriptionErrors(errors) {
     return errors.reduce(function (errs, err) { return errs.concat((err instanceof UnsubscriptionError_1.UnsubscriptionError) ? err.errors : err); }, []);
 }
 
-},{"./util/UnsubscriptionError":381,"./util/errorObject":384,"./util/isArray":385,"./util/isFunction":387,"./util/isObject":389,"./util/tryCatch":397}],72:[function(require,module,exports){
+},{"./util/UnsubscriptionError":387,"./util/errorObject":390,"./util/isArray":391,"./util/isFunction":393,"./util/isObject":395,"./util/tryCatch":403}],78:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var bindCallback_1 = require('../../observable/bindCallback');
 Observable_1.Observable.bindCallback = bindCallback_1.bindCallback;
 
-},{"../../Observable":62,"../../observable/bindCallback":223}],73:[function(require,module,exports){
+},{"../../Observable":68,"../../observable/bindCallback":229}],79:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var bindNodeCallback_1 = require('../../observable/bindNodeCallback');
 Observable_1.Observable.bindNodeCallback = bindNodeCallback_1.bindNodeCallback;
 
-},{"../../Observable":62,"../../observable/bindNodeCallback":224}],74:[function(require,module,exports){
+},{"../../Observable":68,"../../observable/bindNodeCallback":230}],80:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var combineLatest_1 = require('../../observable/combineLatest');
 Observable_1.Observable.combineLatest = combineLatest_1.combineLatest;
 
-},{"../../Observable":62,"../../observable/combineLatest":225}],75:[function(require,module,exports){
+},{"../../Observable":68,"../../observable/combineLatest":231}],81:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var concat_1 = require('../../observable/concat');
 Observable_1.Observable.concat = concat_1.concat;
 
-},{"../../Observable":62,"../../observable/concat":226}],76:[function(require,module,exports){
+},{"../../Observable":68,"../../observable/concat":232}],82:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var defer_1 = require('../../observable/defer');
 Observable_1.Observable.defer = defer_1.defer;
 
-},{"../../Observable":62,"../../observable/defer":227}],77:[function(require,module,exports){
+},{"../../Observable":68,"../../observable/defer":233}],83:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../../Observable');
 var ajax_1 = require('../../../observable/dom/ajax');
 Observable_1.Observable.ajax = ajax_1.ajax;
 
-},{"../../../Observable":62,"../../../observable/dom/ajax":230}],78:[function(require,module,exports){
+},{"../../../Observable":68,"../../../observable/dom/ajax":236}],84:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../../Observable');
 var webSocket_1 = require('../../../observable/dom/webSocket');
 Observable_1.Observable.webSocket = webSocket_1.webSocket;
 
-},{"../../../Observable":62,"../../../observable/dom/webSocket":231}],79:[function(require,module,exports){
+},{"../../../Observable":68,"../../../observable/dom/webSocket":237}],85:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var empty_1 = require('../../observable/empty');
 Observable_1.Observable.empty = empty_1.empty;
 
-},{"../../Observable":62,"../../observable/empty":232}],80:[function(require,module,exports){
+},{"../../Observable":68,"../../observable/empty":238}],86:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var forkJoin_1 = require('../../observable/forkJoin');
 Observable_1.Observable.forkJoin = forkJoin_1.forkJoin;
 
-},{"../../Observable":62,"../../observable/forkJoin":233}],81:[function(require,module,exports){
+},{"../../Observable":68,"../../observable/forkJoin":239}],87:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var from_1 = require('../../observable/from');
 Observable_1.Observable.from = from_1.from;
 
-},{"../../Observable":62,"../../observable/from":234}],82:[function(require,module,exports){
+},{"../../Observable":68,"../../observable/from":240}],88:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var fromEvent_1 = require('../../observable/fromEvent');
 Observable_1.Observable.fromEvent = fromEvent_1.fromEvent;
 
-},{"../../Observable":62,"../../observable/fromEvent":235}],83:[function(require,module,exports){
+},{"../../Observable":68,"../../observable/fromEvent":241}],89:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var fromEventPattern_1 = require('../../observable/fromEventPattern');
 Observable_1.Observable.fromEventPattern = fromEventPattern_1.fromEventPattern;
 
-},{"../../Observable":62,"../../observable/fromEventPattern":236}],84:[function(require,module,exports){
+},{"../../Observable":68,"../../observable/fromEventPattern":242}],90:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var fromPromise_1 = require('../../observable/fromPromise');
 Observable_1.Observable.fromPromise = fromPromise_1.fromPromise;
 
-},{"../../Observable":62,"../../observable/fromPromise":237}],85:[function(require,module,exports){
+},{"../../Observable":68,"../../observable/fromPromise":243}],91:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var GenerateObservable_1 = require('../../observable/GenerateObservable');
 Observable_1.Observable.generate = GenerateObservable_1.GenerateObservable.create;
 
-},{"../../Observable":62,"../../observable/GenerateObservable":211}],86:[function(require,module,exports){
+},{"../../Observable":68,"../../observable/GenerateObservable":217}],92:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var if_1 = require('../../observable/if');
 Observable_1.Observable.if = if_1._if;
 
-},{"../../Observable":62,"../../observable/if":238}],87:[function(require,module,exports){
+},{"../../Observable":68,"../../observable/if":244}],93:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var interval_1 = require('../../observable/interval');
 Observable_1.Observable.interval = interval_1.interval;
 
-},{"../../Observable":62,"../../observable/interval":239}],88:[function(require,module,exports){
+},{"../../Observable":68,"../../observable/interval":245}],94:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var merge_1 = require('../../observable/merge');
 Observable_1.Observable.merge = merge_1.merge;
 
-},{"../../Observable":62,"../../observable/merge":240}],89:[function(require,module,exports){
+},{"../../Observable":68,"../../observable/merge":246}],95:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var never_1 = require('../../observable/never');
 Observable_1.Observable.never = never_1.never;
 
-},{"../../Observable":62,"../../observable/never":241}],90:[function(require,module,exports){
+},{"../../Observable":68,"../../observable/never":247}],96:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var of_1 = require('../../observable/of');
 Observable_1.Observable.of = of_1.of;
 
-},{"../../Observable":62,"../../observable/of":242}],91:[function(require,module,exports){
+},{"../../Observable":68,"../../observable/of":248}],97:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var onErrorResumeNext_1 = require('../../operator/onErrorResumeNext');
 Observable_1.Observable.onErrorResumeNext = onErrorResumeNext_1.onErrorResumeNextStatic;
 
-},{"../../Observable":62,"../../operator/onErrorResumeNext":301}],92:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/onErrorResumeNext":307}],98:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var pairs_1 = require('../../observable/pairs');
 Observable_1.Observable.pairs = pairs_1.pairs;
 
-},{"../../Observable":62,"../../observable/pairs":243}],93:[function(require,module,exports){
+},{"../../Observable":68,"../../observable/pairs":249}],99:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var race_1 = require('../../operator/race');
 Observable_1.Observable.race = race_1.raceStatic;
 
-},{"../../Observable":62,"../../operator/race":309}],94:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/race":315}],100:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var range_1 = require('../../observable/range');
 Observable_1.Observable.range = range_1.range;
 
-},{"../../Observable":62,"../../observable/range":244}],95:[function(require,module,exports){
+},{"../../Observable":68,"../../observable/range":250}],101:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var throw_1 = require('../../observable/throw');
 Observable_1.Observable.throw = throw_1._throw;
 
-},{"../../Observable":62,"../../observable/throw":245}],96:[function(require,module,exports){
+},{"../../Observable":68,"../../observable/throw":251}],102:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var timer_1 = require('../../observable/timer');
 Observable_1.Observable.timer = timer_1.timer;
 
-},{"../../Observable":62,"../../observable/timer":246}],97:[function(require,module,exports){
+},{"../../Observable":68,"../../observable/timer":252}],103:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var using_1 = require('../../observable/using');
 Observable_1.Observable.using = using_1.using;
 
-},{"../../Observable":62,"../../observable/using":247}],98:[function(require,module,exports){
+},{"../../Observable":68,"../../observable/using":253}],104:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var zip_1 = require('../../observable/zip');
 Observable_1.Observable.zip = zip_1.zip;
 
-},{"../../Observable":62,"../../observable/zip":248}],99:[function(require,module,exports){
+},{"../../Observable":68,"../../observable/zip":254}],105:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var audit_1 = require('../../operator/audit');
 Observable_1.Observable.prototype.audit = audit_1.audit;
 
-},{"../../Observable":62,"../../operator/audit":249}],100:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/audit":255}],106:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var auditTime_1 = require('../../operator/auditTime');
 Observable_1.Observable.prototype.auditTime = auditTime_1.auditTime;
 
-},{"../../Observable":62,"../../operator/auditTime":250}],101:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/auditTime":256}],107:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var buffer_1 = require('../../operator/buffer');
 Observable_1.Observable.prototype.buffer = buffer_1.buffer;
 
-},{"../../Observable":62,"../../operator/buffer":251}],102:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/buffer":257}],108:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var bufferCount_1 = require('../../operator/bufferCount');
 Observable_1.Observable.prototype.bufferCount = bufferCount_1.bufferCount;
 
-},{"../../Observable":62,"../../operator/bufferCount":252}],103:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/bufferCount":258}],109:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var bufferTime_1 = require('../../operator/bufferTime');
 Observable_1.Observable.prototype.bufferTime = bufferTime_1.bufferTime;
 
-},{"../../Observable":62,"../../operator/bufferTime":253}],104:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/bufferTime":259}],110:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var bufferToggle_1 = require('../../operator/bufferToggle');
 Observable_1.Observable.prototype.bufferToggle = bufferToggle_1.bufferToggle;
 
-},{"../../Observable":62,"../../operator/bufferToggle":254}],105:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/bufferToggle":260}],111:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var bufferWhen_1 = require('../../operator/bufferWhen');
 Observable_1.Observable.prototype.bufferWhen = bufferWhen_1.bufferWhen;
 
-},{"../../Observable":62,"../../operator/bufferWhen":255}],106:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/bufferWhen":261}],112:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var catch_1 = require('../../operator/catch');
 Observable_1.Observable.prototype.catch = catch_1._catch;
 Observable_1.Observable.prototype._catch = catch_1._catch;
 
-},{"../../Observable":62,"../../operator/catch":256}],107:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/catch":262}],113:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var combineAll_1 = require('../../operator/combineAll');
 Observable_1.Observable.prototype.combineAll = combineAll_1.combineAll;
 
-},{"../../Observable":62,"../../operator/combineAll":257}],108:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/combineAll":263}],114:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var combineLatest_1 = require('../../operator/combineLatest');
 Observable_1.Observable.prototype.combineLatest = combineLatest_1.combineLatest;
 
-},{"../../Observable":62,"../../operator/combineLatest":258}],109:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/combineLatest":264}],115:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var concat_1 = require('../../operator/concat');
 Observable_1.Observable.prototype.concat = concat_1.concat;
 
-},{"../../Observable":62,"../../operator/concat":259}],110:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/concat":265}],116:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var concatAll_1 = require('../../operator/concatAll');
 Observable_1.Observable.prototype.concatAll = concatAll_1.concatAll;
 
-},{"../../Observable":62,"../../operator/concatAll":260}],111:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/concatAll":266}],117:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var concatMap_1 = require('../../operator/concatMap');
 Observable_1.Observable.prototype.concatMap = concatMap_1.concatMap;
 
-},{"../../Observable":62,"../../operator/concatMap":261}],112:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/concatMap":267}],118:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var concatMapTo_1 = require('../../operator/concatMapTo');
 Observable_1.Observable.prototype.concatMapTo = concatMapTo_1.concatMapTo;
 
-},{"../../Observable":62,"../../operator/concatMapTo":262}],113:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/concatMapTo":268}],119:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var count_1 = require('../../operator/count');
 Observable_1.Observable.prototype.count = count_1.count;
 
-},{"../../Observable":62,"../../operator/count":263}],114:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/count":269}],120:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var debounce_1 = require('../../operator/debounce');
 Observable_1.Observable.prototype.debounce = debounce_1.debounce;
 
-},{"../../Observable":62,"../../operator/debounce":264}],115:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/debounce":270}],121:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var debounceTime_1 = require('../../operator/debounceTime');
 Observable_1.Observable.prototype.debounceTime = debounceTime_1.debounceTime;
 
-},{"../../Observable":62,"../../operator/debounceTime":265}],116:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/debounceTime":271}],122:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var defaultIfEmpty_1 = require('../../operator/defaultIfEmpty');
 Observable_1.Observable.prototype.defaultIfEmpty = defaultIfEmpty_1.defaultIfEmpty;
 
-},{"../../Observable":62,"../../operator/defaultIfEmpty":266}],117:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/defaultIfEmpty":272}],123:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var delay_1 = require('../../operator/delay');
 Observable_1.Observable.prototype.delay = delay_1.delay;
 
-},{"../../Observable":62,"../../operator/delay":267}],118:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/delay":273}],124:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var delayWhen_1 = require('../../operator/delayWhen');
 Observable_1.Observable.prototype.delayWhen = delayWhen_1.delayWhen;
 
-},{"../../Observable":62,"../../operator/delayWhen":268}],119:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/delayWhen":274}],125:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var dematerialize_1 = require('../../operator/dematerialize');
 Observable_1.Observable.prototype.dematerialize = dematerialize_1.dematerialize;
 
-},{"../../Observable":62,"../../operator/dematerialize":269}],120:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/dematerialize":275}],126:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var distinct_1 = require('../../operator/distinct');
 Observable_1.Observable.prototype.distinct = distinct_1.distinct;
 
-},{"../../Observable":62,"../../operator/distinct":270}],121:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/distinct":276}],127:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var distinctUntilChanged_1 = require('../../operator/distinctUntilChanged');
 Observable_1.Observable.prototype.distinctUntilChanged = distinctUntilChanged_1.distinctUntilChanged;
 
-},{"../../Observable":62,"../../operator/distinctUntilChanged":271}],122:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/distinctUntilChanged":277}],128:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var distinctUntilKeyChanged_1 = require('../../operator/distinctUntilKeyChanged');
 Observable_1.Observable.prototype.distinctUntilKeyChanged = distinctUntilKeyChanged_1.distinctUntilKeyChanged;
 
-},{"../../Observable":62,"../../operator/distinctUntilKeyChanged":272}],123:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/distinctUntilKeyChanged":278}],129:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var do_1 = require('../../operator/do');
 Observable_1.Observable.prototype.do = do_1._do;
 Observable_1.Observable.prototype._do = do_1._do;
 
-},{"../../Observable":62,"../../operator/do":273}],124:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/do":279}],130:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var elementAt_1 = require('../../operator/elementAt');
 Observable_1.Observable.prototype.elementAt = elementAt_1.elementAt;
 
-},{"../../Observable":62,"../../operator/elementAt":274}],125:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/elementAt":280}],131:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var every_1 = require('../../operator/every');
 Observable_1.Observable.prototype.every = every_1.every;
 
-},{"../../Observable":62,"../../operator/every":275}],126:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/every":281}],132:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var exhaust_1 = require('../../operator/exhaust');
 Observable_1.Observable.prototype.exhaust = exhaust_1.exhaust;
 
-},{"../../Observable":62,"../../operator/exhaust":276}],127:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/exhaust":282}],133:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var exhaustMap_1 = require('../../operator/exhaustMap');
 Observable_1.Observable.prototype.exhaustMap = exhaustMap_1.exhaustMap;
 
-},{"../../Observable":62,"../../operator/exhaustMap":277}],128:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/exhaustMap":283}],134:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var expand_1 = require('../../operator/expand');
 Observable_1.Observable.prototype.expand = expand_1.expand;
 
-},{"../../Observable":62,"../../operator/expand":278}],129:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/expand":284}],135:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var filter_1 = require('../../operator/filter');
 Observable_1.Observable.prototype.filter = filter_1.filter;
 
-},{"../../Observable":62,"../../operator/filter":279}],130:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/filter":285}],136:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var finally_1 = require('../../operator/finally');
 Observable_1.Observable.prototype.finally = finally_1._finally;
 Observable_1.Observable.prototype._finally = finally_1._finally;
 
-},{"../../Observable":62,"../../operator/finally":280}],131:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/finally":286}],137:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var find_1 = require('../../operator/find');
 Observable_1.Observable.prototype.find = find_1.find;
 
-},{"../../Observable":62,"../../operator/find":281}],132:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/find":287}],138:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var findIndex_1 = require('../../operator/findIndex');
 Observable_1.Observable.prototype.findIndex = findIndex_1.findIndex;
 
-},{"../../Observable":62,"../../operator/findIndex":282}],133:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/findIndex":288}],139:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var first_1 = require('../../operator/first');
 Observable_1.Observable.prototype.first = first_1.first;
 
-},{"../../Observable":62,"../../operator/first":283}],134:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/first":289}],140:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var groupBy_1 = require('../../operator/groupBy');
 Observable_1.Observable.prototype.groupBy = groupBy_1.groupBy;
 
-},{"../../Observable":62,"../../operator/groupBy":284}],135:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/groupBy":290}],141:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var ignoreElements_1 = require('../../operator/ignoreElements');
 Observable_1.Observable.prototype.ignoreElements = ignoreElements_1.ignoreElements;
 
-},{"../../Observable":62,"../../operator/ignoreElements":285}],136:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/ignoreElements":291}],142:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var isEmpty_1 = require('../../operator/isEmpty');
 Observable_1.Observable.prototype.isEmpty = isEmpty_1.isEmpty;
 
-},{"../../Observable":62,"../../operator/isEmpty":286}],137:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/isEmpty":292}],143:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var last_1 = require('../../operator/last');
 Observable_1.Observable.prototype.last = last_1.last;
 
-},{"../../Observable":62,"../../operator/last":287}],138:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/last":293}],144:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var let_1 = require('../../operator/let');
 Observable_1.Observable.prototype.let = let_1.letProto;
 Observable_1.Observable.prototype.letBind = let_1.letProto;
 
-},{"../../Observable":62,"../../operator/let":288}],139:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/let":294}],145:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var map_1 = require('../../operator/map');
 Observable_1.Observable.prototype.map = map_1.map;
 
-},{"../../Observable":62,"../../operator/map":289}],140:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/map":295}],146:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var mapTo_1 = require('../../operator/mapTo');
 Observable_1.Observable.prototype.mapTo = mapTo_1.mapTo;
 
-},{"../../Observable":62,"../../operator/mapTo":290}],141:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/mapTo":296}],147:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var materialize_1 = require('../../operator/materialize');
 Observable_1.Observable.prototype.materialize = materialize_1.materialize;
 
-},{"../../Observable":62,"../../operator/materialize":291}],142:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/materialize":297}],148:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var max_1 = require('../../operator/max');
 Observable_1.Observable.prototype.max = max_1.max;
 
-},{"../../Observable":62,"../../operator/max":292}],143:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/max":298}],149:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var merge_1 = require('../../operator/merge');
 Observable_1.Observable.prototype.merge = merge_1.merge;
 
-},{"../../Observable":62,"../../operator/merge":293}],144:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/merge":299}],150:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var mergeAll_1 = require('../../operator/mergeAll');
 Observable_1.Observable.prototype.mergeAll = mergeAll_1.mergeAll;
 
-},{"../../Observable":62,"../../operator/mergeAll":294}],145:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/mergeAll":300}],151:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var mergeMap_1 = require('../../operator/mergeMap');
 Observable_1.Observable.prototype.mergeMap = mergeMap_1.mergeMap;
 Observable_1.Observable.prototype.flatMap = mergeMap_1.mergeMap;
 
-},{"../../Observable":62,"../../operator/mergeMap":295}],146:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/mergeMap":301}],152:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var mergeMapTo_1 = require('../../operator/mergeMapTo');
 Observable_1.Observable.prototype.flatMapTo = mergeMapTo_1.mergeMapTo;
 Observable_1.Observable.prototype.mergeMapTo = mergeMapTo_1.mergeMapTo;
 
-},{"../../Observable":62,"../../operator/mergeMapTo":296}],147:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/mergeMapTo":302}],153:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var mergeScan_1 = require('../../operator/mergeScan');
 Observable_1.Observable.prototype.mergeScan = mergeScan_1.mergeScan;
 
-},{"../../Observable":62,"../../operator/mergeScan":297}],148:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/mergeScan":303}],154:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var min_1 = require('../../operator/min');
 Observable_1.Observable.prototype.min = min_1.min;
 
-},{"../../Observable":62,"../../operator/min":298}],149:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/min":304}],155:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var multicast_1 = require('../../operator/multicast');
 Observable_1.Observable.prototype.multicast = multicast_1.multicast;
 
-},{"../../Observable":62,"../../operator/multicast":299}],150:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/multicast":305}],156:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var observeOn_1 = require('../../operator/observeOn');
 Observable_1.Observable.prototype.observeOn = observeOn_1.observeOn;
 
-},{"../../Observable":62,"../../operator/observeOn":300}],151:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/observeOn":306}],157:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var onErrorResumeNext_1 = require('../../operator/onErrorResumeNext');
 Observable_1.Observable.prototype.onErrorResumeNext = onErrorResumeNext_1.onErrorResumeNext;
 
-},{"../../Observable":62,"../../operator/onErrorResumeNext":301}],152:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/onErrorResumeNext":307}],158:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var pairwise_1 = require('../../operator/pairwise');
 Observable_1.Observable.prototype.pairwise = pairwise_1.pairwise;
 
-},{"../../Observable":62,"../../operator/pairwise":302}],153:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/pairwise":308}],159:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var partition_1 = require('../../operator/partition');
 Observable_1.Observable.prototype.partition = partition_1.partition;
 
-},{"../../Observable":62,"../../operator/partition":303}],154:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/partition":309}],160:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var pluck_1 = require('../../operator/pluck');
 Observable_1.Observable.prototype.pluck = pluck_1.pluck;
 
-},{"../../Observable":62,"../../operator/pluck":304}],155:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/pluck":310}],161:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var publish_1 = require('../../operator/publish');
 Observable_1.Observable.prototype.publish = publish_1.publish;
 
-},{"../../Observable":62,"../../operator/publish":305}],156:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/publish":311}],162:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var publishBehavior_1 = require('../../operator/publishBehavior');
 Observable_1.Observable.prototype.publishBehavior = publishBehavior_1.publishBehavior;
 
-},{"../../Observable":62,"../../operator/publishBehavior":306}],157:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/publishBehavior":312}],163:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var publishLast_1 = require('../../operator/publishLast');
 Observable_1.Observable.prototype.publishLast = publishLast_1.publishLast;
 
-},{"../../Observable":62,"../../operator/publishLast":307}],158:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/publishLast":313}],164:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var publishReplay_1 = require('../../operator/publishReplay');
 Observable_1.Observable.prototype.publishReplay = publishReplay_1.publishReplay;
 
-},{"../../Observable":62,"../../operator/publishReplay":308}],159:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/publishReplay":314}],165:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var race_1 = require('../../operator/race');
 Observable_1.Observable.prototype.race = race_1.race;
 
-},{"../../Observable":62,"../../operator/race":309}],160:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/race":315}],166:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var reduce_1 = require('../../operator/reduce');
 Observable_1.Observable.prototype.reduce = reduce_1.reduce;
 
-},{"../../Observable":62,"../../operator/reduce":310}],161:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/reduce":316}],167:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var repeat_1 = require('../../operator/repeat');
 Observable_1.Observable.prototype.repeat = repeat_1.repeat;
 
-},{"../../Observable":62,"../../operator/repeat":311}],162:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/repeat":317}],168:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var repeatWhen_1 = require('../../operator/repeatWhen');
 Observable_1.Observable.prototype.repeatWhen = repeatWhen_1.repeatWhen;
 
-},{"../../Observable":62,"../../operator/repeatWhen":312}],163:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/repeatWhen":318}],169:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var retry_1 = require('../../operator/retry');
 Observable_1.Observable.prototype.retry = retry_1.retry;
 
-},{"../../Observable":62,"../../operator/retry":313}],164:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/retry":319}],170:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var retryWhen_1 = require('../../operator/retryWhen');
 Observable_1.Observable.prototype.retryWhen = retryWhen_1.retryWhen;
 
-},{"../../Observable":62,"../../operator/retryWhen":314}],165:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/retryWhen":320}],171:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var sample_1 = require('../../operator/sample');
 Observable_1.Observable.prototype.sample = sample_1.sample;
 
-},{"../../Observable":62,"../../operator/sample":315}],166:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/sample":321}],172:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var sampleTime_1 = require('../../operator/sampleTime');
 Observable_1.Observable.prototype.sampleTime = sampleTime_1.sampleTime;
 
-},{"../../Observable":62,"../../operator/sampleTime":316}],167:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/sampleTime":322}],173:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var scan_1 = require('../../operator/scan');
 Observable_1.Observable.prototype.scan = scan_1.scan;
 
-},{"../../Observable":62,"../../operator/scan":317}],168:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/scan":323}],174:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var sequenceEqual_1 = require('../../operator/sequenceEqual');
 Observable_1.Observable.prototype.sequenceEqual = sequenceEqual_1.sequenceEqual;
 
-},{"../../Observable":62,"../../operator/sequenceEqual":318}],169:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/sequenceEqual":324}],175:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var share_1 = require('../../operator/share');
 Observable_1.Observable.prototype.share = share_1.share;
 
-},{"../../Observable":62,"../../operator/share":319}],170:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/share":325}],176:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var single_1 = require('../../operator/single');
 Observable_1.Observable.prototype.single = single_1.single;
 
-},{"../../Observable":62,"../../operator/single":320}],171:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/single":326}],177:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var skip_1 = require('../../operator/skip');
 Observable_1.Observable.prototype.skip = skip_1.skip;
 
-},{"../../Observable":62,"../../operator/skip":321}],172:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/skip":327}],178:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var skipUntil_1 = require('../../operator/skipUntil');
 Observable_1.Observable.prototype.skipUntil = skipUntil_1.skipUntil;
 
-},{"../../Observable":62,"../../operator/skipUntil":322}],173:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/skipUntil":328}],179:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var skipWhile_1 = require('../../operator/skipWhile');
 Observable_1.Observable.prototype.skipWhile = skipWhile_1.skipWhile;
 
-},{"../../Observable":62,"../../operator/skipWhile":323}],174:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/skipWhile":329}],180:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var startWith_1 = require('../../operator/startWith');
 Observable_1.Observable.prototype.startWith = startWith_1.startWith;
 
-},{"../../Observable":62,"../../operator/startWith":324}],175:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/startWith":330}],181:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var subscribeOn_1 = require('../../operator/subscribeOn');
 Observable_1.Observable.prototype.subscribeOn = subscribeOn_1.subscribeOn;
 
-},{"../../Observable":62,"../../operator/subscribeOn":325}],176:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/subscribeOn":331}],182:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var switch_1 = require('../../operator/switch');
 Observable_1.Observable.prototype.switch = switch_1._switch;
 Observable_1.Observable.prototype._switch = switch_1._switch;
 
-},{"../../Observable":62,"../../operator/switch":326}],177:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/switch":332}],183:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var switchMap_1 = require('../../operator/switchMap');
 Observable_1.Observable.prototype.switchMap = switchMap_1.switchMap;
 
-},{"../../Observable":62,"../../operator/switchMap":327}],178:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/switchMap":333}],184:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var switchMapTo_1 = require('../../operator/switchMapTo');
 Observable_1.Observable.prototype.switchMapTo = switchMapTo_1.switchMapTo;
 
-},{"../../Observable":62,"../../operator/switchMapTo":328}],179:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/switchMapTo":334}],185:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var take_1 = require('../../operator/take');
 Observable_1.Observable.prototype.take = take_1.take;
 
-},{"../../Observable":62,"../../operator/take":329}],180:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/take":335}],186:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var takeLast_1 = require('../../operator/takeLast');
 Observable_1.Observable.prototype.takeLast = takeLast_1.takeLast;
 
-},{"../../Observable":62,"../../operator/takeLast":330}],181:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/takeLast":336}],187:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var takeUntil_1 = require('../../operator/takeUntil');
 Observable_1.Observable.prototype.takeUntil = takeUntil_1.takeUntil;
 
-},{"../../Observable":62,"../../operator/takeUntil":331}],182:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/takeUntil":337}],188:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var takeWhile_1 = require('../../operator/takeWhile');
 Observable_1.Observable.prototype.takeWhile = takeWhile_1.takeWhile;
 
-},{"../../Observable":62,"../../operator/takeWhile":332}],183:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/takeWhile":338}],189:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var throttle_1 = require('../../operator/throttle');
 Observable_1.Observable.prototype.throttle = throttle_1.throttle;
 
-},{"../../Observable":62,"../../operator/throttle":333}],184:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/throttle":339}],190:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var throttleTime_1 = require('../../operator/throttleTime');
 Observable_1.Observable.prototype.throttleTime = throttleTime_1.throttleTime;
 
-},{"../../Observable":62,"../../operator/throttleTime":334}],185:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/throttleTime":340}],191:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var timeInterval_1 = require('../../operator/timeInterval');
 Observable_1.Observable.prototype.timeInterval = timeInterval_1.timeInterval;
 
-},{"../../Observable":62,"../../operator/timeInterval":335}],186:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/timeInterval":341}],192:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var timeout_1 = require('../../operator/timeout');
 Observable_1.Observable.prototype.timeout = timeout_1.timeout;
 
-},{"../../Observable":62,"../../operator/timeout":336}],187:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/timeout":342}],193:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var timeoutWith_1 = require('../../operator/timeoutWith');
 Observable_1.Observable.prototype.timeoutWith = timeoutWith_1.timeoutWith;
 
-},{"../../Observable":62,"../../operator/timeoutWith":337}],188:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/timeoutWith":343}],194:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var timestamp_1 = require('../../operator/timestamp');
 Observable_1.Observable.prototype.timestamp = timestamp_1.timestamp;
 
-},{"../../Observable":62,"../../operator/timestamp":338}],189:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/timestamp":344}],195:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var toArray_1 = require('../../operator/toArray');
 Observable_1.Observable.prototype.toArray = toArray_1.toArray;
 
-},{"../../Observable":62,"../../operator/toArray":339}],190:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/toArray":345}],196:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var toPromise_1 = require('../../operator/toPromise');
 Observable_1.Observable.prototype.toPromise = toPromise_1.toPromise;
 
-},{"../../Observable":62,"../../operator/toPromise":340}],191:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/toPromise":346}],197:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var window_1 = require('../../operator/window');
 Observable_1.Observable.prototype.window = window_1.window;
 
-},{"../../Observable":62,"../../operator/window":341}],192:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/window":347}],198:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var windowCount_1 = require('../../operator/windowCount');
 Observable_1.Observable.prototype.windowCount = windowCount_1.windowCount;
 
-},{"../../Observable":62,"../../operator/windowCount":342}],193:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/windowCount":348}],199:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var windowTime_1 = require('../../operator/windowTime');
 Observable_1.Observable.prototype.windowTime = windowTime_1.windowTime;
 
-},{"../../Observable":62,"../../operator/windowTime":343}],194:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/windowTime":349}],200:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var windowToggle_1 = require('../../operator/windowToggle');
 Observable_1.Observable.prototype.windowToggle = windowToggle_1.windowToggle;
 
-},{"../../Observable":62,"../../operator/windowToggle":344}],195:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/windowToggle":350}],201:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var windowWhen_1 = require('../../operator/windowWhen');
 Observable_1.Observable.prototype.windowWhen = windowWhen_1.windowWhen;
 
-},{"../../Observable":62,"../../operator/windowWhen":345}],196:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/windowWhen":351}],202:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var withLatestFrom_1 = require('../../operator/withLatestFrom');
 Observable_1.Observable.prototype.withLatestFrom = withLatestFrom_1.withLatestFrom;
 
-},{"../../Observable":62,"../../operator/withLatestFrom":346}],197:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/withLatestFrom":352}],203:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var zip_1 = require('../../operator/zip');
 Observable_1.Observable.prototype.zip = zip_1.zipProto;
 
-},{"../../Observable":62,"../../operator/zip":347}],198:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/zip":353}],204:[function(require,module,exports){
 "use strict";
 var Observable_1 = require('../../Observable');
 var zipAll_1 = require('../../operator/zipAll');
 Observable_1.Observable.prototype.zipAll = zipAll_1.zipAll;
 
-},{"../../Observable":62,"../../operator/zipAll":348}],199:[function(require,module,exports){
+},{"../../Observable":68,"../../operator/zipAll":354}],205:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -68586,7 +69050,7 @@ var ArrayLikeObservable = (function (_super) {
 }(Observable_1.Observable));
 exports.ArrayLikeObservable = ArrayLikeObservable;
 
-},{"../Observable":62,"./EmptyObservable":205,"./ScalarObservable":219}],200:[function(require,module,exports){
+},{"../Observable":68,"./EmptyObservable":211,"./ScalarObservable":225}],206:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -68709,7 +69173,7 @@ var ArrayObservable = (function (_super) {
 }(Observable_1.Observable));
 exports.ArrayObservable = ArrayObservable;
 
-},{"../Observable":62,"../util/isScheduler":391,"./EmptyObservable":205,"./ScalarObservable":219}],201:[function(require,module,exports){
+},{"../Observable":68,"../util/isScheduler":397,"./EmptyObservable":211,"./ScalarObservable":225}],207:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -68874,7 +69338,7 @@ function dispatchError(arg) {
     subject.error(err);
 }
 
-},{"../AsyncSubject":58,"../Observable":62,"../util/errorObject":384,"../util/tryCatch":397}],202:[function(require,module,exports){
+},{"../AsyncSubject":64,"../Observable":68,"../util/errorObject":390,"../util/tryCatch":403}],208:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -69051,7 +69515,7 @@ function dispatchError(arg) {
     subject.error(err);
 }
 
-},{"../AsyncSubject":58,"../Observable":62,"../util/errorObject":384,"../util/tryCatch":397}],203:[function(require,module,exports){
+},{"../AsyncSubject":64,"../Observable":68,"../util/errorObject":390,"../util/tryCatch":403}],209:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -69214,7 +69678,7 @@ var RefCountSubscriber = (function (_super) {
     return RefCountSubscriber;
 }(Subscriber_1.Subscriber));
 
-},{"../Observable":62,"../Subject":68,"../Subscriber":70,"../Subscription":71}],204:[function(require,module,exports){
+},{"../Observable":68,"../Subject":74,"../Subscriber":76,"../Subscription":77}],210:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -69314,7 +69778,7 @@ var DeferSubscriber = (function (_super) {
     return DeferSubscriber;
 }(OuterSubscriber_1.OuterSubscriber));
 
-},{"../Observable":62,"../OuterSubscriber":64,"../util/subscribeToResult":395}],205:[function(require,module,exports){
+},{"../Observable":68,"../OuterSubscriber":70,"../util/subscribeToResult":401}],211:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -69396,7 +69860,7 @@ var EmptyObservable = (function (_super) {
 }(Observable_1.Observable));
 exports.EmptyObservable = EmptyObservable;
 
-},{"../Observable":62}],206:[function(require,module,exports){
+},{"../Observable":68}],212:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -69479,7 +69943,7 @@ var ErrorObservable = (function (_super) {
 }(Observable_1.Observable));
 exports.ErrorObservable = ErrorObservable;
 
-},{"../Observable":62}],207:[function(require,module,exports){
+},{"../Observable":68}],213:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -69592,7 +70056,7 @@ var ForkJoinSubscriber = (function (_super) {
     return ForkJoinSubscriber;
 }(OuterSubscriber_1.OuterSubscriber));
 
-},{"../Observable":62,"../OuterSubscriber":64,"../util/isArray":385,"../util/subscribeToResult":395,"./EmptyObservable":205}],208:[function(require,module,exports){
+},{"../Observable":68,"../OuterSubscriber":70,"../util/isArray":391,"../util/subscribeToResult":401,"./EmptyObservable":211}],214:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -69733,7 +70197,7 @@ var FromEventObservable = (function (_super) {
 }(Observable_1.Observable));
 exports.FromEventObservable = FromEventObservable;
 
-},{"../Observable":62,"../Subscription":71,"../util/errorObject":384,"../util/isFunction":387,"../util/tryCatch":397}],209:[function(require,module,exports){
+},{"../Observable":68,"../Subscription":77,"../util/errorObject":390,"../util/isFunction":393,"../util/tryCatch":403}],215:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -69847,7 +70311,7 @@ var FromEventPatternObservable = (function (_super) {
 }(Observable_1.Observable));
 exports.FromEventPatternObservable = FromEventPatternObservable;
 
-},{"../Observable":62,"../Subscription":71,"../util/isFunction":387}],210:[function(require,module,exports){
+},{"../Observable":68,"../Subscription":77,"../util/isFunction":393}],216:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -69970,7 +70434,7 @@ var FromObservable = (function (_super) {
 }(Observable_1.Observable));
 exports.FromObservable = FromObservable;
 
-},{"../Observable":62,"../operator/observeOn":300,"../symbol/iterator":363,"../symbol/observable":364,"../util/isArray":385,"../util/isPromise":390,"./ArrayLikeObservable":199,"./ArrayObservable":200,"./IteratorObservable":214,"./PromiseObservable":217}],211:[function(require,module,exports){
+},{"../Observable":68,"../operator/observeOn":306,"../symbol/iterator":369,"../symbol/observable":370,"../util/isArray":391,"../util/isPromise":396,"./ArrayLikeObservable":205,"./ArrayObservable":206,"./IteratorObservable":220,"./PromiseObservable":223}],217:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -70106,7 +70570,7 @@ var GenerateObservable = (function (_super) {
 }(Observable_1.Observable));
 exports.GenerateObservable = GenerateObservable;
 
-},{"../Observable":62,"../util/isScheduler":391}],212:[function(require,module,exports){
+},{"../Observable":68,"../util/isScheduler":397}],218:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -70168,7 +70632,7 @@ var IfSubscriber = (function (_super) {
     return IfSubscriber;
 }(OuterSubscriber_1.OuterSubscriber));
 
-},{"../Observable":62,"../OuterSubscriber":64,"../util/subscribeToResult":395}],213:[function(require,module,exports){
+},{"../Observable":68,"../OuterSubscriber":70,"../util/subscribeToResult":401}],219:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -70257,7 +70721,7 @@ var IntervalObservable = (function (_super) {
 }(Observable_1.Observable));
 exports.IntervalObservable = IntervalObservable;
 
-},{"../Observable":62,"../scheduler/async":361,"../util/isNumeric":388}],214:[function(require,module,exports){
+},{"../Observable":68,"../scheduler/async":367,"../util/isNumeric":394}],220:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -70421,7 +70885,7 @@ function sign(value) {
     return valueAsNumber < 0 ? -1 : 1;
 }
 
-},{"../Observable":62,"../symbol/iterator":363,"../util/root":394}],215:[function(require,module,exports){
+},{"../Observable":68,"../symbol/iterator":369,"../util/root":400}],221:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -70481,7 +70945,7 @@ var NeverObservable = (function (_super) {
 }(Observable_1.Observable));
 exports.NeverObservable = NeverObservable;
 
-},{"../Observable":62,"../util/noop":392}],216:[function(require,module,exports){
+},{"../Observable":68,"../util/noop":398}],222:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -70567,7 +71031,7 @@ var PairsObservable = (function (_super) {
 }(Observable_1.Observable));
 exports.PairsObservable = PairsObservable;
 
-},{"../Observable":62}],217:[function(require,module,exports){
+},{"../Observable":68}],223:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -70689,7 +71153,7 @@ function dispatchError(arg) {
     }
 }
 
-},{"../Observable":62,"../util/root":394}],218:[function(require,module,exports){
+},{"../Observable":68,"../util/root":400}],224:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -70786,7 +71250,7 @@ var RangeObservable = (function (_super) {
 }(Observable_1.Observable));
 exports.RangeObservable = RangeObservable;
 
-},{"../Observable":62}],219:[function(require,module,exports){
+},{"../Observable":68}],225:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -70845,7 +71309,7 @@ var ScalarObservable = (function (_super) {
 }(Observable_1.Observable));
 exports.ScalarObservable = ScalarObservable;
 
-},{"../Observable":62}],220:[function(require,module,exports){
+},{"../Observable":68}],226:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -70897,7 +71361,7 @@ var SubscribeOnObservable = (function (_super) {
 }(Observable_1.Observable));
 exports.SubscribeOnObservable = SubscribeOnObservable;
 
-},{"../Observable":62,"../scheduler/asap":360,"../util/isNumeric":388}],221:[function(require,module,exports){
+},{"../Observable":68,"../scheduler/asap":366,"../util/isNumeric":394}],227:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -71005,7 +71469,7 @@ var TimerObservable = (function (_super) {
 }(Observable_1.Observable));
 exports.TimerObservable = TimerObservable;
 
-},{"../Observable":62,"../scheduler/async":361,"../util/isDate":386,"../util/isNumeric":388,"../util/isScheduler":391}],222:[function(require,module,exports){
+},{"../Observable":68,"../scheduler/async":367,"../util/isDate":392,"../util/isNumeric":394,"../util/isScheduler":397}],228:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -71067,17 +71531,17 @@ var UsingSubscriber = (function (_super) {
     return UsingSubscriber;
 }(OuterSubscriber_1.OuterSubscriber));
 
-},{"../Observable":62,"../OuterSubscriber":64,"../util/subscribeToResult":395}],223:[function(require,module,exports){
+},{"../Observable":68,"../OuterSubscriber":70,"../util/subscribeToResult":401}],229:[function(require,module,exports){
 "use strict";
 var BoundCallbackObservable_1 = require('./BoundCallbackObservable');
 exports.bindCallback = BoundCallbackObservable_1.BoundCallbackObservable.create;
 
-},{"./BoundCallbackObservable":201}],224:[function(require,module,exports){
+},{"./BoundCallbackObservable":207}],230:[function(require,module,exports){
 "use strict";
 var BoundNodeCallbackObservable_1 = require('./BoundNodeCallbackObservable');
 exports.bindNodeCallback = BoundNodeCallbackObservable_1.BoundNodeCallbackObservable.create;
 
-},{"./BoundNodeCallbackObservable":202}],225:[function(require,module,exports){
+},{"./BoundNodeCallbackObservable":208}],231:[function(require,module,exports){
 "use strict";
 var isScheduler_1 = require('../util/isScheduler');
 var isArray_1 = require('../util/isArray');
@@ -71154,17 +71618,17 @@ function combineLatest() {
 }
 exports.combineLatest = combineLatest;
 
-},{"../operator/combineLatest":258,"../util/isArray":385,"../util/isScheduler":391,"./ArrayObservable":200}],226:[function(require,module,exports){
+},{"../operator/combineLatest":264,"../util/isArray":391,"../util/isScheduler":397,"./ArrayObservable":206}],232:[function(require,module,exports){
 "use strict";
 var concat_1 = require('../operator/concat');
 exports.concat = concat_1.concatStatic;
 
-},{"../operator/concat":259}],227:[function(require,module,exports){
+},{"../operator/concat":265}],233:[function(require,module,exports){
 "use strict";
 var DeferObservable_1 = require('./DeferObservable');
 exports.defer = DeferObservable_1.DeferObservable.create;
 
-},{"./DeferObservable":204}],228:[function(require,module,exports){
+},{"./DeferObservable":210}],234:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -71573,7 +72037,7 @@ var AjaxTimeoutError = (function (_super) {
 }(AjaxError));
 exports.AjaxTimeoutError = AjaxTimeoutError;
 
-},{"../../Observable":62,"../../Subscriber":70,"../../operator/map":289,"../../util/errorObject":384,"../../util/root":394,"../../util/tryCatch":397}],229:[function(require,module,exports){
+},{"../../Observable":68,"../../Subscriber":76,"../../operator/map":295,"../../util/errorObject":390,"../../util/root":400,"../../util/tryCatch":403}],235:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -71819,102 +72283,102 @@ var WebSocketSubject = (function (_super) {
 }(Subject_1.AnonymousSubject));
 exports.WebSocketSubject = WebSocketSubject;
 
-},{"../../Observable":62,"../../ReplaySubject":65,"../../Subject":68,"../../Subscriber":70,"../../Subscription":71,"../../util/assign":383,"../../util/errorObject":384,"../../util/root":394,"../../util/tryCatch":397}],230:[function(require,module,exports){
+},{"../../Observable":68,"../../ReplaySubject":71,"../../Subject":74,"../../Subscriber":76,"../../Subscription":77,"../../util/assign":389,"../../util/errorObject":390,"../../util/root":400,"../../util/tryCatch":403}],236:[function(require,module,exports){
 "use strict";
 var AjaxObservable_1 = require('./AjaxObservable');
 exports.ajax = AjaxObservable_1.AjaxObservable.create;
 
-},{"./AjaxObservable":228}],231:[function(require,module,exports){
+},{"./AjaxObservable":234}],237:[function(require,module,exports){
 "use strict";
 var WebSocketSubject_1 = require('./WebSocketSubject');
 exports.webSocket = WebSocketSubject_1.WebSocketSubject.create;
 
-},{"./WebSocketSubject":229}],232:[function(require,module,exports){
+},{"./WebSocketSubject":235}],238:[function(require,module,exports){
 "use strict";
 var EmptyObservable_1 = require('./EmptyObservable');
 exports.empty = EmptyObservable_1.EmptyObservable.create;
 
-},{"./EmptyObservable":205}],233:[function(require,module,exports){
+},{"./EmptyObservable":211}],239:[function(require,module,exports){
 "use strict";
 var ForkJoinObservable_1 = require('./ForkJoinObservable');
 exports.forkJoin = ForkJoinObservable_1.ForkJoinObservable.create;
 
-},{"./ForkJoinObservable":207}],234:[function(require,module,exports){
+},{"./ForkJoinObservable":213}],240:[function(require,module,exports){
 "use strict";
 var FromObservable_1 = require('./FromObservable');
 exports.from = FromObservable_1.FromObservable.create;
 
-},{"./FromObservable":210}],235:[function(require,module,exports){
+},{"./FromObservable":216}],241:[function(require,module,exports){
 "use strict";
 var FromEventObservable_1 = require('./FromEventObservable');
 exports.fromEvent = FromEventObservable_1.FromEventObservable.create;
 
-},{"./FromEventObservable":208}],236:[function(require,module,exports){
+},{"./FromEventObservable":214}],242:[function(require,module,exports){
 "use strict";
 var FromEventPatternObservable_1 = require('./FromEventPatternObservable');
 exports.fromEventPattern = FromEventPatternObservable_1.FromEventPatternObservable.create;
 
-},{"./FromEventPatternObservable":209}],237:[function(require,module,exports){
+},{"./FromEventPatternObservable":215}],243:[function(require,module,exports){
 "use strict";
 var PromiseObservable_1 = require('./PromiseObservable');
 exports.fromPromise = PromiseObservable_1.PromiseObservable.create;
 
-},{"./PromiseObservable":217}],238:[function(require,module,exports){
+},{"./PromiseObservable":223}],244:[function(require,module,exports){
 "use strict";
 var IfObservable_1 = require('./IfObservable');
 exports._if = IfObservable_1.IfObservable.create;
 
-},{"./IfObservable":212}],239:[function(require,module,exports){
+},{"./IfObservable":218}],245:[function(require,module,exports){
 "use strict";
 var IntervalObservable_1 = require('./IntervalObservable');
 exports.interval = IntervalObservable_1.IntervalObservable.create;
 
-},{"./IntervalObservable":213}],240:[function(require,module,exports){
+},{"./IntervalObservable":219}],246:[function(require,module,exports){
 "use strict";
 var merge_1 = require('../operator/merge');
 exports.merge = merge_1.mergeStatic;
 
-},{"../operator/merge":293}],241:[function(require,module,exports){
+},{"../operator/merge":299}],247:[function(require,module,exports){
 "use strict";
 var NeverObservable_1 = require('./NeverObservable');
 exports.never = NeverObservable_1.NeverObservable.create;
 
-},{"./NeverObservable":215}],242:[function(require,module,exports){
+},{"./NeverObservable":221}],248:[function(require,module,exports){
 "use strict";
 var ArrayObservable_1 = require('./ArrayObservable');
 exports.of = ArrayObservable_1.ArrayObservable.of;
 
-},{"./ArrayObservable":200}],243:[function(require,module,exports){
+},{"./ArrayObservable":206}],249:[function(require,module,exports){
 "use strict";
 var PairsObservable_1 = require('./PairsObservable');
 exports.pairs = PairsObservable_1.PairsObservable.create;
 
-},{"./PairsObservable":216}],244:[function(require,module,exports){
+},{"./PairsObservable":222}],250:[function(require,module,exports){
 "use strict";
 var RangeObservable_1 = require('./RangeObservable');
 exports.range = RangeObservable_1.RangeObservable.create;
 
-},{"./RangeObservable":218}],245:[function(require,module,exports){
+},{"./RangeObservable":224}],251:[function(require,module,exports){
 "use strict";
 var ErrorObservable_1 = require('./ErrorObservable');
 exports._throw = ErrorObservable_1.ErrorObservable.create;
 
-},{"./ErrorObservable":206}],246:[function(require,module,exports){
+},{"./ErrorObservable":212}],252:[function(require,module,exports){
 "use strict";
 var TimerObservable_1 = require('./TimerObservable');
 exports.timer = TimerObservable_1.TimerObservable.create;
 
-},{"./TimerObservable":221}],247:[function(require,module,exports){
+},{"./TimerObservable":227}],253:[function(require,module,exports){
 "use strict";
 var UsingObservable_1 = require('./UsingObservable');
 exports.using = UsingObservable_1.UsingObservable.create;
 
-},{"./UsingObservable":222}],248:[function(require,module,exports){
+},{"./UsingObservable":228}],254:[function(require,module,exports){
 "use strict";
 var zip_1 = require('../operator/zip');
 exports.zip = zip_1.zipStatic;
 
-},{"../operator/zip":347}],249:[function(require,module,exports){
+},{"../operator/zip":353}],255:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -72025,7 +72489,7 @@ var AuditSubscriber = (function (_super) {
     return AuditSubscriber;
 }(OuterSubscriber_1.OuterSubscriber));
 
-},{"../OuterSubscriber":64,"../util/errorObject":384,"../util/subscribeToResult":395,"../util/tryCatch":397}],250:[function(require,module,exports){
+},{"../OuterSubscriber":70,"../util/errorObject":390,"../util/subscribeToResult":401,"../util/tryCatch":403}],256:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -72130,7 +72594,7 @@ function dispatchNext(subscriber) {
     subscriber.clearThrottle();
 }
 
-},{"../Subscriber":70,"../scheduler/async":361}],251:[function(require,module,exports){
+},{"../Subscriber":76,"../scheduler/async":367}],257:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -72207,7 +72671,7 @@ var BufferSubscriber = (function (_super) {
     return BufferSubscriber;
 }(OuterSubscriber_1.OuterSubscriber));
 
-},{"../OuterSubscriber":64,"../util/subscribeToResult":395}],252:[function(require,module,exports){
+},{"../OuterSubscriber":70,"../util/subscribeToResult":401}],258:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -72315,7 +72779,7 @@ var BufferCountSubscriber = (function (_super) {
     return BufferCountSubscriber;
 }(Subscriber_1.Subscriber));
 
-},{"../Subscriber":70}],253:[function(require,module,exports){
+},{"../Subscriber":76}],259:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -72515,7 +72979,7 @@ function dispatchBufferClose(arg) {
     subscriber.closeContext(context);
 }
 
-},{"../Subscriber":70,"../scheduler/async":361,"../util/isScheduler":391}],254:[function(require,module,exports){
+},{"../Subscriber":76,"../scheduler/async":367,"../util/isScheduler":397}],260:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -72668,7 +73132,7 @@ var BufferToggleSubscriber = (function (_super) {
     return BufferToggleSubscriber;
 }(OuterSubscriber_1.OuterSubscriber));
 
-},{"../OuterSubscriber":64,"../Subscription":71,"../util/subscribeToResult":395}],255:[function(require,module,exports){
+},{"../OuterSubscriber":70,"../Subscription":77,"../util/subscribeToResult":401}],261:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -72791,7 +73255,7 @@ var BufferWhenSubscriber = (function (_super) {
     return BufferWhenSubscriber;
 }(OuterSubscriber_1.OuterSubscriber));
 
-},{"../OuterSubscriber":64,"../Subscription":71,"../util/errorObject":384,"../util/subscribeToResult":395,"../util/tryCatch":397}],256:[function(require,module,exports){
+},{"../OuterSubscriber":70,"../Subscription":77,"../util/errorObject":390,"../util/subscribeToResult":401,"../util/tryCatch":403}],262:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -72910,7 +73374,7 @@ var CatchSubscriber = (function (_super) {
     return CatchSubscriber;
 }(OuterSubscriber_1.OuterSubscriber));
 
-},{"../OuterSubscriber":64,"../util/subscribeToResult":395}],257:[function(require,module,exports){
+},{"../OuterSubscriber":70,"../util/subscribeToResult":401}],263:[function(require,module,exports){
 "use strict";
 var combineLatest_1 = require('./combineLatest');
 /**
@@ -72958,7 +73422,7 @@ function combineAll(project) {
 }
 exports.combineAll = combineAll;
 
-},{"./combineLatest":258}],258:[function(require,module,exports){
+},{"./combineLatest":264}],264:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -73111,7 +73575,7 @@ var CombineLatestSubscriber = (function (_super) {
 }(OuterSubscriber_1.OuterSubscriber));
 exports.CombineLatestSubscriber = CombineLatestSubscriber;
 
-},{"../OuterSubscriber":64,"../observable/ArrayObservable":200,"../util/isArray":385,"../util/subscribeToResult":395}],259:[function(require,module,exports){
+},{"../OuterSubscriber":70,"../observable/ArrayObservable":206,"../util/isArray":391,"../util/subscribeToResult":401}],265:[function(require,module,exports){
 "use strict";
 var isScheduler_1 = require('../util/isScheduler');
 var ArrayObservable_1 = require('../observable/ArrayObservable');
@@ -73242,7 +73706,7 @@ function concatStatic() {
 }
 exports.concatStatic = concatStatic;
 
-},{"../observable/ArrayObservable":200,"../util/isScheduler":391,"./mergeAll":294}],260:[function(require,module,exports){
+},{"../observable/ArrayObservable":206,"../util/isScheduler":397,"./mergeAll":300}],266:[function(require,module,exports){
 "use strict";
 var mergeAll_1 = require('./mergeAll');
 /* tslint:disable:max-line-length */
@@ -73299,7 +73763,7 @@ function concatAll() {
 }
 exports.concatAll = concatAll;
 
-},{"./mergeAll":294}],261:[function(require,module,exports){
+},{"./mergeAll":300}],267:[function(require,module,exports){
 "use strict";
 var mergeMap_1 = require('./mergeMap');
 /* tslint:disable:max-line-length */
@@ -73370,7 +73834,7 @@ function concatMap(project, resultSelector) {
 }
 exports.concatMap = concatMap;
 
-},{"./mergeMap":295}],262:[function(require,module,exports){
+},{"./mergeMap":301}],268:[function(require,module,exports){
 "use strict";
 var mergeMapTo_1 = require('./mergeMapTo');
 /* tslint:disable:max-line-length */
@@ -73435,7 +73899,7 @@ function concatMapTo(innerObservable, resultSelector) {
 }
 exports.concatMapTo = concatMapTo;
 
-},{"./mergeMapTo":296}],263:[function(require,module,exports){
+},{"./mergeMapTo":302}],269:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -73547,7 +74011,7 @@ var CountSubscriber = (function (_super) {
     return CountSubscriber;
 }(Subscriber_1.Subscriber));
 
-},{"../Subscriber":70}],264:[function(require,module,exports){
+},{"../Subscriber":76}],270:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -73675,7 +74139,7 @@ var DebounceSubscriber = (function (_super) {
     return DebounceSubscriber;
 }(OuterSubscriber_1.OuterSubscriber));
 
-},{"../OuterSubscriber":64,"../util/subscribeToResult":395}],265:[function(require,module,exports){
+},{"../OuterSubscriber":70,"../util/subscribeToResult":401}],271:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -73792,7 +74256,7 @@ function dispatchNext(subscriber) {
     subscriber.debouncedNext();
 }
 
-},{"../Subscriber":70,"../scheduler/async":361}],266:[function(require,module,exports){
+},{"../Subscriber":76,"../scheduler/async":367}],272:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -73870,7 +74334,7 @@ var DefaultIfEmptySubscriber = (function (_super) {
     return DefaultIfEmptySubscriber;
 }(Subscriber_1.Subscriber));
 
-},{"../Subscriber":70}],267:[function(require,module,exports){
+},{"../Subscriber":76}],273:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -74006,7 +74470,7 @@ var DelayMessage = (function () {
     return DelayMessage;
 }());
 
-},{"../Notification":61,"../Subscriber":70,"../scheduler/async":361,"../util/isDate":386}],268:[function(require,module,exports){
+},{"../Notification":67,"../Subscriber":76,"../scheduler/async":367,"../util/isDate":392}],274:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -74197,7 +74661,7 @@ var SubscriptionDelaySubscriber = (function (_super) {
     return SubscriptionDelaySubscriber;
 }(Subscriber_1.Subscriber));
 
-},{"../Observable":62,"../OuterSubscriber":64,"../Subscriber":70,"../util/subscribeToResult":395}],269:[function(require,module,exports){
+},{"../Observable":68,"../OuterSubscriber":70,"../Subscriber":76,"../util/subscribeToResult":401}],275:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -74273,7 +74737,7 @@ var DeMaterializeSubscriber = (function (_super) {
     return DeMaterializeSubscriber;
 }(Subscriber_1.Subscriber));
 
-},{"../Subscriber":70}],270:[function(require,module,exports){
+},{"../Subscriber":76}],276:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -74394,7 +74858,7 @@ var DistinctSubscriber = (function (_super) {
 }(OuterSubscriber_1.OuterSubscriber));
 exports.DistinctSubscriber = DistinctSubscriber;
 
-},{"../OuterSubscriber":64,"../util/Set":379,"../util/subscribeToResult":395}],271:[function(require,module,exports){
+},{"../OuterSubscriber":70,"../util/Set":385,"../util/subscribeToResult":401}],277:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -74503,7 +74967,7 @@ var DistinctUntilChangedSubscriber = (function (_super) {
     return DistinctUntilChangedSubscriber;
 }(Subscriber_1.Subscriber));
 
-},{"../Subscriber":70,"../util/errorObject":384,"../util/tryCatch":397}],272:[function(require,module,exports){
+},{"../Subscriber":76,"../util/errorObject":390,"../util/tryCatch":403}],278:[function(require,module,exports){
 "use strict";
 var distinctUntilChanged_1 = require('./distinctUntilChanged');
 /* tslint:disable:max-line-length */
@@ -74574,7 +75038,7 @@ function distinctUntilKeyChanged(key, compare) {
 }
 exports.distinctUntilKeyChanged = distinctUntilKeyChanged;
 
-},{"./distinctUntilChanged":271}],273:[function(require,module,exports){
+},{"./distinctUntilChanged":277}],279:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -74688,7 +75152,7 @@ var DoSubscriber = (function (_super) {
     return DoSubscriber;
 }(Subscriber_1.Subscriber));
 
-},{"../Subscriber":70}],274:[function(require,module,exports){
+},{"../Subscriber":76}],280:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -74789,7 +75253,7 @@ var ElementAtSubscriber = (function (_super) {
     return ElementAtSubscriber;
 }(Subscriber_1.Subscriber));
 
-},{"../Subscriber":70,"../util/ArgumentOutOfRangeError":372}],275:[function(require,module,exports){
+},{"../Subscriber":76,"../util/ArgumentOutOfRangeError":378}],281:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -74864,7 +75328,7 @@ var EverySubscriber = (function (_super) {
     return EverySubscriber;
 }(Subscriber_1.Subscriber));
 
-},{"../Subscriber":70}],276:[function(require,module,exports){
+},{"../Subscriber":76}],282:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -74955,7 +75419,7 @@ var SwitchFirstSubscriber = (function (_super) {
     return SwitchFirstSubscriber;
 }(OuterSubscriber_1.OuterSubscriber));
 
-},{"../OuterSubscriber":64,"../util/subscribeToResult":395}],277:[function(require,module,exports){
+},{"../OuterSubscriber":70,"../util/subscribeToResult":401}],283:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -75094,7 +75558,7 @@ var SwitchFirstMapSubscriber = (function (_super) {
     return SwitchFirstMapSubscriber;
 }(OuterSubscriber_1.OuterSubscriber));
 
-},{"../OuterSubscriber":64,"../util/subscribeToResult":395}],278:[function(require,module,exports){
+},{"../OuterSubscriber":70,"../util/subscribeToResult":401}],284:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -75246,7 +75710,7 @@ var ExpandSubscriber = (function (_super) {
 }(OuterSubscriber_1.OuterSubscriber));
 exports.ExpandSubscriber = ExpandSubscriber;
 
-},{"../OuterSubscriber":64,"../util/errorObject":384,"../util/subscribeToResult":395,"../util/tryCatch":397}],279:[function(require,module,exports){
+},{"../OuterSubscriber":70,"../util/errorObject":390,"../util/subscribeToResult":401,"../util/tryCatch":403}],285:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -75340,7 +75804,7 @@ var FilterSubscriber = (function (_super) {
     return FilterSubscriber;
 }(Subscriber_1.Subscriber));
 
-},{"../Subscriber":70}],280:[function(require,module,exports){
+},{"../Subscriber":76}],286:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -75384,7 +75848,7 @@ var FinallySubscriber = (function (_super) {
     return FinallySubscriber;
 }(Subscriber_1.Subscriber));
 
-},{"../Subscriber":70,"../Subscription":71}],281:[function(require,module,exports){
+},{"../Subscriber":76,"../Subscription":77}],287:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -75486,7 +75950,7 @@ var FindValueSubscriber = (function (_super) {
 }(Subscriber_1.Subscriber));
 exports.FindValueSubscriber = FindValueSubscriber;
 
-},{"../Subscriber":70}],282:[function(require,module,exports){
+},{"../Subscriber":76}],288:[function(require,module,exports){
 "use strict";
 var find_1 = require('./find');
 /**
@@ -75528,7 +75992,7 @@ function findIndex(predicate, thisArg) {
 }
 exports.findIndex = findIndex;
 
-},{"./find":281}],283:[function(require,module,exports){
+},{"./find":287}],289:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -75681,7 +76145,7 @@ var FirstSubscriber = (function (_super) {
     return FirstSubscriber;
 }(Subscriber_1.Subscriber));
 
-},{"../Subscriber":70,"../util/EmptyError":373}],284:[function(require,module,exports){
+},{"../Subscriber":76,"../util/EmptyError":379}],290:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -75917,7 +76381,7 @@ var InnerRefCountSubscription = (function (_super) {
     return InnerRefCountSubscription;
 }(Subscription_1.Subscription));
 
-},{"../Observable":62,"../Subject":68,"../Subscriber":70,"../Subscription":71,"../util/FastMap":374,"../util/Map":376}],285:[function(require,module,exports){
+},{"../Observable":68,"../Subject":74,"../Subscriber":76,"../Subscription":77,"../util/FastMap":380,"../util/Map":382}],291:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -75965,7 +76429,7 @@ var IgnoreElementsSubscriber = (function (_super) {
     return IgnoreElementsSubscriber;
 }(Subscriber_1.Subscriber));
 
-},{"../Subscriber":70,"../util/noop":392}],286:[function(require,module,exports){
+},{"../Subscriber":76,"../util/noop":398}],292:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -76018,7 +76482,7 @@ var IsEmptySubscriber = (function (_super) {
     return IsEmptySubscriber;
 }(Subscriber_1.Subscriber));
 
-},{"../Subscriber":70}],287:[function(require,module,exports){
+},{"../Subscriber":76}],293:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -76138,7 +76602,7 @@ var LastSubscriber = (function (_super) {
     return LastSubscriber;
 }(Subscriber_1.Subscriber));
 
-},{"../Subscriber":70,"../util/EmptyError":373}],288:[function(require,module,exports){
+},{"../Subscriber":76,"../util/EmptyError":379}],294:[function(require,module,exports){
 "use strict";
 /**
  * @param func
@@ -76151,7 +76615,7 @@ function letProto(func) {
 }
 exports.letProto = letProto;
 
-},{}],289:[function(require,module,exports){
+},{}],295:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -76239,7 +76703,7 @@ var MapSubscriber = (function (_super) {
     return MapSubscriber;
 }(Subscriber_1.Subscriber));
 
-},{"../Subscriber":70}],290:[function(require,module,exports){
+},{"../Subscriber":76}],296:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -76303,7 +76767,7 @@ var MapToSubscriber = (function (_super) {
     return MapToSubscriber;
 }(Subscriber_1.Subscriber));
 
-},{"../Subscriber":70}],291:[function(require,module,exports){
+},{"../Subscriber":76}],297:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -76394,7 +76858,7 @@ var MaterializeSubscriber = (function (_super) {
     return MaterializeSubscriber;
 }(Subscriber_1.Subscriber));
 
-},{"../Notification":61,"../Subscriber":70}],292:[function(require,module,exports){
+},{"../Notification":67,"../Subscriber":76}],298:[function(require,module,exports){
 "use strict";
 var reduce_1 = require('./reduce');
 /**
@@ -76436,7 +76900,7 @@ function max(comparer) {
 }
 exports.max = max;
 
-},{"./reduce":310}],293:[function(require,module,exports){
+},{"./reduce":316}],299:[function(require,module,exports){
 "use strict";
 var ArrayObservable_1 = require('../observable/ArrayObservable');
 var mergeAll_1 = require('./mergeAll');
@@ -76581,7 +77045,7 @@ function mergeStatic() {
 }
 exports.mergeStatic = mergeStatic;
 
-},{"../observable/ArrayObservable":200,"../util/isScheduler":391,"./mergeAll":294}],294:[function(require,module,exports){
+},{"../observable/ArrayObservable":206,"../util/isScheduler":397,"./mergeAll":300}],300:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -76693,7 +77157,7 @@ var MergeAllSubscriber = (function (_super) {
 }(OuterSubscriber_1.OuterSubscriber));
 exports.MergeAllSubscriber = MergeAllSubscriber;
 
-},{"../OuterSubscriber":64,"../util/subscribeToResult":395}],295:[function(require,module,exports){
+},{"../OuterSubscriber":70,"../util/subscribeToResult":401}],301:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -76865,7 +77329,7 @@ var MergeMapSubscriber = (function (_super) {
 }(OuterSubscriber_1.OuterSubscriber));
 exports.MergeMapSubscriber = MergeMapSubscriber;
 
-},{"../OuterSubscriber":64,"../util/subscribeToResult":395}],296:[function(require,module,exports){
+},{"../OuterSubscriber":70,"../util/subscribeToResult":401}],302:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -77021,7 +77485,7 @@ var MergeMapToSubscriber = (function (_super) {
 }(OuterSubscriber_1.OuterSubscriber));
 exports.MergeMapToSubscriber = MergeMapToSubscriber;
 
-},{"../OuterSubscriber":64,"../util/subscribeToResult":395}],297:[function(require,module,exports){
+},{"../OuterSubscriber":70,"../util/subscribeToResult":401}],303:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -77151,7 +77615,7 @@ var MergeScanSubscriber = (function (_super) {
 }(OuterSubscriber_1.OuterSubscriber));
 exports.MergeScanSubscriber = MergeScanSubscriber;
 
-},{"../OuterSubscriber":64,"../util/errorObject":384,"../util/subscribeToResult":395,"../util/tryCatch":397}],298:[function(require,module,exports){
+},{"../OuterSubscriber":70,"../util/errorObject":390,"../util/subscribeToResult":401,"../util/tryCatch":403}],304:[function(require,module,exports){
 "use strict";
 var reduce_1 = require('./reduce');
 /**
@@ -77192,7 +77656,7 @@ function min(comparer) {
 }
 exports.min = min;
 
-},{"./reduce":310}],299:[function(require,module,exports){
+},{"./reduce":316}],305:[function(require,module,exports){
 "use strict";
 var ConnectableObservable_1 = require('../observable/ConnectableObservable');
 /* tslint:disable:max-line-length */
@@ -77250,7 +77714,7 @@ var MulticastOperator = (function () {
 }());
 exports.MulticastOperator = MulticastOperator;
 
-},{"../observable/ConnectableObservable":203}],300:[function(require,module,exports){
+},{"../observable/ConnectableObservable":209}],306:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -77330,7 +77794,7 @@ var ObserveOnMessage = (function () {
 }());
 exports.ObserveOnMessage = ObserveOnMessage;
 
-},{"../Notification":61,"../Subscriber":70}],301:[function(require,module,exports){
+},{"../Notification":67,"../Subscriber":76}],307:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -77407,7 +77871,7 @@ var OnErrorResumeNextSubscriber = (function (_super) {
     return OnErrorResumeNextSubscriber;
 }(OuterSubscriber_1.OuterSubscriber));
 
-},{"../OuterSubscriber":64,"../observable/FromObservable":210,"../util/isArray":385,"../util/subscribeToResult":395}],302:[function(require,module,exports){
+},{"../OuterSubscriber":70,"../observable/FromObservable":216,"../util/isArray":391,"../util/subscribeToResult":401}],308:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -77485,7 +77949,7 @@ var PairwiseSubscriber = (function (_super) {
     return PairwiseSubscriber;
 }(Subscriber_1.Subscriber));
 
-},{"../Subscriber":70}],303:[function(require,module,exports){
+},{"../Subscriber":76}],309:[function(require,module,exports){
 "use strict";
 var not_1 = require('../util/not');
 var filter_1 = require('./filter');
@@ -77538,7 +78002,7 @@ function partition(predicate, thisArg) {
 }
 exports.partition = partition;
 
-},{"../util/not":393,"./filter":279}],304:[function(require,module,exports){
+},{"../util/not":399,"./filter":285}],310:[function(require,module,exports){
 "use strict";
 var map_1 = require('./map');
 /**
@@ -77597,7 +78061,7 @@ function plucker(props, length) {
     return mapper;
 }
 
-},{"./map":289}],305:[function(require,module,exports){
+},{"./map":295}],311:[function(require,module,exports){
 "use strict";
 var Subject_1 = require('../Subject');
 var multicast_1 = require('./multicast');
@@ -77621,7 +78085,7 @@ function publish(selector) {
 }
 exports.publish = publish;
 
-},{"../Subject":68,"./multicast":299}],306:[function(require,module,exports){
+},{"../Subject":74,"./multicast":305}],312:[function(require,module,exports){
 "use strict";
 var BehaviorSubject_1 = require('../BehaviorSubject');
 var multicast_1 = require('./multicast');
@@ -77636,7 +78100,7 @@ function publishBehavior(value) {
 }
 exports.publishBehavior = publishBehavior;
 
-},{"../BehaviorSubject":59,"./multicast":299}],307:[function(require,module,exports){
+},{"../BehaviorSubject":65,"./multicast":305}],313:[function(require,module,exports){
 "use strict";
 var AsyncSubject_1 = require('../AsyncSubject');
 var multicast_1 = require('./multicast');
@@ -77650,7 +78114,7 @@ function publishLast() {
 }
 exports.publishLast = publishLast;
 
-},{"../AsyncSubject":58,"./multicast":299}],308:[function(require,module,exports){
+},{"../AsyncSubject":64,"./multicast":305}],314:[function(require,module,exports){
 "use strict";
 var ReplaySubject_1 = require('../ReplaySubject');
 var multicast_1 = require('./multicast');
@@ -77669,7 +78133,7 @@ function publishReplay(bufferSize, windowTime, scheduler) {
 }
 exports.publishReplay = publishReplay;
 
-},{"../ReplaySubject":65,"./multicast":299}],309:[function(require,module,exports){
+},{"../ReplaySubject":71,"./multicast":305}],315:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -77781,7 +78245,7 @@ var RaceSubscriber = (function (_super) {
 }(OuterSubscriber_1.OuterSubscriber));
 exports.RaceSubscriber = RaceSubscriber;
 
-},{"../OuterSubscriber":64,"../observable/ArrayObservable":200,"../util/isArray":385,"../util/subscribeToResult":395}],310:[function(require,module,exports){
+},{"../OuterSubscriber":70,"../observable/ArrayObservable":206,"../util/isArray":391,"../util/subscribeToResult":401}],316:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -77909,7 +78373,7 @@ var ReduceSubscriber = (function (_super) {
 }(Subscriber_1.Subscriber));
 exports.ReduceSubscriber = ReduceSubscriber;
 
-},{"../Subscriber":70}],311:[function(require,module,exports){
+},{"../Subscriber":76}],317:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -77985,7 +78449,7 @@ var RepeatSubscriber = (function (_super) {
     return RepeatSubscriber;
 }(Subscriber_1.Subscriber));
 
-},{"../Subscriber":70,"../observable/EmptyObservable":205}],312:[function(require,module,exports){
+},{"../Subscriber":76,"../observable/EmptyObservable":211}],318:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -78097,7 +78561,7 @@ var RepeatWhenSubscriber = (function (_super) {
     return RepeatWhenSubscriber;
 }(OuterSubscriber_1.OuterSubscriber));
 
-},{"../OuterSubscriber":64,"../Subject":68,"../util/errorObject":384,"../util/subscribeToResult":395,"../util/tryCatch":397}],313:[function(require,module,exports){
+},{"../OuterSubscriber":70,"../Subject":74,"../util/errorObject":390,"../util/subscribeToResult":401,"../util/tryCatch":403}],319:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -78167,7 +78631,7 @@ var RetrySubscriber = (function (_super) {
     return RetrySubscriber;
 }(Subscriber_1.Subscriber));
 
-},{"../Subscriber":70}],314:[function(require,module,exports){
+},{"../Subscriber":76}],320:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -78274,7 +78738,7 @@ var RetryWhenSubscriber = (function (_super) {
     return RetryWhenSubscriber;
 }(OuterSubscriber_1.OuterSubscriber));
 
-},{"../OuterSubscriber":64,"../Subject":68,"../util/errorObject":384,"../util/subscribeToResult":395,"../util/tryCatch":397}],315:[function(require,module,exports){
+},{"../OuterSubscriber":70,"../Subject":74,"../util/errorObject":390,"../util/subscribeToResult":401,"../util/tryCatch":403}],321:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -78363,7 +78827,7 @@ var SampleSubscriber = (function (_super) {
     return SampleSubscriber;
 }(OuterSubscriber_1.OuterSubscriber));
 
-},{"../OuterSubscriber":64,"../util/subscribeToResult":395}],316:[function(require,module,exports){
+},{"../OuterSubscriber":70,"../util/subscribeToResult":401}],322:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -78455,7 +78919,7 @@ function dispatchNotification(state) {
     this.schedule(state, period);
 }
 
-},{"../Subscriber":70,"../scheduler/async":361}],317:[function(require,module,exports){
+},{"../Subscriber":76,"../scheduler/async":367}],323:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -78575,7 +79039,7 @@ var ScanSubscriber = (function (_super) {
     return ScanSubscriber;
 }(Subscriber_1.Subscriber));
 
-},{"../Subscriber":70}],318:[function(require,module,exports){
+},{"../Subscriber":76}],324:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -78740,7 +79204,7 @@ var SequenceEqualCompareToSubscriber = (function (_super) {
     return SequenceEqualCompareToSubscriber;
 }(Subscriber_1.Subscriber));
 
-},{"../Subscriber":70,"../util/errorObject":384,"../util/tryCatch":397}],319:[function(require,module,exports){
+},{"../Subscriber":76,"../util/errorObject":390,"../util/tryCatch":403}],325:[function(require,module,exports){
 "use strict";
 var multicast_1 = require('./multicast');
 var Subject_1 = require('../Subject');
@@ -78765,7 +79229,7 @@ function share() {
 exports.share = share;
 ;
 
-},{"../Subject":68,"./multicast":299}],320:[function(require,module,exports){
+},{"../Subject":74,"./multicast":305}],326:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -78861,7 +79325,7 @@ var SingleSubscriber = (function (_super) {
     return SingleSubscriber;
 }(Subscriber_1.Subscriber));
 
-},{"../Subscriber":70,"../util/EmptyError":373}],321:[function(require,module,exports){
+},{"../Subscriber":76,"../util/EmptyError":379}],327:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -78913,7 +79377,7 @@ var SkipSubscriber = (function (_super) {
     return SkipSubscriber;
 }(Subscriber_1.Subscriber));
 
-},{"../Subscriber":70}],322:[function(require,module,exports){
+},{"../Subscriber":76}],328:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -78985,7 +79449,7 @@ var SkipUntilSubscriber = (function (_super) {
     return SkipUntilSubscriber;
 }(OuterSubscriber_1.OuterSubscriber));
 
-},{"../OuterSubscriber":64,"../util/subscribeToResult":395}],323:[function(require,module,exports){
+},{"../OuterSubscriber":70,"../util/subscribeToResult":401}],329:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -79052,7 +79516,7 @@ var SkipWhileSubscriber = (function (_super) {
     return SkipWhileSubscriber;
 }(Subscriber_1.Subscriber));
 
-},{"../Subscriber":70}],324:[function(require,module,exports){
+},{"../Subscriber":76}],330:[function(require,module,exports){
 "use strict";
 var ArrayObservable_1 = require('../observable/ArrayObservable');
 var ScalarObservable_1 = require('../observable/ScalarObservable');
@@ -79097,7 +79561,7 @@ function startWith() {
 }
 exports.startWith = startWith;
 
-},{"../observable/ArrayObservable":200,"../observable/EmptyObservable":205,"../observable/ScalarObservable":219,"../util/isScheduler":391,"./concat":259}],325:[function(require,module,exports){
+},{"../observable/ArrayObservable":206,"../observable/EmptyObservable":211,"../observable/ScalarObservable":225,"../util/isScheduler":397,"./concat":265}],331:[function(require,module,exports){
 "use strict";
 var SubscribeOnObservable_1 = require('../observable/SubscribeOnObservable');
 /**
@@ -79127,7 +79591,7 @@ var SubscribeOnOperator = (function () {
     return SubscribeOnOperator;
 }());
 
-},{"../observable/SubscribeOnObservable":220}],326:[function(require,module,exports){
+},{"../observable/SubscribeOnObservable":226}],332:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -79236,7 +79700,7 @@ var SwitchSubscriber = (function (_super) {
     return SwitchSubscriber;
 }(OuterSubscriber_1.OuterSubscriber));
 
-},{"../OuterSubscriber":64,"../util/subscribeToResult":395}],327:[function(require,module,exports){
+},{"../OuterSubscriber":70,"../util/subscribeToResult":401}],333:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -79377,7 +79841,7 @@ var SwitchMapSubscriber = (function (_super) {
     return SwitchMapSubscriber;
 }(OuterSubscriber_1.OuterSubscriber));
 
-},{"../OuterSubscriber":64,"../util/subscribeToResult":395}],328:[function(require,module,exports){
+},{"../OuterSubscriber":70,"../util/subscribeToResult":401}],334:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -79505,7 +79969,7 @@ var SwitchMapToSubscriber = (function (_super) {
     return SwitchMapToSubscriber;
 }(OuterSubscriber_1.OuterSubscriber));
 
-},{"../OuterSubscriber":64,"../util/subscribeToResult":395}],329:[function(require,module,exports){
+},{"../OuterSubscriber":70,"../util/subscribeToResult":401}],335:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -79595,7 +80059,7 @@ var TakeSubscriber = (function (_super) {
     return TakeSubscriber;
 }(Subscriber_1.Subscriber));
 
-},{"../Subscriber":70,"../observable/EmptyObservable":205,"../util/ArgumentOutOfRangeError":372}],330:[function(require,module,exports){
+},{"../Subscriber":76,"../observable/EmptyObservable":211,"../util/ArgumentOutOfRangeError":378}],336:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -79703,7 +80167,7 @@ var TakeLastSubscriber = (function (_super) {
     return TakeLastSubscriber;
 }(Subscriber_1.Subscriber));
 
-},{"../Subscriber":70,"../observable/EmptyObservable":205,"../util/ArgumentOutOfRangeError":372}],331:[function(require,module,exports){
+},{"../Subscriber":76,"../observable/EmptyObservable":211,"../util/ArgumentOutOfRangeError":378}],337:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -79779,7 +80243,7 @@ var TakeUntilSubscriber = (function (_super) {
     return TakeUntilSubscriber;
 }(OuterSubscriber_1.OuterSubscriber));
 
-},{"../OuterSubscriber":64,"../util/subscribeToResult":395}],332:[function(require,module,exports){
+},{"../OuterSubscriber":70,"../util/subscribeToResult":401}],338:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -79872,7 +80336,7 @@ var TakeWhileSubscriber = (function (_super) {
     return TakeWhileSubscriber;
 }(Subscriber_1.Subscriber));
 
-},{"../Subscriber":70}],333:[function(require,module,exports){
+},{"../Subscriber":76}],339:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -79981,7 +80445,7 @@ var ThrottleSubscriber = (function (_super) {
     return ThrottleSubscriber;
 }(OuterSubscriber_1.OuterSubscriber));
 
-},{"../OuterSubscriber":64,"../util/subscribeToResult":395}],334:[function(require,module,exports){
+},{"../OuterSubscriber":70,"../util/subscribeToResult":401}],340:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -80077,7 +80541,7 @@ function dispatchNext(arg) {
     subscriber.clearThrottle();
 }
 
-},{"../Subscriber":70,"../scheduler/async":361}],335:[function(require,module,exports){
+},{"../Subscriber":76,"../scheduler/async":367}],341:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -80137,7 +80601,7 @@ var TimeIntervalSubscriber = (function (_super) {
     return TimeIntervalSubscriber;
 }(Subscriber_1.Subscriber));
 
-},{"../Subscriber":70,"../scheduler/async":361}],336:[function(require,module,exports){
+},{"../Subscriber":76,"../scheduler/async":367}],342:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -80239,7 +80703,7 @@ var TimeoutSubscriber = (function (_super) {
     return TimeoutSubscriber;
 }(Subscriber_1.Subscriber));
 
-},{"../Subscriber":70,"../scheduler/async":361,"../util/TimeoutError":380,"../util/isDate":386}],337:[function(require,module,exports){
+},{"../Subscriber":76,"../scheduler/async":367,"../util/TimeoutError":386,"../util/isDate":392}],343:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -80351,7 +80815,7 @@ var TimeoutWithSubscriber = (function (_super) {
     return TimeoutWithSubscriber;
 }(OuterSubscriber_1.OuterSubscriber));
 
-},{"../OuterSubscriber":64,"../scheduler/async":361,"../util/isDate":386,"../util/subscribeToResult":395}],338:[function(require,module,exports){
+},{"../OuterSubscriber":70,"../scheduler/async":367,"../util/isDate":392,"../util/subscribeToResult":401}],344:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -80402,7 +80866,7 @@ var TimestampSubscriber = (function (_super) {
     return TimestampSubscriber;
 }(Subscriber_1.Subscriber));
 
-},{"../Subscriber":70,"../scheduler/async":361}],339:[function(require,module,exports){
+},{"../Subscriber":76,"../scheduler/async":367}],345:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -80448,7 +80912,7 @@ var ToArraySubscriber = (function (_super) {
     return ToArraySubscriber;
 }(Subscriber_1.Subscriber));
 
-},{"../Subscriber":70}],340:[function(require,module,exports){
+},{"../Subscriber":76}],346:[function(require,module,exports){
 "use strict";
 var root_1 = require('../util/root');
 /* tslint:disable:max-line-length */
@@ -80521,7 +80985,7 @@ function toPromise(PromiseCtor) {
 }
 exports.toPromise = toPromise;
 
-},{"../util/root":394}],341:[function(require,module,exports){
+},{"../util/root":400}],347:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -80632,7 +81096,7 @@ var WindowSubscriber = (function (_super) {
     return WindowSubscriber;
 }(OuterSubscriber_1.OuterSubscriber));
 
-},{"../OuterSubscriber":64,"../Subject":68,"../util/subscribeToResult":395}],342:[function(require,module,exports){
+},{"../OuterSubscriber":70,"../Subject":74,"../util/subscribeToResult":401}],348:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -80764,7 +81228,7 @@ var WindowCountSubscriber = (function (_super) {
     return WindowCountSubscriber;
 }(Subscriber_1.Subscriber));
 
-},{"../Subject":68,"../Subscriber":70}],343:[function(require,module,exports){
+},{"../Subject":74,"../Subscriber":76}],349:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -80933,7 +81397,7 @@ function dispatchWindowClose(state) {
     subscriber.closeWindow(window);
 }
 
-},{"../Subject":68,"../Subscriber":70,"../scheduler/async":361}],344:[function(require,module,exports){
+},{"../Subject":74,"../Subscriber":76,"../scheduler/async":367}],350:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -81114,7 +81578,7 @@ var WindowToggleSubscriber = (function (_super) {
     return WindowToggleSubscriber;
 }(OuterSubscriber_1.OuterSubscriber));
 
-},{"../OuterSubscriber":64,"../Subject":68,"../Subscription":71,"../util/errorObject":384,"../util/subscribeToResult":395,"../util/tryCatch":397}],345:[function(require,module,exports){
+},{"../OuterSubscriber":70,"../Subject":74,"../Subscription":77,"../util/errorObject":390,"../util/subscribeToResult":401,"../util/tryCatch":403}],351:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -81242,7 +81706,7 @@ var WindowSubscriber = (function (_super) {
     return WindowSubscriber;
 }(OuterSubscriber_1.OuterSubscriber));
 
-},{"../OuterSubscriber":64,"../Subject":68,"../util/errorObject":384,"../util/subscribeToResult":395,"../util/tryCatch":397}],346:[function(require,module,exports){
+},{"../OuterSubscriber":70,"../Subject":74,"../util/errorObject":390,"../util/subscribeToResult":401,"../util/tryCatch":403}],352:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -81373,7 +81837,7 @@ var WithLatestFromSubscriber = (function (_super) {
     return WithLatestFromSubscriber;
 }(OuterSubscriber_1.OuterSubscriber));
 
-},{"../OuterSubscriber":64,"../util/subscribeToResult":395}],347:[function(require,module,exports){
+},{"../OuterSubscriber":70,"../util/subscribeToResult":401}],353:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -81649,7 +82113,7 @@ var ZipBufferIterator = (function (_super) {
     return ZipBufferIterator;
 }(OuterSubscriber_1.OuterSubscriber));
 
-},{"../OuterSubscriber":64,"../Subscriber":70,"../observable/ArrayObservable":200,"../symbol/iterator":363,"../util/isArray":385,"../util/subscribeToResult":395}],348:[function(require,module,exports){
+},{"../OuterSubscriber":70,"../Subscriber":76,"../observable/ArrayObservable":206,"../symbol/iterator":369,"../util/isArray":391,"../util/subscribeToResult":401}],354:[function(require,module,exports){
 "use strict";
 var zip_1 = require('./zip');
 /**
@@ -81663,7 +82127,7 @@ function zipAll(project) {
 }
 exports.zipAll = zipAll;
 
-},{"./zip":347}],349:[function(require,module,exports){
+},{"./zip":353}],355:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -81708,7 +82172,7 @@ var Action = (function (_super) {
 }(Subscription_1.Subscription));
 exports.Action = Action;
 
-},{"../Subscription":71}],350:[function(require,module,exports){
+},{"../Subscription":77}],356:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -81764,7 +82228,7 @@ var AnimationFrameAction = (function (_super) {
 }(AsyncAction_1.AsyncAction));
 exports.AnimationFrameAction = AnimationFrameAction;
 
-},{"../util/AnimationFrame":371,"./AsyncAction":354}],351:[function(require,module,exports){
+},{"../util/AnimationFrame":377,"./AsyncAction":360}],357:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -81802,7 +82266,7 @@ var AnimationFrameScheduler = (function (_super) {
 }(AsyncScheduler_1.AsyncScheduler));
 exports.AnimationFrameScheduler = AnimationFrameScheduler;
 
-},{"./AsyncScheduler":355}],352:[function(require,module,exports){
+},{"./AsyncScheduler":361}],358:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -81858,7 +82322,7 @@ var AsapAction = (function (_super) {
 }(AsyncAction_1.AsyncAction));
 exports.AsapAction = AsapAction;
 
-},{"../util/Immediate":375,"./AsyncAction":354}],353:[function(require,module,exports){
+},{"../util/Immediate":381,"./AsyncAction":360}],359:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -81896,7 +82360,7 @@ var AsapScheduler = (function (_super) {
 }(AsyncScheduler_1.AsyncScheduler));
 exports.AsapScheduler = AsapScheduler;
 
-},{"./AsyncScheduler":355}],354:[function(require,module,exports){
+},{"./AsyncScheduler":361}],360:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -82039,7 +82503,7 @@ var AsyncAction = (function (_super) {
 }(Action_1.Action));
 exports.AsyncAction = AsyncAction;
 
-},{"../util/root":394,"./Action":349}],355:[function(require,module,exports){
+},{"../util/root":400,"./Action":355}],361:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -82091,7 +82555,7 @@ var AsyncScheduler = (function (_super) {
 }(Scheduler_1.Scheduler));
 exports.AsyncScheduler = AsyncScheduler;
 
-},{"../Scheduler":67}],356:[function(require,module,exports){
+},{"../Scheduler":73}],362:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -82141,7 +82605,7 @@ var QueueAction = (function (_super) {
 }(AsyncAction_1.AsyncAction));
 exports.QueueAction = QueueAction;
 
-},{"./AsyncAction":354}],357:[function(require,module,exports){
+},{"./AsyncAction":360}],363:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -82158,7 +82622,7 @@ var QueueScheduler = (function (_super) {
 }(AsyncScheduler_1.AsyncScheduler));
 exports.QueueScheduler = QueueScheduler;
 
-},{"./AsyncScheduler":355}],358:[function(require,module,exports){
+},{"./AsyncScheduler":361}],364:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -82265,31 +82729,31 @@ var VirtualAction = (function (_super) {
 }(AsyncAction_1.AsyncAction));
 exports.VirtualAction = VirtualAction;
 
-},{"./AsyncAction":354,"./AsyncScheduler":355}],359:[function(require,module,exports){
+},{"./AsyncAction":360,"./AsyncScheduler":361}],365:[function(require,module,exports){
 "use strict";
 var AnimationFrameAction_1 = require('./AnimationFrameAction');
 var AnimationFrameScheduler_1 = require('./AnimationFrameScheduler');
 exports.animationFrame = new AnimationFrameScheduler_1.AnimationFrameScheduler(AnimationFrameAction_1.AnimationFrameAction);
 
-},{"./AnimationFrameAction":350,"./AnimationFrameScheduler":351}],360:[function(require,module,exports){
+},{"./AnimationFrameAction":356,"./AnimationFrameScheduler":357}],366:[function(require,module,exports){
 "use strict";
 var AsapAction_1 = require('./AsapAction');
 var AsapScheduler_1 = require('./AsapScheduler');
 exports.asap = new AsapScheduler_1.AsapScheduler(AsapAction_1.AsapAction);
 
-},{"./AsapAction":352,"./AsapScheduler":353}],361:[function(require,module,exports){
+},{"./AsapAction":358,"./AsapScheduler":359}],367:[function(require,module,exports){
 "use strict";
 var AsyncAction_1 = require('./AsyncAction');
 var AsyncScheduler_1 = require('./AsyncScheduler');
 exports.async = new AsyncScheduler_1.AsyncScheduler(AsyncAction_1.AsyncAction);
 
-},{"./AsyncAction":354,"./AsyncScheduler":355}],362:[function(require,module,exports){
+},{"./AsyncAction":360,"./AsyncScheduler":361}],368:[function(require,module,exports){
 "use strict";
 var QueueAction_1 = require('./QueueAction');
 var QueueScheduler_1 = require('./QueueScheduler');
 exports.queue = new QueueScheduler_1.QueueScheduler(QueueAction_1.QueueAction);
 
-},{"./QueueAction":356,"./QueueScheduler":357}],363:[function(require,module,exports){
+},{"./QueueAction":362,"./QueueScheduler":363}],369:[function(require,module,exports){
 "use strict";
 var root_1 = require('../util/root');
 function symbolIteratorPonyfill(root) {
@@ -82324,7 +82788,7 @@ function symbolIteratorPonyfill(root) {
 exports.symbolIteratorPonyfill = symbolIteratorPonyfill;
 exports.$$iterator = symbolIteratorPonyfill(root_1.root);
 
-},{"../util/root":394}],364:[function(require,module,exports){
+},{"../util/root":400}],370:[function(require,module,exports){
 "use strict";
 var root_1 = require('../util/root');
 function getSymbolObservable(context) {
@@ -82347,14 +82811,14 @@ function getSymbolObservable(context) {
 exports.getSymbolObservable = getSymbolObservable;
 exports.$$observable = getSymbolObservable(root_1.root);
 
-},{"../util/root":394}],365:[function(require,module,exports){
+},{"../util/root":400}],371:[function(require,module,exports){
 "use strict";
 var root_1 = require('../util/root');
 var Symbol = root_1.root.Symbol;
 exports.$$rxSubscriber = (typeof Symbol === 'function' && typeof Symbol.for === 'function') ?
     Symbol.for('rxSubscriber') : '@@rxSubscriber';
 
-},{"../util/root":394}],366:[function(require,module,exports){
+},{"../util/root":400}],372:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -82401,7 +82865,7 @@ var ColdObservable = (function (_super) {
 exports.ColdObservable = ColdObservable;
 applyMixins_1.applyMixins(ColdObservable, [SubscriptionLoggable_1.SubscriptionLoggable]);
 
-},{"../Observable":62,"../Subscription":71,"../util/applyMixins":382,"./SubscriptionLoggable":369}],367:[function(require,module,exports){
+},{"../Observable":68,"../Subscription":77,"../util/applyMixins":388,"./SubscriptionLoggable":375}],373:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -82450,7 +82914,7 @@ var HotObservable = (function (_super) {
 exports.HotObservable = HotObservable;
 applyMixins_1.applyMixins(HotObservable, [SubscriptionLoggable_1.SubscriptionLoggable]);
 
-},{"../Subject":68,"../Subscription":71,"../util/applyMixins":382,"./SubscriptionLoggable":369}],368:[function(require,module,exports){
+},{"../Subject":74,"../Subscription":77,"../util/applyMixins":388,"./SubscriptionLoggable":375}],374:[function(require,module,exports){
 "use strict";
 var SubscriptionLog = (function () {
     function SubscriptionLog(subscribedFrame, unsubscribedFrame) {
@@ -82462,7 +82926,7 @@ var SubscriptionLog = (function () {
 }());
 exports.SubscriptionLog = SubscriptionLog;
 
-},{}],369:[function(require,module,exports){
+},{}],375:[function(require,module,exports){
 "use strict";
 var SubscriptionLog_1 = require('./SubscriptionLog');
 var SubscriptionLoggable = (function () {
@@ -82482,7 +82946,7 @@ var SubscriptionLoggable = (function () {
 }());
 exports.SubscriptionLoggable = SubscriptionLoggable;
 
-},{"./SubscriptionLog":368}],370:[function(require,module,exports){
+},{"./SubscriptionLog":374}],376:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -82706,7 +83170,7 @@ var TestScheduler = (function (_super) {
 }(VirtualTimeScheduler_1.VirtualTimeScheduler));
 exports.TestScheduler = TestScheduler;
 
-},{"../Notification":61,"../Observable":62,"../scheduler/VirtualTimeScheduler":358,"./ColdObservable":366,"./HotObservable":367,"./SubscriptionLog":368}],371:[function(require,module,exports){
+},{"../Notification":67,"../Observable":68,"../scheduler/VirtualTimeScheduler":364,"./ColdObservable":372,"./HotObservable":373,"./SubscriptionLog":374}],377:[function(require,module,exports){
 "use strict";
 var root_1 = require('./root');
 var RequestAnimationFrameDefinition = (function () {
@@ -82741,7 +83205,7 @@ var RequestAnimationFrameDefinition = (function () {
 exports.RequestAnimationFrameDefinition = RequestAnimationFrameDefinition;
 exports.AnimationFrame = new RequestAnimationFrameDefinition(root_1.root);
 
-},{"./root":394}],372:[function(require,module,exports){
+},{"./root":400}],378:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -82770,7 +83234,7 @@ var ArgumentOutOfRangeError = (function (_super) {
 }(Error));
 exports.ArgumentOutOfRangeError = ArgumentOutOfRangeError;
 
-},{}],373:[function(require,module,exports){
+},{}],379:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -82799,7 +83263,7 @@ var EmptyError = (function (_super) {
 }(Error));
 exports.EmptyError = EmptyError;
 
-},{}],374:[function(require,module,exports){
+},{}],380:[function(require,module,exports){
 "use strict";
 var FastMap = (function () {
     function FastMap() {
@@ -82831,7 +83295,7 @@ var FastMap = (function () {
 }());
 exports.FastMap = FastMap;
 
-},{}],375:[function(require,module,exports){
+},{}],381:[function(require,module,exports){
 /**
 Some credit for this helper goes to http://github.com/YuzuJS/setImmediate
 */
@@ -83041,13 +83505,13 @@ var ImmediateDefinition = (function () {
 exports.ImmediateDefinition = ImmediateDefinition;
 exports.Immediate = new ImmediateDefinition(root_1.root);
 
-},{"./root":394}],376:[function(require,module,exports){
+},{"./root":400}],382:[function(require,module,exports){
 "use strict";
 var root_1 = require('./root');
 var MapPolyfill_1 = require('./MapPolyfill');
 exports.Map = root_1.root.Map || (function () { return MapPolyfill_1.MapPolyfill; })();
 
-},{"./MapPolyfill":377,"./root":394}],377:[function(require,module,exports){
+},{"./MapPolyfill":383,"./root":400}],383:[function(require,module,exports){
 "use strict";
 var MapPolyfill = (function () {
     function MapPolyfill() {
@@ -83095,7 +83559,7 @@ var MapPolyfill = (function () {
 }());
 exports.MapPolyfill = MapPolyfill;
 
-},{}],378:[function(require,module,exports){
+},{}],384:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -83123,7 +83587,7 @@ var ObjectUnsubscribedError = (function (_super) {
 }(Error));
 exports.ObjectUnsubscribedError = ObjectUnsubscribedError;
 
-},{}],379:[function(require,module,exports){
+},{}],385:[function(require,module,exports){
 "use strict";
 var root_1 = require('./root');
 function minimalSetImpl() {
@@ -83157,7 +83621,7 @@ function minimalSetImpl() {
 exports.minimalSetImpl = minimalSetImpl;
 exports.Set = root_1.root.Set || minimalSetImpl();
 
-},{"./root":394}],380:[function(require,module,exports){
+},{"./root":400}],386:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -83183,7 +83647,7 @@ var TimeoutError = (function (_super) {
 }(Error));
 exports.TimeoutError = TimeoutError;
 
-},{}],381:[function(require,module,exports){
+},{}],387:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -83209,7 +83673,7 @@ var UnsubscriptionError = (function (_super) {
 }(Error));
 exports.UnsubscriptionError = UnsubscriptionError;
 
-},{}],382:[function(require,module,exports){
+},{}],388:[function(require,module,exports){
 "use strict";
 function applyMixins(derivedCtor, baseCtors) {
     for (var i = 0, len = baseCtors.length; i < len; i++) {
@@ -83223,7 +83687,7 @@ function applyMixins(derivedCtor, baseCtors) {
 }
 exports.applyMixins = applyMixins;
 
-},{}],383:[function(require,module,exports){
+},{}],389:[function(require,module,exports){
 "use strict";
 var root_1 = require('./root');
 function assignImpl(target) {
@@ -83250,30 +83714,30 @@ function getAssign(root) {
 exports.getAssign = getAssign;
 exports.assign = getAssign(root_1.root);
 
-},{"./root":394}],384:[function(require,module,exports){
+},{"./root":400}],390:[function(require,module,exports){
 "use strict";
 // typeof any so that it we don't have to cast when comparing a result to the error object
 exports.errorObject = { e: {} };
 
-},{}],385:[function(require,module,exports){
+},{}],391:[function(require,module,exports){
 "use strict";
 exports.isArray = Array.isArray || (function (x) { return x && typeof x.length === 'number'; });
 
-},{}],386:[function(require,module,exports){
+},{}],392:[function(require,module,exports){
 "use strict";
 function isDate(value) {
     return value instanceof Date && !isNaN(+value);
 }
 exports.isDate = isDate;
 
-},{}],387:[function(require,module,exports){
+},{}],393:[function(require,module,exports){
 "use strict";
 function isFunction(x) {
     return typeof x === 'function';
 }
 exports.isFunction = isFunction;
 
-},{}],388:[function(require,module,exports){
+},{}],394:[function(require,module,exports){
 "use strict";
 var isArray_1 = require('../util/isArray');
 function isNumeric(val) {
@@ -83286,34 +83750,34 @@ function isNumeric(val) {
 exports.isNumeric = isNumeric;
 ;
 
-},{"../util/isArray":385}],389:[function(require,module,exports){
+},{"../util/isArray":391}],395:[function(require,module,exports){
 "use strict";
 function isObject(x) {
     return x != null && typeof x === 'object';
 }
 exports.isObject = isObject;
 
-},{}],390:[function(require,module,exports){
+},{}],396:[function(require,module,exports){
 "use strict";
 function isPromise(value) {
     return value && typeof value.subscribe !== 'function' && typeof value.then === 'function';
 }
 exports.isPromise = isPromise;
 
-},{}],391:[function(require,module,exports){
+},{}],397:[function(require,module,exports){
 "use strict";
 function isScheduler(value) {
     return value && typeof value.schedule === 'function';
 }
 exports.isScheduler = isScheduler;
 
-},{}],392:[function(require,module,exports){
+},{}],398:[function(require,module,exports){
 "use strict";
 /* tslint:disable:no-empty */
 function noop() { }
 exports.noop = noop;
 
-},{}],393:[function(require,module,exports){
+},{}],399:[function(require,module,exports){
 "use strict";
 function not(pred, thisArg) {
     function notPred() {
@@ -83325,7 +83789,7 @@ function not(pred, thisArg) {
 }
 exports.not = not;
 
-},{}],394:[function(require,module,exports){
+},{}],400:[function(require,module,exports){
 (function (global){
 "use strict";
 /**
@@ -83341,7 +83805,7 @@ if (!exports.root) {
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],395:[function(require,module,exports){
+},{}],401:[function(require,module,exports){
 "use strict";
 var root_1 = require('./root');
 var isArray_1 = require('./isArray');
@@ -83420,7 +83884,7 @@ function subscribeToResult(outerSubscriber, result, outerValue, outerIndex) {
 }
 exports.subscribeToResult = subscribeToResult;
 
-},{"../InnerSubscriber":60,"../Observable":62,"../symbol/iterator":363,"../symbol/observable":364,"./isArray":385,"./isObject":389,"./isPromise":390,"./root":394}],396:[function(require,module,exports){
+},{"../InnerSubscriber":66,"../Observable":68,"../symbol/iterator":369,"../symbol/observable":370,"./isArray":391,"./isObject":395,"./isPromise":396,"./root":400}],402:[function(require,module,exports){
 "use strict";
 var Subscriber_1 = require('../Subscriber');
 var rxSubscriber_1 = require('../symbol/rxSubscriber');
@@ -83441,7 +83905,7 @@ function toSubscriber(nextOrObserver, error, complete) {
 }
 exports.toSubscriber = toSubscriber;
 
-},{"../Observer":63,"../Subscriber":70,"../symbol/rxSubscriber":365}],397:[function(require,module,exports){
+},{"../Observer":69,"../Subscriber":76,"../symbol/rxSubscriber":371}],403:[function(require,module,exports){
 "use strict";
 var errorObject_1 = require('./errorObject');
 var tryCatchTarget;
@@ -83461,7 +83925,7 @@ function tryCatch(fn) {
 exports.tryCatch = tryCatch;
 ;
 
-},{"./errorObject":384}],398:[function(require,module,exports){
+},{"./errorObject":390}],404:[function(require,module,exports){
 (function (process,global){
 /**
 * @license
@@ -85560,7 +86024,7 @@ if (_global['PromiseRejectionEvent']) {
 })));
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"_process":399}],399:[function(require,module,exports){
+},{"_process":405}],405:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -85746,5 +86210,5 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}]},{},[24])(24)
+},{}]},{},[30])(30)
 });

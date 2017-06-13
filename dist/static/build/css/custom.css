@@ -4263,6 +4263,9 @@ i.usr-status.online{
 .has-blur{ -webkit-filter: blur(3px); -moz-filter: blur(3px); filter: blur(3px); }
 
 .w-300{width: 300px;}
+.w-500{width: 500px;}
+
+.scenario-window a{text-decoration: underline;font-weight: bold;}
 
 #locker-wrapper{
   position: fixed;
