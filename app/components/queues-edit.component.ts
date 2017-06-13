@@ -75,7 +75,7 @@ export class QueuesEditComponent {
 
   toggleMember(row) {
     if(this.isChecked(row)){
-      this.queueMembersChecked.splice(this.queueMembersChecked.indexOf(row.name), 1);
+      this.queueMembersChecked.splice(this.queueMembersChecked.indexOf(row.id), 1);
     }
     else {
       this.queueMembersChecked.push(row.id);

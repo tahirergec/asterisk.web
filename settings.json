@@ -6,7 +6,7 @@
     "helpdesk": true
   },
   "dashboard_statistic": true,
-  "api_url": "http://10.8.0.21:8000/api/v1",
-  "ws_url": "ws://10.8.0.21:8800/ws",
+  "api_url": "http://192.168.1.21:8000/api/v1",
+  "ws_url": "ws://192.168.1.21:8800/ws",
   "sounds_url": "http://localhost/monitor/"
 }
