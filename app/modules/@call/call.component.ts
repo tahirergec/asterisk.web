@@ -27,7 +27,10 @@ import {CallcentreService} from "../../services/callcentre.service";
       </div>
     </div>
     <br>
-    {{call|json}}
+    <details>
+      <summary>Отладка</summary>
+      {{call|json}}
+    </details>
     <hr>
     <p>Статус вызова: <strong [ngClass]="{'text-success': call.active_call, 
                                           'text-muted': !call.active_call}">
