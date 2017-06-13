@@ -22,7 +22,7 @@ import {User} from "../models/user";
             <h3>Основное</h3>
             <ul class="nav side-menu">
               <li routerLinkActive="active">
-                <a routerLink=""><i class="fa fa-home"></i> Главная </a>
+                <a routerLink="/home"><i class="fa fa-home"></i> Главная </a>
               </li>
               <li routerLinkActive="active" *ngIf="modules && modules.users">
                 <a routerLink="/users"><i class="fa fa-user"></i> Сотрудники </a>
@@ -34,7 +34,7 @@ import {User} from "../models/user";
                 <a routerLink="/phones"><i class="fa fa-phone-square"></i> Номера </a>
               </li>
               <li routerLinkActive="active" *ngIf="modules && modules.phones">
-                <a routerLink="/scenarios"><i class="fa fa-pencil-square"></i> Сценарии </a>
+                <a routerLink="/scenarios/list"><i class="fa fa-pencil-square"></i> Сценарии </a>
               </li>
               <li routerLinkActive="active" *ngIf="modules && modules.helpdesk">
                 <a routerLink="/bugreport"><i class="fa fa-bug"></i> Сообщить о сбое </a>

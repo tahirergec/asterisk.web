@@ -3,6 +3,7 @@ import {WebSocketSubject} from "rxjs/observable/dom/WebSocketSubject";
 import {Observable, Subscription} from "rxjs/Rx";
 import {AuthenticateService} from "./authenticate.service";
 import {ConfigService} from "./configuration.service";
+import {HttpClient} from "./http.service";
 
 @Injectable()
 export class CallcentreService {
@@ -21,6 +22,12 @@ export class CallcentreService {
     this.state_emitter.emit(value);
   }
 
+  public scenario_emitter: EventEmitter<any> = new EventEmitter<any>();
+
+  private set scenario(value: any) {
+    this.scenario_emitter.emit(value);
+  }
+
   private _url: string = "";
   private _url_pattern: string = "?phone=";
 
@@ -34,7 +41,7 @@ export class CallcentreService {
   private ws: WebSocketSubject<Object>;
   private socket: Subscription;
 
-  constructor(private auth: AuthenticateService, private conf: ConfigService) {
+  constructor(private auth: AuthenticateService, private conf: ConfigService, private http: HttpClient) {
     this._url = this.conf.data.ws_url;
     this.my_phone = this.auth.user.phone;
     this.connect();
@@ -111,6 +118,11 @@ export class CallcentreService {
           if (data.channel == this.calls[i].channel1 || data.channel == this.calls[i].channel2) {
             this.calls[i].active_call = true;
             this.calls[i].bridge_id = data.bridgeuniqueid;
+
+            if(this.calls[i].queue) {
+              this.http.post('Scenario.get_by_queue', {'queue_name': this.calls[i].queue})
+                .subscribe((data) => this.scenario = data);
+            }
           }
         }
         break;
@@ -132,6 +144,19 @@ export class CallcentreService {
         break;
       }
     }
+  }
+
+  public make_call(number: string) {
+    const cmd = JSON.stringify({
+      "Action": "Originate",
+      "Channel": "LOCAL/" + this.my_phone + "@blank",
+      "Context": "local_calls",
+      "Priority": "1",
+      "Exten": number,
+      "Async": "1",
+    });
+
+    this.send_message(cmd);
   }
 
   public send_message(message: string) {

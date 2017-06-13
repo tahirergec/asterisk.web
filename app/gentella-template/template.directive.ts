@@ -49,6 +49,19 @@ export class DropdownToggleDirective {
 
 
 @Directive({
+  selector: '[click-to-call]'
+})
+export class ClickToCallDirective {
+
+  constructor(private elementRef: ElementRef) { }
+
+  @HostListener('click', ['$event']) private click(event) {
+    alert('111');
+  }
+
+}
+
+@Directive({
   selector: "[initialize-datepicker]"
 })
 export class DatepickerDirective implements AfterViewInit {
@@ -120,20 +133,37 @@ export class DatepickerComponent implements ControlValueAccessor{
 })
 export class TinyMceDirective implements AfterViewInit{
 
+  private editor: any = null;
+  private initialized: boolean = false;
+
+  @Input() set current_value(value: any) {
+    if(this.editor && !this.initialized) {
+      try {
+        this.editor.tinymce().setContent(value);
+        this.initialized = true;
+      }
+      catch(e) {
+        console.log("TinyMCE err detected");
+      }
+    }
+  }
   @Output() change_value: EventEmitter<string> = new EventEmitter();
 
   constructor(private elementRef: ElementRef) { }
 
   ngAfterViewInit() {
-    jQuery(this.elementRef.nativeElement).wysihtml5({
-      locale: "ru-RU",
-      toolbar: {
-        blockquote: false
-      },
-      events: {
-        blur: ($target) => this.change_value.next(jQuery(this.elementRef.nativeElement).val())
+    this.editor = jQuery(this.elementRef.nativeElement).tinymce({
+      theme: "modern",
+      plugins: 'spn_callcentre',
+      allow_script_urls: true,
+      extended_valid_elements : "div[*],i[*],a[*]",
+      setup: (editor) => {
+        editor.on("change", (e) => this.change_value
+          .next(jQuery(this.elementRef.nativeElement).tinymce().getContent()));
+        editor.on("KeyUp", (e) => this.change_value
+          .next(jQuery(this.elementRef.nativeElement).tinymce().getContent()));
       }
-    });
+    })
   }
 
 }
@@ -142,7 +172,8 @@ export class TinyMceDirective implements AfterViewInit{
 @Component({
   selector: "text-editor",
   template: `
-    <textarea wysiwyg (change_value)="onChange($event)"></textarea>
+    <textarea wysiwyg (change_value)="onChange($event)" [current_value]="current_value">
+      {{current_value}}</textarea>
   `,
   providers: [
     {
@@ -154,7 +185,7 @@ export class TinyMceDirective implements AfterViewInit{
 })
 export class EditorComponent {
 
-  private _current_value: string;
+  private _current_value: string = '';
 
   private get current_value(): string {
     return this._current_value;
@@ -197,7 +228,11 @@ export class TreeViewDirective implements AfterViewInit{
   constructor(private elementRef: ElementRef, private http: HttpClient) { }
 
   reload() {
-    alert('reload');
+    this.http.post(this.api_method)
+      .subscribe((response) => {
+        jQuery(this.elementRef.nativeElement).jstree(true).settings.core.data = response;
+        jQuery(this.elementRef.nativeElement).jstree(true).refresh();
+      });
   }
 
   ngAfterViewInit() {
